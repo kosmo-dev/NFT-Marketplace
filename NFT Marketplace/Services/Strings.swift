@@ -15,4 +15,7 @@ struct S {
         static let cartTabBarTitle = "Корзина"
         static let statisticTabBarTitle = "Статистика"
     }
+    struct CartNFTCell {
+        static let priceDescription = "Цена"
+    }
 }

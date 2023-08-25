@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AppConfiguration {
+final class AppConfiguration {
     let profileViewController: UIViewController
     let catalogViewController: UIViewController
     let cartViewController: UIViewController
