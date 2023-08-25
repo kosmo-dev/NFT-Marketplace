@@ -54,7 +54,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3F6806B229CBBAF200B4F915"
+               BlueprintIdentifier = "3DEE59E42A97E2D500F84C21"
                BuildableName = "NFT MarketplaceUITests.xctest"
                BlueprintName = "NFT MarketplaceUITests"
                ReferencedContainer = "container:NFT Marketplace.xcodeproj">
