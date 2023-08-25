@@ -55,7 +55,11 @@ final class CartNFTCell: UITableViewCell, ReuseIdentifying {
         return deleteButton
     }()
 
-    private let ratingView = StarRatingView()
+    private let ratingView: StarRatingView = {
+        let ratingView = StarRatingView()
+        ratingView.translatesAutoresizingMaskIntoConstraints = false
+        return ratingView
+    }()
 
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -85,11 +89,12 @@ final class CartNFTCell: UITableViewCell, ReuseIdentifying {
     private func configureView() {
         [nftImage, title, ratingView, priceDescription, price, deleteButton].forEach { addSubview($0) }
         NSLayoutConstraint.activate([
-            nftImage.topAnchor.constraint(equalTo: topAnchor),
+            nftImage.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             nftImage.leadingAnchor.constraint(equalTo: leadingAnchor),
-            nftImage.bottomAnchor.constraint(equalTo: bottomAnchor),
+            nftImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            nftImage.widthAnchor.constraint(equalTo: nftImage.heightAnchor, multiplier: 1),
 
-            title.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            title.topAnchor.constraint(equalTo: topAnchor, constant: 24),
             title.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 20),
 
             ratingView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 4),
@@ -101,11 +106,11 @@ final class CartNFTCell: UITableViewCell, ReuseIdentifying {
 
             price.topAnchor.constraint(equalTo: priceDescription.bottomAnchor, constant: 2),
             price.leadingAnchor.constraint(equalTo: title.leadingAnchor),
-            price.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+            price.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -24),
 
-            deleteButton.topAnchor.constraint(equalTo: topAnchor, constant: 34),
+            deleteButton.topAnchor.constraint(equalTo: topAnchor, constant: 50),
             deleteButton.trailingAnchor.constraint(equalTo: trailingAnchor),
-            deleteButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -34)
+            deleteButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50)
         ])
     }
 
