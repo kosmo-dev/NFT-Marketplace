@@ -134,12 +134,12 @@
 			path = TabBarController;
 			sourceTree = "<group>";
 		};
-		3DEBDFD12A97CE94001C7517 /* CartViewController */ = {
+		3DEBDFD12A97CE94001C7517 /* Cart */ = {
 			isa = PBXGroup;
 			children = (
 				3DEBDFCF2A97CE8E001C7517 /* CartViewController.swift */,
 			);
-			path = CartViewController;
+			path = Cart;
 			sourceTree = "<group>";
 		};
 		3DEBDFD22A97D14E001C7517 /* ReusableViews */ = {
@@ -241,7 +241,7 @@
 		3F6806C729CBBC5B00B4F915 /* Scenes  */ = {
 			isa = PBXGroup;
 			children = (
-				3DEBDFD12A97CE94001C7517 /* CartViewController */,
+				3DEBDFD12A97CE94001C7517 /* Cart */,
 				3F6806C829CBBC8100B4F915 /* ProductDetails */,
 			);
 			path = "Scenes ";

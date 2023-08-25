@@ -8,7 +8,7 @@
 import Foundation
 
 final class CartController: CartControllerProtocol {
-    var delegate: CartControllerDelegate?
+    weak var delegate: CartControllerDelegate?
 
     private var _cart: [NFT] = []
     private let cartQueue = DispatchQueue(label: "com.nftMarketplace.cartQueue", attributes: .concurrent)
