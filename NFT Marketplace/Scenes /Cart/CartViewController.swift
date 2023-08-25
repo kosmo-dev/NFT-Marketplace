@@ -52,6 +52,13 @@ final class CartViewController: UIViewController {
         return toPaymentButton
     }()
 
+    private let sortNavigationButton = UIBarButtonItem(
+        image: UIImage(named: "SortButton"),
+        style: .plain,
+        target: nil,
+        action: #selector(sortButtonTapped)
+    )
+
     private let nfts = [
         NFT(name: "April", images: ["https://code.s3.yandex.net/Mobile/iOS/NFT/Beige/April/1.png"], rating: 5, description: "", price: 1, author: "", id: "1", createdAt: ""),
         NFT(name: "Aurora", images: ["https://code.s3.yandex.net/Mobile/iOS/NFT/Beige/Aurora/1.png"], rating: 4, description: "", price: 1.5, author: "", id: "2", createdAt: ""),
@@ -82,6 +89,19 @@ final class CartViewController: UIViewController {
         nftCounterLabel.text = "3 NFT"
         totalPriceLabel.text = "5,34 ETH"
 
+        sortNavigationButton.tintColor = .blackDayNight
+        navigationController?.navigationBar.tintColor = .whiteDayNight
+        navigationItem.rightBarButtonItem = sortNavigationButton
+
+        if #available(iOS 15, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .whiteDayNight
+            appearance.shadowColor = nil
+            navigationController?.navigationBar.standardAppearance = appearance
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        }
+
         let padding: CGFloat = 16
 
         NSLayoutConstraint.activate([
@@ -109,7 +129,9 @@ final class CartViewController: UIViewController {
     }
 
     @objc private func toPaymentButtonTapped() {
+    }
 
+    @objc private func sortButtonTapped() {
     }
 }
 

@@ -13,11 +13,15 @@ final class AppConfiguration {
     let cartViewController: UIViewController
     let statisticViewController: UIViewController
 
+    let cartNavigationController: UINavigationController
+
     // TODO: Заменить вью контроллеры на свои
     init() {
         profileViewController = UIViewController()
         catalogViewController = UIViewController()
         cartViewController = CartViewController()
         statisticViewController = UIViewController()
+
+        cartNavigationController = UINavigationController(rootViewController: cartViewController)
     }
 }

@@ -46,7 +46,7 @@ final class TabBarController: UITabBarController {
         self.viewControllers = [
             appConfiguration.profileViewController,
             appConfiguration.catalogViewController,
-            appConfiguration.cartViewController,
+            appConfiguration.cartNavigationController,
             appConfiguration.statisticViewController
         ]
 
@@ -59,6 +59,7 @@ final class TabBarController: UITabBarController {
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
             appearance.backgroundColor = .whiteDayNight
+            appearance.shadowColor = nil
             appearance.stackedLayoutAppearance.normal.iconColor = .blackDayNight
             appearance.stackedLayoutAppearance.selected.iconColor = .blueUni
             tabBar.standardAppearance = appearance
