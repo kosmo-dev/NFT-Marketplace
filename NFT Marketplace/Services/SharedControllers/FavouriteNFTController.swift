@@ -49,12 +49,10 @@ final class FavouriteNFTController: FavouriteNFTControllerProtocol {
 extension FavouriteNFTController: FavouriteNFTControllerSaveProtocol {
     /// Saves an array of favorite NFTs on the server
     func savefavourites() {
-        // TODO: Написать сетевой код сохранения избранного, при закрытии приложения
     }
 
     /// Fetches an array of favorite NFTs from the server
     /// - Parameter completion: Completion called  after fetching favourite NFTs
     func fetchFavourites(completion: () -> Void) {
-        // TODO: Написать сетевой код получения избранного, при открытии приложения
     }
 }

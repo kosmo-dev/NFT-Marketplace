@@ -32,10 +32,9 @@ class TabBarController: UITabBarController {
             image: UIImage(systemName: "rectangle.stack.fill"),
             selectedImage: nil
         )
-        // TODO: Заменить изображение тут на значение из фигмы
         appConfiguration.cartViewController.tabBarItem = UITabBarItem(
             title: S.TabBarController.cartTabBarTitle,
-            image: UIImage(systemName: "bag.fill"),
+            image: UIImage(named: "CartIcon"),
             selectedImage: nil
         )
         appConfiguration.statisticViewController.tabBarItem = UITabBarItem(
@@ -52,13 +51,16 @@ class TabBarController: UITabBarController {
         ]
 
         tabBar.isTranslucent = false
-        view.tintColor = .systemBlue
-        tabBar.backgroundColor = .white
+        view.tintColor = .blueUni
+        tabBar.backgroundColor = .whiteDayNight
+        tabBar.unselectedItemTintColor = .blackDayNight
 
         if #available(iOS 15.0, *) {
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = .white
+            appearance.backgroundColor = .whiteDayNight
+            appearance.stackedLayoutAppearance.normal.iconColor = .blackDayNight
+            appearance.stackedLayoutAppearance.selected.iconColor = .blueUni
             tabBar.standardAppearance = appearance
             tabBar.scrollEdgeAppearance = appearance
         }

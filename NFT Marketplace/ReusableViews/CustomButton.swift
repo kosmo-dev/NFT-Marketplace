@@ -52,17 +52,16 @@ final class CustomButton: UIButton {
         layer.cornerRadius = 16
         layer.masksToBounds = true
 
-        // TODO: Изменить цвета
         switch type {
         case .filled:
-            backgroundColor = .black
-            setTitleColor(.white, for: .normal)
+            backgroundColor = .blackDayNight
+            setTitleColor(.whiteDayNight, for: .normal)
             titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         case .bordered:
-            backgroundColor = .white
-            setTitleColor(.black, for: .normal)
+            backgroundColor = .whiteDayNight
+            setTitleColor(.blackDayNight, for: .normal)
             titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-            layer.borderColor = UIColor.black.cgColor
+            layer.borderColor = UIColor.blackDayNight?.cgColor
             layer.borderWidth = 1
         }
     }
