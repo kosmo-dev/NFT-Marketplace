@@ -32,10 +32,9 @@ final class StarRatingView: UIStackView {
     func configureRating(_ rating: Int) {
         for (index, imageView) in starImageViews.enumerated() {
             if index < rating {
-                // TODO: Изменить цвета
-                imageView.tintColor = .yellow
+                imageView.tintColor = .yellowUni
             } else {
-                imageView.tintColor = .systemGray6
+                imageView.tintColor = .lightGreyDayNight
             }
         }
     }
