@@ -15,7 +15,7 @@ class AppConfiguration {
 
     // TODO: Заменить вью контроллеры на свои
     init() {
-        profileViewController = UIViewController()
+        profileViewController = ProfileViewController()
         catalogViewController = UIViewController()
         cartViewController = CartViewController()
         statisticViewController = UIViewController()
