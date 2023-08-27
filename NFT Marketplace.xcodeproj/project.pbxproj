@@ -40,6 +40,7 @@
 		920BE3772A98A43A009B2F43 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920BE3762A98A43A009B2F43 /* UIColor + Extension.swift */; };
 		929292932A9A564A00FEEA0F /* ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929292922A9A564A00FEEA0F /* ProfileButton.swift */; };
 		929292962A9A5D0F00FEEA0F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929292952A9A5D0F00FEEA0F /* ProfileViewController.swift */; };
+		929292992A9BB5A000FEEA0F /* UserProfileStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929292982A9BB5A000FEEA0F /* UserProfileStackView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		920BE3762A98A43A009B2F43 /* UIColor + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		929292922A9A564A00FEEA0F /* ProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileButton.swift; sourceTree = "<group>"; };
 		929292952A9A5D0F00FEEA0F /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		929292982A9BB5A000FEEA0F /* UserProfileStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileStackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -320,9 +322,18 @@
 		929292942A9A5CF900FEEA0F /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				929292972A9BB56500FEEA0F /* CustomViews */,
 				929292952A9A5D0F00FEEA0F /* ProfileViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		929292972A9BB56500FEEA0F /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				929292982A9BB5A000FEEA0F /* UserProfileStackView.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -504,6 +515,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				929292992A9BB5A000FEEA0F /* UserProfileStackView.swift in Sources */,
 				3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */,
 				3DEBDFD62A97D1A9001C7517 /* CustomButton.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
