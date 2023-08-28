@@ -22,11 +22,17 @@ class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        appConfiguration.profileViewController.tabBarItem = UITabBarItem(
+        let profileNavigationController = UINavigationController(rootViewController: appConfiguration.profileViewController)
+        profileNavigationController.tabBarItem = UITabBarItem(
             title: S.TabBarController.profileTabBarTitle,
             image: UIImage(systemName: "person.crop.circle.fill"),
             selectedImage: nil
         )
+//        appConfiguration.profileViewController.tabBarItem = UITabBarItem(
+//            title: S.TabBarController.profileTabBarTitle,
+//            image: UIImage(systemName: "person.crop.circle.fill"),
+//            selectedImage: nil
+//        )
         appConfiguration.catalogViewController.tabBarItem = UITabBarItem(
             title: S.TabBarController.catalogTabBarTitle,
             image: UIImage(systemName: "rectangle.stack.fill"),
@@ -45,7 +51,8 @@ class TabBarController: UITabBarController {
         )
 
         self.viewControllers = [
-            appConfiguration.profileViewController,
+//            appConfiguration.profileViewController
+            profileNavigationController,
             appConfiguration.catalogViewController,
             appConfiguration.cartViewController,
             appConfiguration.statisticViewController

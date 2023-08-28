@@ -10,7 +10,7 @@ import UIKit
 final class ProfileButton: UIButton {
     
     //MARK: -Privite Properties
-    private let arrowImage = UIImage(systemName: "arrow.right")
+    private let arrowImage = UIImage(systemName: "chevron.forward")
     
     //MARK: -Initilizers
     override init(frame: CGRect) {
@@ -27,26 +27,25 @@ final class ProfileButton: UIButton {
         //верстаю стрелку
         setImage(arrowImage, for: .normal)
         imageView?.contentMode = .scaleAspectFit
+        imageView?.tintColor = .blackDayNight
         
         //верстаю текст
         setTitleColor(.blackDayNight, for: .normal)
         titleLabel?.numberOfLines = 1
+        titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         titleLabel?.adjustsFontSizeToFitWidth = true
         
         //настройка расположения элементов
         contentHorizontalAlignment = .left
-        titleEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
-        imageEdgeInsets = UIEdgeInsets(top: 0, left: bounds.width - 16 - (imageView?.bounds.width ?? 0), bottom: 0, right: 16)
+        
+        contentEdgeInsets = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
+        
+        titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+ 
     }
-    ///Задаем текст с учетом конкатенции данных о колличестве NFT (если не нужны Count-данные - просто их не пишем)
-    func setText(from buttonLabel: String, and NFTCount: Int?) {
-        var finalText: String
-        if let count = NFTCount {
-            finalText = "\(buttonLabel) \(count)"
-        } else {
-            finalText = buttonLabel
-        }
-        setTitle(finalText, for: .normal)
+    
+    func setText(_ text: String) {
+        setTitle(text, for: .normal)
     }
     
     override func layoutSubviews() {

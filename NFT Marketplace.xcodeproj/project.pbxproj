@@ -41,6 +41,7 @@
 		929292932A9A564A00FEEA0F /* ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929292922A9A564A00FEEA0F /* ProfileButton.swift */; };
 		929292962A9A5D0F00FEEA0F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929292952A9A5D0F00FEEA0F /* ProfileViewController.swift */; };
 		929292992A9BB5A000FEEA0F /* UserProfileStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929292982A9BB5A000FEEA0F /* UserProfileStackView.swift */; };
+		9292929B2A9BCE7A00FEEA0F /* NFTButtonsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9292929A2A9BCE7A00FEEA0F /* NFTButtonsStackView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		929292922A9A564A00FEEA0F /* ProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileButton.swift; sourceTree = "<group>"; };
 		929292952A9A5D0F00FEEA0F /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		929292982A9BB5A000FEEA0F /* UserProfileStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileStackView.swift; sourceTree = "<group>"; };
+		9292929A2A9BCE7A00FEEA0F /* NFTButtonsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTButtonsStackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -332,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				929292982A9BB5A000FEEA0F /* UserProfileStackView.swift */,
+				9292929A2A9BCE7A00FEEA0F /* NFTButtonsStackView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -539,6 +542,7 @@
 				3DEBDFCA2A97CDE2001C7517 /* AppConfiguration.swift in Sources */,
 				3DEBDFDA2A97D45B001C7517 /* CartController.swift in Sources */,
 				3DEBDFE22A97D4C9001C7517 /* NFT.swift in Sources */,
+				9292929B2A9BCE7A00FEEA0F /* NFTButtonsStackView.swift in Sources */,
 				929292932A9A564A00FEEA0F /* ProfileButton.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
 				3DEBDFD42A97D17B001C7517 /* StarRatingView.swift in Sources */,

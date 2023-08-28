@@ -13,21 +13,32 @@ final class UserProfileStackView: UIView {
     
     let avatarImage: UIImageView = {
        let imageView = UIImageView()
-        imageView.layer.cornerRadius = 40
+        imageView.layer.cornerRadius = 30
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "Profile_Placeholder")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     let nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.font = UIFont.boldSystemFont(ofSize: 22)
+        nameLabel.text = "Имя Пользователя"
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
         return nameLabel
     }()
     
     let userInfoTextView: UITextView = {
        let textView = UITextView()
         textView.isEditable = false
+        textView.text = "Это информация о пользователе. Здесь может быть его биография, интересы или другая полезная информация."
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.backgroundColor = .whiteDayNight
+        
+        textView.isScrollEnabled = false
+        textView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        textView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return textView
     }()
     
@@ -35,6 +46,9 @@ final class UserProfileStackView: UIView {
        let label = UILabel()
         label.isUserInteractionEnabled = true
         label.textColor = .blueUni
+        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.text = "https://website.com"
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -60,6 +74,8 @@ final class UserProfileStackView: UIView {
         verticalStack.axis = .vertical
         verticalStack.distribution = .fill
         verticalStack.spacing = 10
+        verticalStack.alignment = .top
+        
         
         addSubview(verticalStack)
         verticalStack.translatesAutoresizingMaskIntoConstraints = false
@@ -67,6 +83,7 @@ final class UserProfileStackView: UIView {
         NSLayoutConstraint.activate([
             avatarImage.widthAnchor.constraint(equalToConstant: 70),
             avatarImage.heightAnchor.constraint(equalToConstant: 70),
+//            userInfoTextView.heightAnchor.constraint(equalToConstant: 100),
             verticalStack.leadingAnchor.constraint(equalTo: leadingAnchor),
             verticalStack.trailingAnchor.constraint(equalTo: trailingAnchor),
             verticalStack.topAnchor.constraint(equalTo: topAnchor),
@@ -75,7 +92,6 @@ final class UserProfileStackView: UIView {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapUserWebsite))
         websiteLabel.addGestureRecognizer(tapGesture)
-        
         
     }
     
