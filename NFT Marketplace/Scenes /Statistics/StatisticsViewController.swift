@@ -13,7 +13,7 @@ final class StatisticsViewController: UIViewController {
 
     private lazy var statisticsFilterButton: UIButton = {
         let statisticsFilterButton = UIButton(type: .custom)
-        statisticsFilterButton.setImage(UIImage(named: "StatisticsFilter")?.withTintColor(.blackDayNight ?? .black), for: .normal)
+        statisticsFilterButton.setImage(UIImage(named: "StatisticsFilter")?.withTintColor(.blackDayNight), for: .normal)
         statisticsFilterButton.translatesAutoresizingMaskIntoConstraints = false
         statisticsFilterButton.addTarget(self, action: #selector(statisticsFilterTapped), for: .touchUpInside)
         return statisticsFilterButton
@@ -37,7 +37,22 @@ final class StatisticsViewController: UIViewController {
     }
     
     @objc private func statisticsFilterTapped() {
-        
+        let alertController = UIAlertController(title: "Сортировка", message: nil, preferredStyle: .actionSheet)
+               
+               let sortByNameAction = UIAlertAction(title: "По имени", style: .default) { _ in
+                   // Действие по выбору сортировки по имени
+               }
+               alertController.addAction(sortByNameAction)
+               
+               let sortByRatingAction = UIAlertAction(title: "По рейтингу", style: .default) { _ in
+                   // Действие по выбору сортировки по рейтингу
+               }
+               alertController.addAction(sortByRatingAction)
+               
+               let closeAction = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
+               alertController.addAction(closeAction)
+
+               present(alertController, animated: true, completion: nil)
     }
     
     private func setupConstraints() {
@@ -62,14 +77,19 @@ final class StatisticsViewController: UIViewController {
         statisticsTableView.backgroundColor = .white
         statisticsTableView.delegate = self
         statisticsTableView.dataSource = self
-        statisticsTableView.register(StatisticsCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+        statisticsTableView.register(StatisticsCell.self)
     }
 }
 
 // MARK: - UITableViewDelegate
 extension StatisticsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 88 // добавить метод с отступами между ячейками таблицы, высота ячейки 80
+        return 88
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        statisticsTableView.deselectRow(at: indexPath, animated: true)
+        // переход на новый контроллер с профилем пользователя по нажатию на ячейку
     }
 }
 
@@ -80,8 +100,9 @@ extension StatisticsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as? StatisticsCell else { return UITableViewCell() }
+        let cell: StatisticsCell = tableView.dequeueReusableCell()
         
+        cell.layer.cornerRadius = 12
         cell.updateCell(number: (indexPath.row + 1), avatar: UIImage(named: "UserPhoto") ?? UIImage(), name: "Alex", rating: 72)
         
         return cell

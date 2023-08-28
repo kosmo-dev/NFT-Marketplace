@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class StatisticsCell: UITableViewCell {
+final class StatisticsCell: UITableViewCell, ReuseIdentifying {
     
     private let numberLabel: UILabel = {
         let numberLabel = UILabel()
