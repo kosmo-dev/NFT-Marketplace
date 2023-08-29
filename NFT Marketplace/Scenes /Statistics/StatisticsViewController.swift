@@ -15,7 +15,7 @@ final class StatisticsViewController: UIViewController, ViewControllerProtocol {
     
     let cellReuseIdentifier = "StatisticsViewController"
     
-    private var presenter: PresenterProtocol
+    private var presenter: UserDataDelegate
     
     private lazy var statisticsFilterButton: UIButton = {
         let statisticsFilterButton = UIButton(type: .custom)
@@ -41,11 +41,11 @@ final class StatisticsViewController: UIViewController, ViewControllerProtocol {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: statisticsFilterButton)
         setupTableView()
         
-        presenter.view = self
-        presenter.fetchUsers()
+        presenter.viewController = self
+        presenter.didLoadDataFromServer()
     }
     
-    init(presenter: PresenterProtocol) {
+    init(presenter: UserDataDelegate) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
@@ -120,15 +120,15 @@ extension StatisticsViewController: UITableViewDelegate {
 // MARK: - UITableViewDataSource
 extension StatisticsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.presenter.users.count
+        presenter.usersCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: StatisticsCell = tableView.dequeueReusableCell()
         
-        let user = presenter.users[indexPath.row]
+        guard let user = presenter.user(at: indexPath.row) else { return UITableViewCell() }
         
-        presenter.downloadImageForUser(at: indexPath.row) { image in
+        presenter.didLoadImageForUser(at: indexPath.row) { image in
                     DispatchQueue.main.async {
                         if let image = image {
                             cell.updateCell(number: (indexPath.row + 1), avatar: image, name: user.name, rating: user.rating)
