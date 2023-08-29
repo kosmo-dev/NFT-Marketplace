@@ -6,13 +6,13 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol UserDataProtocol {
     var users: [UserElement] { get }
     
     func fetchUsers(completion: @escaping () -> Void)
-    func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void)
-    func downloadImageForUser(at index: Int, completion: @escaping (UIImage?) -> Void)
+    func downloadProfileImage(at index: Int, completion: @escaping (UIImage?) -> Void)
 }
 
 struct NFTRequest: NetworkRequest {
@@ -40,22 +40,22 @@ final class UserData: UserDataProtocol {
         }
     }
     
-    func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            if let data = data, let image = UIImage(data: data) {
-                completion(image)
-            } else {
-                completion(nil)
-            }
-        }.resume()
-    }
-    
-    func downloadImageForUser(at index: Int, completion: @escaping (UIImage?) -> Void) {
+    func downloadProfileImage(at index: Int, completion: @escaping (UIImage?) -> Void) {
+        guard index >= 0 && index < users.count else {
+            completion(nil)
+            return
+        }
         
         let user = users[index]
         if let avatarURL = URL(string: user.avatar) {
-            downloadImage(from: avatarURL) { image in
-                completion(image)
+            let imageView = UIImageView()
+            imageView.kf.setImage(with: avatarURL) { result in
+                switch result {
+                case .success(let imageResult):
+                    completion(imageResult.image)
+                case .failure(_):
+                    completion(nil)
+                }
             }
         } else {
             completion(nil)

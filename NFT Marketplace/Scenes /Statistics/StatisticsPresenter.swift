@@ -36,7 +36,7 @@ final class StatisticsPresenter: UserDataDelegate {
         }
     
     func didLoadImageForUser(at index: Int, completion: @escaping (UIImage?) -> Void) {
-        userData?.downloadImageForUser(at: index) { image in
+        userData?.downloadProfileImage(at: index) { image in
             guard let image = image else { return }
             completion(image)
         }
