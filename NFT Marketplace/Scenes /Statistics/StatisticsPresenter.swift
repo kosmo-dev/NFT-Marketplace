@@ -14,6 +14,8 @@ protocol UserDataDelegate: AnyObject {
     func didLoadImageForUser(at index: Int, completion: @escaping (UIImage?) -> Void)
     func usersCount() -> Int
     func user(at index: Int) -> UserElement?
+    func sortByName()
+    func sortByRating()
 }
 
 
@@ -33,7 +35,7 @@ final class StatisticsPresenter: UserDataDelegate {
     
     func user(at index: Int) -> UserElement? {
         return userData?.users[index]
-        }
+    }
     
     func didLoadImageForUser(at index: Int, completion: @escaping (UIImage?) -> Void) {
         userData?.downloadProfileImage(at: index) { image in
@@ -44,5 +46,13 @@ final class StatisticsPresenter: UserDataDelegate {
     
     func usersCount() -> Int {
         return userData?.users.count ?? 0
+    }
+    
+    func sortByName() {
+        userData?.users.sort { $0.name < $1.name }
+    }
+    
+    func sortByRating() {
+        userData?.users.sort { Int($0.rating) ?? 0 > Int($1.rating) ?? 0 }
     }
 }

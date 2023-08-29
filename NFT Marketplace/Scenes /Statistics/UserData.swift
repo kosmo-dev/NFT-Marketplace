@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 protocol UserDataProtocol {
-    var users: [UserElement] { get }
+    var users: [UserElement] { get set }
     
     func fetchUsers(completion: @escaping () -> Void)
     func downloadProfileImage(at index: Int, completion: @escaping (UIImage?) -> Void)

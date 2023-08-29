@@ -58,12 +58,14 @@ final class StatisticsViewController: UIViewController, ViewControllerProtocol {
         let alertController = UIAlertController(title: "Сортировка", message: nil, preferredStyle: .actionSheet)
         
         let sortByNameAction = UIAlertAction(title: "По имени", style: .default) { _ in
-            // Действие по выбору сортировки по имени
+            self.presenter.sortByName()
+            self.reloadTableView()
         }
         alertController.addAction(sortByNameAction)
         
         let sortByRatingAction = UIAlertAction(title: "По рейтингу", style: .default) { _ in
-            // Действие по выбору сортировки по рейтингу
+            self.presenter.sortByRating()
+            self.reloadTableView()
         }
         alertController.addAction(sortByRatingAction)
         
