@@ -131,12 +131,12 @@ extension StatisticsViewController: UITableViewDataSource {
         guard let user = presenter.user(at: indexPath.row) else { return UITableViewCell() }
         
         presenter.didLoadImageForUser(at: indexPath.row) { image in
-                    DispatchQueue.main.async {
-                        if let image = image {
-                            cell.updateCell(number: (indexPath.row + 1), avatar: image, name: user.name, rating: user.rating)
-                        }
-                    }
+            DispatchQueue.main.async {
+                if let image = image {
+                    cell.updateCell(number: (indexPath.row + 1), avatar: image, name: user.name, rating: user.rating)
                 }
+            }
+        }
         
         return cell
     }

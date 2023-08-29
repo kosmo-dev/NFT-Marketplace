@@ -27,7 +27,7 @@ final class StatisticsCell: UITableViewCell, ReuseIdentifying {
     
     private let avatarImage: UIImageView = {
         let avatarImage = UIImageView()
-//        avatarImage.layer.cornerRadius = avatarImage.bounds.height / 2
+        //        avatarImage.layer.cornerRadius = avatarImage.bounds.height / 2
         avatarImage.clipsToBounds = true
         avatarImage.translatesAutoresizingMaskIntoConstraints = false
         return avatarImage
@@ -39,20 +39,20 @@ final class StatisticsCell: UITableViewCell, ReuseIdentifying {
         nameTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         return nameTitleLabel
     }()
-
+    
     private let ratingLabel: UILabel = {
         let ratingLabel = UILabel()
         ratingLabel.font = UIFont.headline3
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
         return ratingLabel
     }()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = .clear
         clipsToBounds = true
-
+        
         addSubviews()
         setupConstraints()
     }
@@ -89,7 +89,7 @@ final class StatisticsCell: UITableViewCell, ReuseIdentifying {
             
             ratingLabel.trailingAnchor.constraint(equalTo: backgroundCardView.trailingAnchor, constant: -16),
             ratingLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
-            ])
+        ])
     }
     
     private func addSubviews() {
