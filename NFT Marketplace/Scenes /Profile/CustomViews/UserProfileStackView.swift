@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class UserProfileStackView: UIView {
     
@@ -29,17 +30,15 @@ final class UserProfileStackView: UIView {
         return nameLabel
     }()
     
-    let userInfoTextView: UITextView = {
-       let textView = UITextView()
-        textView.isEditable = false
-        textView.text = "Это информация о пользователе. Здесь может быть его биография, интересы или другая полезная информация."
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.backgroundColor = .whiteDayNight
+    let userInfoText: UILabel = {
+        let userInfo = UILabel()
+        userInfo.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        userInfo.text = "Это информация о пользователе. Здесь может быть его биография, интересы или другая полезная информация."
+        userInfo.textAlignment = .left
+        userInfo.numberOfLines = 0
+        userInfo.translatesAutoresizingMaskIntoConstraints = false
         
-        textView.isScrollEnabled = false
-        textView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
-        textView.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        return textView
+        return userInfo
     }()
     
     let websiteLabel: UILabel = {
@@ -70,7 +69,7 @@ final class UserProfileStackView: UIView {
         horizontalStack.distribution = .fill
         horizontalStack.spacing = 10
         
-        let verticalStack = UIStackView(arrangedSubviews: [horizontalStack, userInfoTextView, websiteLabel])
+        let verticalStack = UIStackView(arrangedSubviews: [horizontalStack, userInfoText, websiteLabel])
         verticalStack.axis = .vertical
         verticalStack.distribution = .fill
         verticalStack.spacing = 10
@@ -83,7 +82,6 @@ final class UserProfileStackView: UIView {
         NSLayoutConstraint.activate([
             avatarImage.widthAnchor.constraint(equalToConstant: 70),
             avatarImage.heightAnchor.constraint(equalToConstant: 70),
-//            userInfoTextView.heightAnchor.constraint(equalToConstant: 100),
             verticalStack.leadingAnchor.constraint(equalTo: leadingAnchor),
             verticalStack.trailingAnchor.constraint(equalTo: trailingAnchor),
             verticalStack.topAnchor.constraint(equalTo: topAnchor),
@@ -98,6 +96,18 @@ final class UserProfileStackView: UIView {
     @objc func tapUserWebsite() {
         if let websiteURL = URL(string: websiteLabel.text ?? "") {
             UIApplication.shared.open(websiteURL)
+        }
+    }
+}
+
+extension UserProfileStackView {
+    func update(with profile: UserProfile) {
+        nameLabel.text = profile.name
+        userInfoText.text = profile.description
+        websiteLabel.text = profile.website
+        
+        if let url = URL(string: profile.avatar) {
+            avatarImage.kf.setImage(with: url, placeholder: UIImage(named: "Profile_Placeholder"))
         }
     }
 }

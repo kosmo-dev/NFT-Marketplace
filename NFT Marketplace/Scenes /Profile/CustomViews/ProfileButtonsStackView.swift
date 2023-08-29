@@ -61,3 +61,12 @@ final class ProfileButtonsStackView: UIView {
         aboutDeveloperButton.setText("\(button3Text)")
     }
 }
+
+extension ProfileButtonsStackView {
+    func update(with profile: UserProfile) {
+        let myNFTCount = profile.nfts.count
+        let favouritesCount = profile.likes.count
+        
+        setButtonText(button1Text: "Мои NFT", button2Text: "Избранные NFT", button3Text: "О разработчике", counts: [myNFTCount, favouritesCount])
+    }
+}

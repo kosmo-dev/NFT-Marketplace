@@ -28,11 +28,7 @@ class TabBarController: UITabBarController {
             image: UIImage(systemName: "person.crop.circle.fill"),
             selectedImage: nil
         )
-//        appConfiguration.profileViewController.tabBarItem = UITabBarItem(
-//            title: S.TabBarController.profileTabBarTitle,
-//            image: UIImage(systemName: "person.crop.circle.fill"),
-//            selectedImage: nil
-//        )
+
         appConfiguration.catalogViewController.tabBarItem = UITabBarItem(
             title: S.TabBarController.catalogTabBarTitle,
             image: UIImage(systemName: "rectangle.stack.fill"),
