@@ -14,7 +14,7 @@ final class UserProfileStackView: UIView {
     
     let avatarImage: UIImageView = {
        let imageView = UIImageView()
-        imageView.layer.cornerRadius = 30
+//        imageView.layer.cornerRadius = 30
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(named: "Profile_Placeholder")
@@ -46,7 +46,7 @@ final class UserProfileStackView: UIView {
         label.isUserInteractionEnabled = true
         label.textColor = .blueUni
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        label.text = "https://website.com"
+//        label.text = "https://website.com"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -107,7 +107,14 @@ extension UserProfileStackView {
         websiteLabel.text = profile.website
         
         if let url = URL(string: profile.avatar) {
-            avatarImage.kf.setImage(with: url, placeholder: UIImage(named: "Profile_Placeholder"))
+            avatarImage.kf.setImage(with: url, placeholder: UIImage(named: "Profile_Placeholder")) { result in
+                switch result {
+                case .success(let value):
+                    print("Image: \(value.image). Got from: \(value.cacheType)")
+                case .failure(let error):
+                    print("Error: \(error)")
+                }
+            }
         }
     }
 }
