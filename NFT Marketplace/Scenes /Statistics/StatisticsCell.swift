@@ -27,6 +27,8 @@ final class StatisticsCell: UITableViewCell, ReuseIdentifying {
     
     private let avatarImage: UIImageView = {
         let avatarImage = UIImageView()
+//        avatarImage.layer.cornerRadius = avatarImage.bounds.height / 2
+        avatarImage.clipsToBounds = true
         avatarImage.translatesAutoresizingMaskIntoConstraints = false
         return avatarImage
     }()
@@ -55,6 +57,12 @@ final class StatisticsCell: UITableViewCell, ReuseIdentifying {
         setupConstraints()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        avatarImage.layer.cornerRadius = avatarImage.bounds.height / 2
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -73,6 +81,8 @@ final class StatisticsCell: UITableViewCell, ReuseIdentifying {
             
             avatarImage.leadingAnchor.constraint(equalTo: backgroundCardView.leadingAnchor, constant: 16),
             avatarImage.centerYAnchor.constraint(equalTo: centerYAnchor),
+            avatarImage.heightAnchor.constraint(equalToConstant: 28),
+            avatarImage.widthAnchor.constraint(equalToConstant: 28),
             
             nameTitleLabel.leadingAnchor.constraint(equalTo: avatarImage.trailingAnchor, constant: 8),
             nameTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -90,10 +100,10 @@ final class StatisticsCell: UITableViewCell, ReuseIdentifying {
         addSubview(ratingLabel)
     }
     
-    func updateCell(number: Int, avatar: UIImage, name: String, rating: Int) {
+    func updateCell(number: Int, avatar: UIImage, name: String, rating: String) {
         numberLabel.text = "\(number)"
         avatarImage.image = avatar
         nameTitleLabel.text = name
-        ratingLabel.text = "\(rating)"
+        ratingLabel.text = rating
     }
 }
