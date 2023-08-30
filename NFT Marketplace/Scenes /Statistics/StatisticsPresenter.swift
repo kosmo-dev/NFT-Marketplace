@@ -50,9 +50,11 @@ final class StatisticsPresenter: UserDataDelegate {
     
     func sortByName() {
         userData?.users.sort { $0.name < $1.name }
+        userData?.sortDirection = .sortByName
     }
     
     func sortByRating() {
         userData?.users.sort { Int($0.rating) ?? 0 > Int($1.rating) ?? 0 }
+        userData?.sortDirection = .sortByRating
     }
 }
