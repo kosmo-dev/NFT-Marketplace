@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol CartViewControllerProtocol: AnyObject {
+    func updatePayView(count: Int, price: Double)
+    func didDeleteNFT(for indexPath: IndexPath)
+}
+
 final class CartViewController: UIViewController {
     // MARK: - Private Properties
     private let tableView: UITableView = {
@@ -44,7 +49,7 @@ final class CartViewController: UIViewController {
         return totalPriceLabel
     }()
 
-    let toPaymentButton: CustomButton = {
+    private let toPaymentButton: CustomButton = {
         let toPaymentButton = CustomButton(
             type: .filled, title: S.CartViewController.toPaymentButton, action: #selector(toPaymentButtonTapped)
         )
@@ -59,16 +64,17 @@ final class CartViewController: UIViewController {
         action: #selector(sortButtonTapped)
     )
 
-    private let nfts = [
-        NFT(name: "April", images: ["https://code.s3.yandex.net/Mobile/iOS/NFT/Beige/April/1.png"], rating: 5, description: "", price: 1, author: "", id: "1", createdAt: ""),
-        NFT(name: "Aurora", images: ["https://code.s3.yandex.net/Mobile/iOS/NFT/Beige/Aurora/1.png"], rating: 4, description: "", price: 1.5, author: "", id: "2", createdAt: ""),
-        NFT(name: "Bimbo", images: ["https://code.s3.yandex.net/Mobile/iOS/NFT/Beige/Bimbo/1.png"], rating: 3, description: "", price: 2, author: "", id: "3", createdAt: ""),
-        NFT(name: "Biscuit", images: ["https://code.s3.yandex.net/Mobile/iOS/NFT/Beige/Biscuit/1.png"], rating: 4, description: "", price: 2.5, author: "", id: "4", createdAt: ""),
-        NFT(name: "Breena", images: ["https://code.s3.yandex.net/Mobile/iOS/NFT/Beige/Breena/1.png"], rating: 1, description: "", price: 3, author: "", id: "5", createdAt: ""),
-        NFT(name: "Buster", images: ["https://code.s3.yandex.net/Mobile/iOS/NFT/Beige/Buster/1.png"], rating: 3, description: "", price: 3.5, author: "", id: "6", createdAt: ""),
-        NFT(name: "Corbin", images: ["https://code.s3.yandex.net/Mobile/iOS/NFT/Beige/Corbin/1.png"], rating: 0, description: "", price: 4, author: "", id: "7", createdAt: ""),
-        NFT(name: "Cupid", images: ["https://code.s3.yandex.net/Mobile/iOS/NFT/Beige/Cupid/1.png"], rating: 5, description: "", price: 4.55, author: "", id: "8", createdAt: "")
-    ]
+    private var presenter: CartPresenterProtocol
+
+    // MARK: - Initializers
+    init(presenter: CartPresenterProtocol) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -78,6 +84,13 @@ final class CartViewController: UIViewController {
         tableView.register(CartNFTCell.self)
         tableView.dataSource = self
         tableView.delegate = self
+        presenter.viewController = self
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.viewWillAppear()
+        tableView.reloadData()
     }
 
     // MARK: - Private Methods
@@ -85,9 +98,6 @@ final class CartViewController: UIViewController {
         view.backgroundColor = .whiteDayNight
         [tableView, payBackroundView].forEach { view.addSubview($0) }
         [nftCounterLabel, totalPriceLabel, toPaymentButton].forEach { payBackroundView.addSubview($0) }
-
-        nftCounterLabel.text = "3 NFT"
-        totalPriceLabel.text = "5,34 ETH"
 
         sortNavigationButton.tintColor = .blackDayNight
         navigationController?.navigationBar.tintColor = .whiteDayNight
@@ -129,6 +139,7 @@ final class CartViewController: UIViewController {
     }
 
     @objc private func toPaymentButtonTapped() {
+        presenter.deleteNFT(presenter.nfts[1], indexPath: IndexPath(row: 1, section: 0))
     }
 
     @objc private func sortButtonTapped() {
@@ -138,12 +149,12 @@ final class CartViewController: UIViewController {
 // MARK: - UITableViewDataSource
 extension CartViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        nfts.count
+        presenter.nfts.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: CartNFTCell = tableView.dequeueReusableCell()
-        let nft = nfts[indexPath.row]
+        let nft = presenter.nfts[indexPath.row]
         let cellViewModel = CartCellViewModel(
             imageURL: nft.images[0], title: nft.name, price: "\(nft.price) ETH", rating: nft.rating)
         cell.configureCell(cellViewModel)
@@ -155,5 +166,19 @@ extension CartViewController: UITableViewDataSource {
 extension CartViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
+    }
+}
+
+// MARK: - CartViewControllerProtocol
+extension CartViewController: CartViewControllerProtocol {
+    func updatePayView(count: Int, price: Double) {
+        nftCounterLabel.text = "\(count)"
+        totalPriceLabel.text = "\(price) ETH"
+    }
+
+    func didDeleteNFT(for indexPath: IndexPath) {
+        tableView.performBatchUpdates {
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
     }
 }
