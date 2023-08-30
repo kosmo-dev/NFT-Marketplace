@@ -7,6 +7,8 @@
 
 import Foundation
 
+// get rid of cyrillic symbols in url
+
 extension String{
     var encodeUrl : String
     {

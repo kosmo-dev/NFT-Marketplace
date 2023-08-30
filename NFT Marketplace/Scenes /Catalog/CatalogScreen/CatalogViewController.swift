@@ -6,8 +6,19 @@
 //
 
 import UIKit
+import Kingfisher
 
-final class CatalogViewController: UIViewController {
+// MARK: - Protocol
+
+protocol CatalogViewControllerProtocol: AnyObject {
+    func reloadTableView()
+}
+
+// MARK: - Final Class
+
+final class CatalogViewController: UIViewController, CatalogViewControllerProtocol {
+    
+    private var presenter: CatalogPresenterProtocol
     
     lazy private var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -26,7 +37,7 @@ final class CatalogViewController: UIViewController {
     
     lazy var tableView: UITableView = {
         var tableView = UITableView()
-        tableView.register(CatalogTableViewCell.self, forCellReuseIdentifier: CatalogTableViewCell.reuseIdentifier)
+        tableView.register(CatalogTableViewCell.self)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .whiteDayNight
         tableView.showsVerticalScrollIndicator = false
@@ -36,13 +47,29 @@ final class CatalogViewController: UIViewController {
         return tableView
     }()
     
+    init(presenter: CatalogPresenterProtocol) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupNavigationBar()
+        setupUI()
         setupConstraints()
+        presenter.viewController = self // Назначаем viewCotroller для презентера
+        loadNFTCollections()
         view.backgroundColor = .whiteDayNight
     }
+    
+    // MARK: - Func
     
     private func setupNavigationBar() {
         sortButton.tintColor = .blackDayNight
@@ -50,6 +77,9 @@ final class CatalogViewController: UIViewController {
         navigationItem.rightBarButtonItem = sortButton
     }
     
+    private func setupUI() {
+        tableView.refreshControl = refreshControl
+    }
     
     private func setupConstraints() {
         
@@ -63,6 +93,13 @@ final class CatalogViewController: UIViewController {
         ])
     }
     
+    func reloadTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
+        }
+    }
+    
     // MARK: -  @objc func
     
     @objc func showSortingMenu() {
@@ -70,10 +107,12 @@ final class CatalogViewController: UIViewController {
         let alertMenu = UIAlertController(title: S.CatalogVC.sorting, message: nil, preferredStyle: .actionSheet)
         
         alertMenu.addAction(UIAlertAction(title: S.CatalogVC.sortByName, style: .default, handler: { [weak self] (UIAlertAction) in
-//            self.
+            self?.presenter.sortNFTS(by: .name)
+            self?.reloadTableView()
         }))
         alertMenu.addAction(UIAlertAction(title: S.CatalogVC.sortByNFTCount, style: .default, handler: { [weak self] (UIAlertAction) in
-//            self.
+            self?.presenter.sortNFTS(by: .nftCount)
+            self?.reloadTableView()
         }))
         alertMenu.addAction(UIAlertAction(title: S.CatalogVC.close, style: .cancel))
         
@@ -81,7 +120,7 @@ final class CatalogViewController: UIViewController {
     }
     
     @objc func loadNFTCollections() {
-        
+        presenter.fetchCollections()
     }
 }
 
@@ -91,11 +130,16 @@ final class CatalogViewController: UIViewController {
 extension CatalogViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        presenter.dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CatalogTableViewCell.reuseIdentifier, for: indexPath) as? CatalogTableViewCell else { return UITableViewCell() }
+        let cell: CatalogTableViewCell = tableView.dequeueReusableCell()
+        let nftModel = presenter.dataSource[indexPath.row]
+        let url = URL(string: nftModel.cover.encodeUrl)
+        
+        cell.cellImage.kf.setImage(with: url)
+        cell.catalogNameLabel.text = "\(nftModel.name) \(nftModel.nftCount)"
         return cell
     }
     
@@ -103,3 +147,6 @@ extension CatalogViewController: UITableViewDelegate, UITableViewDataSource {
         187
     }
 }
+
+
+

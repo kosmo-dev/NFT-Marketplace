@@ -9,15 +9,15 @@ import Foundation
 import UIKit
 
 extension UIColor {
-    static let backgroundUni = UIColor(named: "BackgroundUni")
-    static let whiteDayNight = UIColor(named: "White[Day-Night]")
-    static let blackDayNight = UIColor(named: "Black[Day-Night]")
-    static let lightGreyDayNight = UIColor(named: "LightGrey[Day-Night]")
-    static let blackUni = UIColor(named: "BlackUni")
-    static let whiteUni = UIColor(named: "WhiteUni")
-    static let blueUni = UIColor(named: "BlueUni")
-    static let greyUni = UIColor(named: "GrayUni")
-    static let greenUni = UIColor(named: "GreenUni")
-    static let redUni = UIColor(named: "RedUni")
-    static let yellowUni = UIColor(named: "YellowUni")
+    static let backgroundUni = UIColor(named: "BackgroundUni") ?? .systemBackground
+    static let whiteDayNight = UIColor(named: "White[Day-Night]") ?? .white
+    static let blackDayNight = UIColor(named: "Black[Day-Night]") ?? .black
+    static let lightGreyDayNight = UIColor(named: "LightGrey[Day-Night]") ?? .lightGray
+    static let blackUni = UIColor(named: "BlackUni") ?? .black
+    static let whiteUni = UIColor(named: "WhiteUni") ?? .white
+    static let blueUni = UIColor(named: "BlueUni") ?? .blue
+    static let greyUni = UIColor(named: "GrayUni") ?? .gray
+    static let greenUni = UIColor(named: "GreenUni") ?? .green
+    static let redUni = UIColor(named: "RedUni") ?? .red
+    static let yellowUni = UIColor(named: "YellowUni") ?? .yellow
 }

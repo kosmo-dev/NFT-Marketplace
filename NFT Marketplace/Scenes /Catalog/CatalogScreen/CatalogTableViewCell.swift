@@ -7,11 +7,9 @@
 
 import UIKit
 
-final class CatalogTableViewCell: UITableViewCell {
-    
-    static let reuseIdentifier = "CatalogTableCell"
-    
-    private lazy var cellImage: UIImageView = {
+final class CatalogTableViewCell: UITableViewCell, ReuseIdentifying {
+        
+     lazy var cellImage: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 12
@@ -22,11 +20,10 @@ final class CatalogTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private lazy var catalogNameLabel: UILabel = {
+     lazy var catalogNameLabel: UILabel = {
         var label = UILabel()
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Cell 1"
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         label.textColor = .blackDayNight
         
