@@ -41,6 +41,7 @@
 		9219A0722A9D3B3B003F3C57 /* ProfileVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9219A0712A9D3B3B003F3C57 /* ProfileVCPresenter.swift */; };
 		9219A0742A9E42E6003F3C57 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9219A0732A9E42E6003F3C57 /* UserProfile.swift */; };
 		9219A0772A9E451C003F3C57 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9219A0762A9E451C003F3C57 /* ProfileService.swift */; };
+		9219A07D2AA0BDA8003F3C57 /* Декомпозиция Профиля.md in Resources */ = {isa = PBXBuildFile; fileRef = 9219A07C2AA0BDA8003F3C57 /* Декомпозиция Профиля.md */; };
 		929292932A9A564A00FEEA0F /* ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929292922A9A564A00FEEA0F /* ProfileButton.swift */; };
 		929292962A9A5D0F00FEEA0F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929292952A9A5D0F00FEEA0F /* ProfileViewController.swift */; };
 		929292992A9BB5A000FEEA0F /* UserProfileStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929292982A9BB5A000FEEA0F /* UserProfileStackView.swift */; };
@@ -101,6 +102,7 @@
 		9219A0712A9D3B3B003F3C57 /* ProfileVCPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVCPresenter.swift; sourceTree = "<group>"; };
 		9219A0732A9E42E6003F3C57 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		9219A0762A9E451C003F3C57 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		9219A07C2AA0BDA8003F3C57 /* Декомпозиция Профиля.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Декомпозиция Профиля.md"; sourceTree = "<group>"; };
 		929292922A9A564A00FEEA0F /* ProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileButton.swift; sourceTree = "<group>"; };
 		929292952A9A5D0F00FEEA0F /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		929292982A9BB5A000FEEA0F /* UserProfileStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileStackView.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 		3F68069529CBBAF100B4F915 /* NFT Marketplace */ = {
 			isa = PBXGroup;
 			children = (
+				9219A07C2AA0BDA8003F3C57 /* Декомпозиция Профиля.md */,
 				3F68069629CBBAF100B4F915 /* AppDelegate.swift */,
 				3F68069829CBBAF100B4F915 /* SceneDelegate.swift */,
 				3DEBDFC72A97CDB9001C7517 /* AppConfiguration */,
@@ -485,6 +488,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F6806A329CBBAF200B4F915 /* LaunchScreen.storyboard in Resources */,
+				9219A07D2AA0BDA8003F3C57 /* Декомпозиция Профиля.md in Resources */,
 				3F6806A029CBBAF200B4F915 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
