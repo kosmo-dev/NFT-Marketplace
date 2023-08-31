@@ -53,7 +53,9 @@ final class CartViewController: UIViewController {
 
     private let toPaymentButton: CustomButton = {
         let toPaymentButton = CustomButton(
-            type: .filled, title: TextStrings.CartViewController.toPaymentButton, action: #selector(toPaymentButtonTapped)
+            type: .filled,
+            title: TextStrings.CartViewController.toPaymentButton,
+            action: #selector(toPaymentButtonTapped)
         )
         toPaymentButton.translatesAutoresizingMaskIntoConstraints = false
         return toPaymentButton

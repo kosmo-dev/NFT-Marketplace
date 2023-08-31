@@ -36,7 +36,10 @@ final class DeleteNFTView: UIView {
     }()
 
     private let deleteButton: CustomButton = {
-        let deleteButton = CustomButton(type: .filled, title: TextStrings.CartViewController.deleteButton, action: #selector(deleteButtonTapped))
+        let deleteButton = CustomButton(
+            type: .filled,
+            title: TextStrings.CartViewController.deleteButton,
+            action: #selector(deleteButtonTapped))
         deleteButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         deleteButton.setTitleColor(.redUni, for: .normal)
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +47,10 @@ final class DeleteNFTView: UIView {
     }()
 
     private let returnButton: CustomButton = {
-        let returnButton = CustomButton(type: .filled, title: TextStrings.CartViewController.returnButton, action: #selector(returnButtonTapped))
+        let returnButton = CustomButton(
+            type: .filled,
+            title: TextStrings.CartViewController.returnButton,
+            action: #selector(returnButtonTapped))
         returnButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         returnButton.setTitleColor(.whiteDayNight, for: .normal)
         returnButton.translatesAutoresizingMaskIntoConstraints = false
