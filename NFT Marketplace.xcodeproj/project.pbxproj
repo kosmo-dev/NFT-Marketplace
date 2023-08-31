@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3DEBDFCA2A97CDE2001C7517 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEBDFC92A97CDE2001C7517 /* AppConfiguration.swift */; };
-		3DEBDFCC2A97CE1D001C7517 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEBDFCB2A97CE1D001C7517 /* TabBarController.swift */; };
 		3DEBDFCE2A97CE4F001C7517 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEBDFCD2A97CE4F001C7517 /* Strings.swift */; };
 		3DEBDFD02A97CE8E001C7517 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEBDFCF2A97CE8E001C7517 /* CartViewController.swift */; };
 		3DEBDFD42A97D17B001C7517 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEBDFD32A97D17B001C7517 /* StarRatingView.swift */; };
@@ -39,6 +37,15 @@
 		3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */; };
 		920BE3772A98A43A009B2F43 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920BE3762A98A43A009B2F43 /* UIColor + Extension.swift */; };
 		928F6B462AA0C1F2003023DD /* Декомпозиция Профиля.md in Resources */ = {isa = PBXBuildFile; fileRef = 928F6B452AA0C1F2003023DD /* Декомпозиция Профиля.md */; };
+		928F6B482AA0C373003023DD /* ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B472AA0C373003023DD /* ProfileButton.swift */; };
+		928F6B4A2AA0C386003023DD /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B492AA0C386003023DD /* TabBarController.swift */; };
+		928F6B4F2AA0C3E0003023DD /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B4E2AA0C3E0003023DD /* UserProfile.swift */; };
+		928F6B512AA0C403003023DD /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B502AA0C403003023DD /* AppConfiguration.swift */; };
+		928F6B562AA0C42D003023DD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B532AA0C42D003023DD /* ProfileViewController.swift */; };
+		928F6B572AA0C42D003023DD /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B542AA0C42D003023DD /* ProfileService.swift */; };
+		928F6B582AA0C42D003023DD /* ProfileVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B552AA0C42D003023DD /* ProfileVCPresenter.swift */; };
+		928F6B5C2AA0C445003023DD /* UserProfileStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B5A2AA0C445003023DD /* UserProfileStackView.swift */; };
+		928F6B5D2AA0C445003023DD /* ProfileButtonsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B5B2AA0C445003023DD /* ProfileButtonsStackView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,8 +66,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3DEBDFC92A97CDE2001C7517 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
-		3DEBDFCB2A97CE1D001C7517 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		3DEBDFCD2A97CE4F001C7517 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		3DEBDFCF2A97CE8E001C7517 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		3DEBDFD32A97D17B001C7517 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
@@ -93,6 +98,15 @@
 		3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatters+Presets.swift"; sourceTree = "<group>"; };
 		920BE3762A98A43A009B2F43 /* UIColor + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		928F6B452AA0C1F2003023DD /* Декомпозиция Профиля.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Декомпозиция Профиля.md"; sourceTree = "<group>"; };
+		928F6B472AA0C373003023DD /* ProfileButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileButton.swift; sourceTree = "<group>"; };
+		928F6B492AA0C386003023DD /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = "../../../../../Desktop/0) Мои Проекты/Yandex - Групповой проект/NFT-Marketplace/NFT Marketplace/TabBarController/TabBarController.swift"; sourceTree = "<group>"; };
+		928F6B4E2AA0C3E0003023DD /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		928F6B502AA0C403003023DD /* AppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppConfiguration.swift; path = "../../../../../Desktop/0) Мои Проекты/Yandex - Групповой проект/NFT-Marketplace/NFT Marketplace/AppConfiguration/AppConfiguration.swift"; sourceTree = "<group>"; };
+		928F6B532AA0C42D003023DD /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		928F6B542AA0C42D003023DD /* ProfileService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		928F6B552AA0C42D003023DD /* ProfileVCPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVCPresenter.swift; sourceTree = "<group>"; };
+		928F6B5A2AA0C445003023DD /* UserProfileStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileStackView.swift; sourceTree = "<group>"; };
+		928F6B5B2AA0C445003023DD /* ProfileButtonsStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileButtonsStackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +139,7 @@
 		3DEBDFC72A97CDB9001C7517 /* AppConfiguration */ = {
 			isa = PBXGroup;
 			children = (
-				3DEBDFC92A97CDE2001C7517 /* AppConfiguration.swift */,
+				928F6B502AA0C403003023DD /* AppConfiguration.swift */,
 			);
 			path = AppConfiguration;
 			sourceTree = "<group>";
@@ -133,7 +147,7 @@
 		3DEBDFC82A97CDC1001C7517 /* TabBarController */ = {
 			isa = PBXGroup;
 			children = (
-				3DEBDFCB2A97CE1D001C7517 /* TabBarController.swift */,
+				928F6B492AA0C386003023DD /* TabBarController.swift */,
 			);
 			path = TabBarController;
 			sourceTree = "<group>";
@@ -149,6 +163,7 @@
 		3DEBDFD22A97D14E001C7517 /* ReusableViews */ = {
 			isa = PBXGroup;
 			children = (
+				928F6B472AA0C373003023DD /* ProfileButton.swift */,
 				3DEBDFD32A97D17B001C7517 /* StarRatingView.swift */,
 				3DEBDFD52A97D1A9001C7517 /* CustomButton.swift */,
 			);
@@ -247,6 +262,7 @@
 		3F6806C729CBBC5B00B4F915 /* Scenes  */ = {
 			isa = PBXGroup;
 			children = (
+				928F6B522AA0C419003023DD /* Profile */,
 				3DEBDFD12A97CE94001C7517 /* Cart */,
 				3F6806C829CBBC8100B4F915 /* ProductDetails */,
 			);
@@ -265,6 +281,7 @@
 		3F6806C929CBBCAF00B4F915 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				928F6B4D2AA0C3BD003023DD /* Profile */,
 				3F6806D829CC979D00B4F915 /* Network */,
 			);
 			path = Models;
@@ -312,6 +329,34 @@
 				920BE3762A98A43A009B2F43 /* UIColor + Extension.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		928F6B4D2AA0C3BD003023DD /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				928F6B4E2AA0C3E0003023DD /* UserProfile.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		928F6B522AA0C419003023DD /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				928F6B592AA0C435003023DD /* CustomViews */,
+				928F6B542AA0C42D003023DD /* ProfileService.swift */,
+				928F6B552AA0C42D003023DD /* ProfileVCPresenter.swift */,
+				928F6B532AA0C42D003023DD /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		928F6B592AA0C435003023DD /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				928F6B5B2AA0C445003023DD /* ProfileButtonsStackView.swift */,
+				928F6B5A2AA0C445003023DD /* UserProfileStackView.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -494,18 +539,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				928F6B5C2AA0C445003023DD /* UserProfileStackView.swift in Sources */,
 				3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */,
+				928F6B4A2AA0C386003023DD /* TabBarController.swift in Sources */,
 				3DEBDFD62A97D1A9001C7517 /* CustomButton.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
+				928F6B582AA0C42D003023DD /* ProfileVCPresenter.swift in Sources */,
 				3DEBDFCE2A97CE4F001C7517 /* Strings.swift in Sources */,
 				3DEBDFDE2A97D48E001C7517 /* FavouriteNFTController.swift in Sources */,
+				928F6B562AA0C42D003023DD /* ProfileViewController.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
-				3DEBDFCC2A97CE1D001C7517 /* TabBarController.swift in Sources */,
+				928F6B5D2AA0C445003023DD /* ProfileButtonsStackView.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
 				3DEBDFE02A97D4A5001C7517 /* FavouriteNFTControllerProtocol.swift in Sources */,
+				928F6B512AA0C403003023DD /* AppConfiguration.swift in Sources */,
 				920BE3772A98A43A009B2F43 /* UIColor + Extension.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
+				928F6B572AA0C42D003023DD /* ProfileService.swift in Sources */,
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
+				928F6B4F2AA0C3E0003023DD /* UserProfile.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
@@ -513,9 +565,9 @@
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				3DEBDFD02A97CE8E001C7517 /* CartViewController.swift in Sources */,
 				3DEBDFDC2A97D474001C7517 /* CartControllerProtocol.swift in Sources */,
-				3DEBDFCA2A97CDE2001C7517 /* AppConfiguration.swift in Sources */,
 				3DEBDFDA2A97D45B001C7517 /* CartController.swift in Sources */,
 				3DEBDFE22A97D4C9001C7517 /* NFT.swift in Sources */,
+				928F6B482AA0C373003023DD /* ProfileButton.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
 				3DEBDFD42A97D17B001C7517 /* StarRatingView.swift in Sources */,
 			);
