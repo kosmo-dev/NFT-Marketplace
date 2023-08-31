@@ -98,11 +98,11 @@ extension StatisticsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO: переход на новый контроллер с профилем пользователя по нажатию на ячейку
-    }
-    
-    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        return false
+        tableView.deselectRow(at: indexPath, animated: false)
+        
+        let userCardViewController = UserCardViewController()
+        userCardViewController.modalPresentationStyle = .fullScreen
+        present(userCardViewController, animated: true, completion: nil)
     }
 }
 
