@@ -38,9 +38,7 @@
 		920BE3772A98A43A009B2F43 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920BE3762A98A43A009B2F43 /* UIColor + Extension.swift */; };
 		928F6B462AA0C1F2003023DD /* Декомпозиция Профиля.md in Resources */ = {isa = PBXBuildFile; fileRef = 928F6B452AA0C1F2003023DD /* Декомпозиция Профиля.md */; };
 		928F6B482AA0C373003023DD /* ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B472AA0C373003023DD /* ProfileButton.swift */; };
-		928F6B4A2AA0C386003023DD /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B492AA0C386003023DD /* TabBarController.swift */; };
 		928F6B4F2AA0C3E0003023DD /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B4E2AA0C3E0003023DD /* UserProfile.swift */; };
-		928F6B512AA0C403003023DD /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B502AA0C403003023DD /* AppConfiguration.swift */; };
 		928F6B562AA0C42D003023DD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B532AA0C42D003023DD /* ProfileViewController.swift */; };
 		928F6B572AA0C42D003023DD /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B542AA0C42D003023DD /* ProfileService.swift */; };
 		928F6B582AA0C42D003023DD /* ProfileVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B552AA0C42D003023DD /* ProfileVCPresenter.swift */; };
@@ -99,9 +97,7 @@
 		920BE3762A98A43A009B2F43 /* UIColor + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		928F6B452AA0C1F2003023DD /* Декомпозиция Профиля.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Декомпозиция Профиля.md"; sourceTree = "<group>"; };
 		928F6B472AA0C373003023DD /* ProfileButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileButton.swift; sourceTree = "<group>"; };
-		928F6B492AA0C386003023DD /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = "../../../../../Desktop/0) Мои Проекты/Yandex - Групповой проект/NFT-Marketplace/NFT Marketplace/TabBarController/TabBarController.swift"; sourceTree = "<group>"; };
 		928F6B4E2AA0C3E0003023DD /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
-		928F6B502AA0C403003023DD /* AppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppConfiguration.swift; path = "../../../../../Desktop/0) Мои Проекты/Yandex - Групповой проект/NFT-Marketplace/NFT Marketplace/AppConfiguration/AppConfiguration.swift"; sourceTree = "<group>"; };
 		928F6B532AA0C42D003023DD /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		928F6B542AA0C42D003023DD /* ProfileService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		928F6B552AA0C42D003023DD /* ProfileVCPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVCPresenter.swift; sourceTree = "<group>"; };
@@ -139,7 +135,6 @@
 		3DEBDFC72A97CDB9001C7517 /* AppConfiguration */ = {
 			isa = PBXGroup;
 			children = (
-				928F6B502AA0C403003023DD /* AppConfiguration.swift */,
 			);
 			path = AppConfiguration;
 			sourceTree = "<group>";
@@ -147,7 +142,6 @@
 		3DEBDFC82A97CDC1001C7517 /* TabBarController */ = {
 			isa = PBXGroup;
 			children = (
-				928F6B492AA0C386003023DD /* TabBarController.swift */,
 			);
 			path = TabBarController;
 			sourceTree = "<group>";
@@ -541,7 +535,6 @@
 			files = (
 				928F6B5C2AA0C445003023DD /* UserProfileStackView.swift in Sources */,
 				3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */,
-				928F6B4A2AA0C386003023DD /* TabBarController.swift in Sources */,
 				3DEBDFD62A97D1A9001C7517 /* CustomButton.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
 				928F6B582AA0C42D003023DD /* ProfileVCPresenter.swift in Sources */,
@@ -552,7 +545,6 @@
 				928F6B5D2AA0C445003023DD /* ProfileButtonsStackView.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
 				3DEBDFE02A97D4A5001C7517 /* FavouriteNFTControllerProtocol.swift in Sources */,
-				928F6B512AA0C403003023DD /* AppConfiguration.swift in Sources */,
 				920BE3772A98A43A009B2F43 /* UIColor + Extension.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				928F6B572AA0C42D003023DD /* ProfileService.swift in Sources */,
