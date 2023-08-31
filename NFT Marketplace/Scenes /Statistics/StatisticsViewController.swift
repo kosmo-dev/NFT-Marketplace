@@ -15,7 +15,7 @@ final class StatisticsViewController: UIViewController, ViewControllerProtocol {
     
     let cellReuseIdentifier = "StatisticsViewController"
     
-    private var presenter: UserDataDelegate
+    private let presenter: UserDataDelegate
     
     private lazy var statisticsFilterButton: UIButton = {
         let statisticsFilterButton = UIButton(type: .custom)
@@ -55,23 +55,7 @@ final class StatisticsViewController: UIViewController, ViewControllerProtocol {
     }
     
     @objc private func statisticsFilterTapped() {
-        let alertController = UIAlertController(title: "Сортировка", message: nil, preferredStyle: .actionSheet)
-        
-        let sortByNameAction = UIAlertAction(title: "По имени", style: .default) { _ in
-            self.presenter.sortByName()
-            self.reloadTableView()
-        }
-        alertController.addAction(sortByNameAction)
-        
-        let sortByRatingAction = UIAlertAction(title: "По рейтингу", style: .default) { _ in
-            self.presenter.sortByRating()
-            self.reloadTableView()
-        }
-        alertController.addAction(sortByRatingAction)
-        
-        let closeAction = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
-        alertController.addAction(closeAction)
-        
+        let alertController = presenter.sortButtonTapped()
         present(alertController, animated: true, completion: nil)
     }
     
@@ -114,9 +98,14 @@ extension StatisticsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        statisticsTableView.deselectRow(at: indexPath, animated: true)
+//        statisticsTableView.deselectRow(at: indexPath, animated: true)
         //TODO: переход на новый контроллер с профилем пользователя по нажатию на ячейку
     }
+    
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+
 }
 
 // MARK: - UITableViewDataSource

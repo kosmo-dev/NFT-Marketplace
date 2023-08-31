@@ -18,6 +18,6 @@ class AppConfiguration {
         profileViewController = UIViewController()
         catalogViewController = UIViewController()
         cartViewController = CartViewController()
-        statisticViewController = StatisticsViewController(presenter: StatisticsPresenter(userData: UserData()))
+        statisticViewController = StatisticsViewController(presenter: StatisticsPresenter(userDataModel: UserDataModel()))
     }
 }

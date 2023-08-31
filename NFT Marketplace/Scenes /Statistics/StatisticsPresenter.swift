@@ -16,45 +16,68 @@ protocol UserDataDelegate: AnyObject {
     func user(at index: Int) -> UserElement?
     func sortByName()
     func sortByRating()
+    func sortButtonTapped() -> UIAlertController
 }
 
 
 final class StatisticsPresenter: UserDataDelegate {
     weak var viewController: ViewControllerProtocol?
-    var userData: UserDataProtocol?
+    private var userDataModel: UserDataProtocol?
     
-    init(userData: UserDataProtocol) {
-        self.userData = userData
+    init(userDataModel: UserDataProtocol) {
+        self.userDataModel = userDataModel
     }
     
     func didLoadDataFromServer() {
-        userData?.fetchUsers() {
+        userDataModel?.fetchUsers() { [weak self] in
+            guard let self = self else { return }
             self.viewController?.reloadTableView()
         }
     }
     
     func user(at index: Int) -> UserElement? {
-        return userData?.users[index]
+        return userDataModel?.users[index]
     }
     
     func didLoadImageForUser(at index: Int, completion: @escaping (UIImage?) -> Void) {
-        userData?.downloadProfileImage(at: index) { image in
+        userDataModel?.downloadProfileImage(at: index) { image in
             guard let image = image else { return }
             completion(image)
         }
     }
     
     func usersCount() -> Int {
-        return userData?.users.count ?? 0
+        return userDataModel?.users.count ?? 0
+    }
+    
+    func sortButtonTapped() -> UIAlertController {
+        let alertController = UIAlertController(title: "Сортировка", message: nil, preferredStyle: .actionSheet)
+        
+        let sortByNameAction = UIAlertAction(title: "По имени", style: .default) { _ in
+            self.sortByName()
+            self.viewController?.reloadTableView()
+        }
+        alertController.addAction(sortByNameAction)
+        
+        let sortByRatingAction = UIAlertAction(title: "По рейтингу", style: .default) { _ in
+            self.sortByRating()
+            self.viewController?.reloadTableView()
+        }
+        alertController.addAction(sortByRatingAction)
+        
+        let closeAction = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
+        alertController.addAction(closeAction)
+        
+        return alertController
     }
     
     func sortByName() {
-        userData?.users.sort { $0.name < $1.name }
-        userData?.sortDirection = .sortByName
+        userDataModel?.users.sort { $0.name < $1.name }
+        userDataModel?.sortDirection = .sortByName
     }
     
     func sortByRating() {
-        userData?.users.sort { Int($0.rating) ?? 0 > Int($1.rating) ?? 0 }
-        userData?.sortDirection = .sortByRating
+        userDataModel?.users.sort { Int($0.rating) ?? 0 > Int($1.rating) ?? 0 }
+        userDataModel?.sortDirection = .sortByRating
     }
 }

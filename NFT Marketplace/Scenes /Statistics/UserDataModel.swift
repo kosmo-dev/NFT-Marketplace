@@ -1,5 +1,5 @@
 //
-//  UserData.swift
+//  UserDataModel.swift
 //  NFT Marketplace
 //
 //  Created by Margarita Pitinova on 28.08.2023.
@@ -20,11 +20,11 @@ struct NFTRequest: NetworkRequest {
     var endpoint: URL? = URL(string: "https://64e794e8b0fd9648b7902516.mockapi.io/api/v1/users")
 }
 
-final class UserData: UserDataProtocol {
+final class UserDataModel: UserDataProtocol {
     
     var users: [UserElement] = []
-    let request = NFTRequest()
-    let networkClient = DefaultNetworkClient()
+    private let request = NFTRequest()
+    private let networkClient = DefaultNetworkClient()
     var sortDirection: SortDirection? {
         get {
             guard let direction = UserDefaults.standard.string(forKey: "sortDirection") else { return SortDirection.empty }
