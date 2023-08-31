@@ -115,6 +115,11 @@ extension StatisticsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: StatisticsCell = tableView.dequeueReusableCell()
         
+        let selectedView = UIView()
+        selectedView.backgroundColor = .lightGreyDayNight
+        selectedView.layer.cornerRadius = 12
+        cell.selectedBackgroundView = selectedView
+        
         guard let user = presenter.user(at: indexPath.row) else { return UITableViewCell() }
         
         presenter.didLoadImageForUser(at: indexPath.row) { image in
