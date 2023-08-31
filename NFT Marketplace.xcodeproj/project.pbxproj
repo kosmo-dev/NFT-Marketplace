@@ -44,6 +44,7 @@
 		928F6B582AA0C42D003023DD /* ProfileVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B552AA0C42D003023DD /* ProfileVCPresenter.swift */; };
 		928F6B5C2AA0C445003023DD /* UserProfileStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B5A2AA0C445003023DD /* UserProfileStackView.swift */; };
 		928F6B5D2AA0C445003023DD /* ProfileButtonsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B5B2AA0C445003023DD /* ProfileButtonsStackView.swift */; };
+		928F6B5F2AA0D7AC003023DD /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B5E2AA0D7AC003023DD /* AppConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,7 @@
 		928F6B552AA0C42D003023DD /* ProfileVCPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVCPresenter.swift; sourceTree = "<group>"; };
 		928F6B5A2AA0C445003023DD /* UserProfileStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileStackView.swift; sourceTree = "<group>"; };
 		928F6B5B2AA0C445003023DD /* ProfileButtonsStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileButtonsStackView.swift; sourceTree = "<group>"; };
+		928F6B5E2AA0D7AC003023DD /* AppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 		3DEBDFC72A97CDB9001C7517 /* AppConfiguration */ = {
 			isa = PBXGroup;
 			children = (
+				928F6B5E2AA0D7AC003023DD /* AppConfiguration.swift */,
 			);
 			path = AppConfiguration;
 			sourceTree = "<group>";
@@ -539,6 +542,7 @@
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
 				928F6B582AA0C42D003023DD /* ProfileVCPresenter.swift in Sources */,
 				3DEBDFCE2A97CE4F001C7517 /* Strings.swift in Sources */,
+				928F6B5F2AA0D7AC003023DD /* AppConfiguration.swift in Sources */,
 				3DEBDFDE2A97D48E001C7517 /* FavouriteNFTController.swift in Sources */,
 				928F6B562AA0C42D003023DD /* ProfileViewController.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
