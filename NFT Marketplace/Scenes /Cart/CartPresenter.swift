@@ -17,24 +17,41 @@ protocol CartPresenterProtocol {
 }
 
 final class CartPresenter: CartPresenterProtocol {
+    // MARK: - Enumerations
+    enum CartViewState {
+        case empty
+        case loaded
+    }
+
+    // MARK: - Public Properties
     var nfts: [NFT] {
         return cartController.cart
     }
     weak var viewController: CartViewControllerProtocol?
 
+    // MARK: - Private Properties
     private let cartController: CartControllerProtocol
 
     private var choosedNFTId: String?
     private var choosedIndex: Int?
 
+    private var currentState: CartViewState = .empty {
+        didSet {
+            viewControllerShouldChangeView()
+        }
+    }
+
+    // MARK: - Initializers
     init(cartController: CartControllerProtocol) {
         self.cartController = cartController
     }
 
+    // MARK: - Public Methods
     func viewWillAppear() {
         let count = nfts.count
         let totalPrice = calculateTotalPrice()
         viewController?.updatePayView(count: count, price: totalPrice)
+        checkViewState()
     }
 
     func deleteNFT() {
@@ -46,6 +63,7 @@ final class CartPresenter: CartPresenterProtocol {
             viewController?.updatePayView(count: nfts.count, price: calculateTotalPrice())
             self.choosedIndex = nil
             self.choosedNFTId = nil
+            checkViewState()
         }
     }
 
@@ -54,9 +72,27 @@ final class CartPresenter: CartPresenterProtocol {
         choosedIndex = nfts.firstIndex(where: { $0.id == id })
     }
 
+    // MARK: - Private Methods
     private func calculateTotalPrice() -> Double {
         nfts.reduce(into: 0) { partialResult, nft in
             partialResult += nft.price
+        }
+    }
+
+    private func viewControllerShouldChangeView() {
+        switch currentState {
+        case .empty:
+            viewController?.displayEmptyCart()
+        case .loaded:
+            viewController?.displayLoadedCart()
+        }
+    }
+
+    private func checkViewState() {
+        if nfts.isEmpty {
+            currentState = .empty
+        } else {
+            currentState = .loaded
         }
     }
 }

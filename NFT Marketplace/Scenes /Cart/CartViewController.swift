@@ -10,6 +10,8 @@ import UIKit
 protocol CartViewControllerProtocol: AnyObject {
     func updatePayView(count: Int, price: Double)
     func didDeleteNFT(for indexPath: IndexPath)
+    func displayEmptyCart()
+    func displayLoadedCart()
 }
 
 final class CartViewController: UIViewController {
@@ -69,6 +71,15 @@ final class CartViewController: UIViewController {
         return blurredView
     }()
 
+    private let emptyPlaceholderLabel: UILabel = {
+        let emptyPlaceholderLabel = UILabel()
+        emptyPlaceholderLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        emptyPlaceholderLabel.textColor = .blackDayNight
+        emptyPlaceholderLabel.text = TextStrings.CartViewController.emptyCartLabel
+        emptyPlaceholderLabel.translatesAutoresizingMaskIntoConstraints = false
+        return emptyPlaceholderLabel
+    }()
+
     private let sortNavigationButton = UIBarButtonItem(
         image: UIImage(named: "SortButton"),
         style: .plain,
@@ -109,7 +120,7 @@ final class CartViewController: UIViewController {
     // MARK: - Private Methods
     private func configureView() {
         view.backgroundColor = .whiteDayNight
-        [tableView, payBackroundView].forEach { view.addSubview($0) }
+        [tableView, payBackroundView, emptyPlaceholderLabel].forEach { view.addSubview($0) }
         [nftCounterLabel, totalPriceLabel, toPaymentButton].forEach { payBackroundView.addSubview($0) }
 
         sortNavigationButton.tintColor = .blackDayNight
@@ -147,7 +158,10 @@ final class CartViewController: UIViewController {
             toPaymentButton.topAnchor.constraint(equalTo: payBackroundView.topAnchor, constant: padding),
             toPaymentButton.trailingAnchor.constraint(equalTo: payBackroundView.trailingAnchor, constant: -padding),
             toPaymentButton.bottomAnchor.constraint(equalTo: payBackroundView.bottomAnchor, constant: -padding),
-            toPaymentButton.leadingAnchor.constraint(equalTo: totalPriceLabel.trailingAnchor, constant: 24)
+            toPaymentButton.leadingAnchor.constraint(equalTo: totalPriceLabel.trailingAnchor, constant: 24),
+
+            emptyPlaceholderLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyPlaceholderLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 
@@ -192,6 +206,18 @@ extension CartViewController: CartViewControllerProtocol {
     func didDeleteNFT(for indexPath: IndexPath) {
         disableBlurEffect()
         tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+
+    func displayEmptyCart() {
+        tableView.isHidden = true
+        payBackroundView.isHidden = true
+        emptyPlaceholderLabel.isHidden = false
+    }
+
+    func displayLoadedCart() {
+        tableView.isHidden = false
+        payBackroundView.isHidden = false
+        emptyPlaceholderLabel.isHidden = true
     }
 }
 

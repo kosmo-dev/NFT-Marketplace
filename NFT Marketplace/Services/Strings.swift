@@ -25,5 +25,6 @@ struct TextStrings {
         static let deleteFromCartTitle = "Вы уверены, что хотите удалить объект из корзины?"
         static let deleteButton = "Удалить"
         static let returnButton = "Вернуться"
+        static let emptyCartLabel = "Корзина пуста"
     }
 }
