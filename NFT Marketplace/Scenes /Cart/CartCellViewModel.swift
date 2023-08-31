@@ -8,6 +8,7 @@
 import Foundation
 
 struct CartCellViewModel {
+    let id: String
     let imageURL: String
     let title: String
     let price: String

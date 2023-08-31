@@ -51,10 +51,22 @@ final class CartViewController: UIViewController {
 
     private let toPaymentButton: CustomButton = {
         let toPaymentButton = CustomButton(
-            type: .filled, title: S.CartViewController.toPaymentButton, action: #selector(toPaymentButtonTapped)
+            type: .filled, title: TextStrings.CartViewController.toPaymentButton, action: #selector(toPaymentButtonTapped)
         )
         toPaymentButton.translatesAutoresizingMaskIntoConstraints = false
         return toPaymentButton
+    }()
+
+    private let deleteNFTView: DeleteNFTView = {
+        let deleteNFTView = DeleteNFTView()
+        deleteNFTView.translatesAutoresizingMaskIntoConstraints = false
+        return deleteNFTView
+    }()
+
+    private let blurredView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurredView = UIVisualEffectView(effect: blurEffect)
+        return blurredView
     }()
 
     private let sortNavigationButton = UIBarButtonItem(
@@ -85,6 +97,7 @@ final class CartViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         presenter.viewController = self
+        deleteNFTView.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -139,7 +152,6 @@ final class CartViewController: UIViewController {
     }
 
     @objc private func toPaymentButtonTapped() {
-        presenter.deleteNFT(presenter.nfts[1], indexPath: IndexPath(row: 1, section: 0))
     }
 
     @objc private func sortButtonTapped() {
@@ -156,8 +168,9 @@ extension CartViewController: UITableViewDataSource {
         let cell: CartNFTCell = tableView.dequeueReusableCell()
         let nft = presenter.nfts[indexPath.row]
         let cellViewModel = CartCellViewModel(
-            imageURL: nft.images[0], title: nft.name, price: "\(nft.price) ETH", rating: nft.rating)
+            id: nft.id, imageURL: nft.images[0], title: nft.name, price: "\(nft.price) ETH", rating: nft.rating)
         cell.configureCell(cellViewModel)
+        cell.delegate = self
         return cell
     }
 }
@@ -177,8 +190,46 @@ extension CartViewController: CartViewControllerProtocol {
     }
 
     func didDeleteNFT(for indexPath: IndexPath) {
-        tableView.performBatchUpdates {
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+        disableBlurEffect()
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+}
+
+// MARK: - CartNFTCellDelegate
+extension CartViewController: CartNFTCellDelegate {
+    func deleteNFTButtonDidTapped(id: String, image: UIImage) {
+        presenter.didSelectCellToDelete(id: id)
+        deleteNFTView.setImage(image)
+        enableBlurEffect()
+        blurredView.contentView.addSubview(deleteNFTView)
+        NSLayoutConstraint.activate([
+            deleteNFTView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            deleteNFTView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+
+    private func enableBlurEffect() {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
+
+            blurredView.frame = window.bounds
+            window.addSubview(blurredView)
         }
+    }
+
+    private func disableBlurEffect() {
+        blurredView.removeFromSuperview()
+        deleteNFTView.removeFromSuperview()
+    }
+}
+
+// MARK: - DeleteNFTViewDelegate
+extension CartViewController: DeleteNFTViewDelegate {
+    func deleteButtonTapped() {
+        presenter.deleteNFT()
+    }
+
+    func returnButtonTapped() {
+        disableBlurEffect()
     }
 }

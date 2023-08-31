@@ -26,8 +26,8 @@ final class CartControllerStub: CartControllerProtocol {
         completion?()
     }
 
-    func removeFromCart(_ nft: NFT, completion: (() -> Void)?) {
-        guard let index = cart.firstIndex(of: nft) else { return }
+    func removeFromCart(_ id: String, completion: (() -> Void)?) {
+        guard let index = cart.firstIndex(where: { $0.id == id }) else { return }
         cart.remove(at: index)
         completion?()
     }

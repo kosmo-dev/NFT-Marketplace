@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct S {
+struct TextStrings {
     struct TabBarController {
         static let profileTabBarTitle = "Профиль"
         static let catalogTabBarTitle = "Каталог"
@@ -22,5 +22,8 @@ struct S {
 
     struct CartViewController {
         static let toPaymentButton = "К оплате"
+        static let deleteFromCartTitle = "Вы уверены, что хотите удалить объект из корзины?"
+        static let deleteButton = "Удалить"
+        static let returnButton = "Вернуться"
     }
 }

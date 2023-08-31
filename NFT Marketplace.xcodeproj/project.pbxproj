@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D1CE1B22AA0607D002B31C4 /* DeleteNFTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CE1B12AA0607D002B31C4 /* DeleteNFTView.swift */; };
 		3D4476052A98B65500683647 /* CartNFTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4476042A98B65500683647 /* CartNFTCell.swift */; };
 		3D4476072A98B91600683647 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4476062A98B91600683647 /* UIImage+Extension.swift */; };
 		3D54FB5E2A9FF03500859D28 /* CartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D54FB5D2A9FF03500859D28 /* CartPresenter.swift */; };
@@ -63,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D1CE1B12AA0607D002B31C4 /* DeleteNFTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteNFTView.swift; sourceTree = "<group>"; };
 		3D4476042A98B65500683647 /* CartNFTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartNFTCell.swift; sourceTree = "<group>"; };
 		3D4476062A98B91600683647 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		3D54FB5D2A9FF03500859D28 /* CartPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPresenter.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				3D4476042A98B65500683647 /* CartNFTCell.swift */,
 				3D76F77B2A9901F900C6FC84 /* CartCellViewModel.swift */,
 				3D54FB612A9FF19400859D28 /* CartControllerStub.swift */,
+				3D1CE1B12AA0607D002B31C4 /* DeleteNFTView.swift */,
 			);
 			path = Cart;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D1CE1B22AA0607D002B31C4 /* DeleteNFTView.swift in Sources */,
 				3D54FB5E2A9FF03500859D28 /* CartPresenter.swift in Sources */,
 				3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */,
 				3DEBDFD62A97D1A9001C7517 /* CustomButton.swift in Sources */,

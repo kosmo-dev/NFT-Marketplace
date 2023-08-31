@@ -36,12 +36,12 @@ final class CartController: CartControllerProtocol {
 
     /// Removes NFT from cart
     /// - Parameters:
-    ///   - nft: NFT, to be removed from the cart
+    ///   - id: Id of NFT, to be removed from the cart
     ///   - completion: Optional: completion called when the NFT is removed from the cart.
-    func removeFromCart(_ nft: NFT, completion: (() -> Void)? = nil) {
+    func removeFromCart(_ id: String, completion: (() -> Void)? = nil) {
         cartQueue.async(flags: .barrier) { [weak self] in
             guard let self,
-                  let index = self._cart.firstIndex(of: nft)
+                  let index = self._cart.firstIndex( where: { $0.id == id })
             else { return }
             self._cart.remove(at: index)
             let cartCount = self._cart.count

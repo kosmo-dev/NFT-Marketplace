@@ -24,7 +24,7 @@ final class CartControllerTests: XCTestCase {
     func testRemoveNFT() {
         cartController.addToCart(nft1)
         cartController.addToCart(nft2)
-        cartController.removeFromCart(nft1)
+        cartController.removeFromCart(nft1.id)
         XCTAssertEqual(cartController.cart[0], nft2)
     }
 

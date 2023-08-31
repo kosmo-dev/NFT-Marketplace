@@ -23,22 +23,22 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         appConfiguration.profileViewController.tabBarItem = UITabBarItem(
-            title: S.TabBarController.profileTabBarTitle,
+            title: TextStrings.TabBarController.profileTabBarTitle,
             image: UIImage(systemName: "person.crop.circle.fill"),
             selectedImage: nil
         )
         appConfiguration.catalogViewController.tabBarItem = UITabBarItem(
-            title: S.TabBarController.catalogTabBarTitle,
+            title: TextStrings.TabBarController.catalogTabBarTitle,
             image: UIImage(systemName: "rectangle.stack.fill"),
             selectedImage: nil
         )
         appConfiguration.cartViewController.tabBarItem = UITabBarItem(
-            title: S.TabBarController.cartTabBarTitle,
+            title: TextStrings.TabBarController.cartTabBarTitle,
             image: UIImage(named: "CartIcon"),
             selectedImage: nil
         )
         appConfiguration.statisticViewController.tabBarItem = UITabBarItem(
-            title: S.TabBarController.statisticTabBarTitle,
+            title: TextStrings.TabBarController.statisticTabBarTitle,
             image: UIImage(systemName: "flag.2.crossed.fill"),
             selectedImage: nil
         )
