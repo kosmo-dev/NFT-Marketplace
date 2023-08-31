@@ -10,7 +10,7 @@ import UIKit
 protocol UserDataDelegate: AnyObject {
     var viewController: ViewControllerProtocol? { get set }
     
-    func didLoadDataFromServer()
+    func loadDataFromServer()
     func didLoadImageForUser(at index: Int, completion: @escaping (UIImage?) -> Void)
     func usersCount() -> Int
     func user(at index: Int) -> UserElement?
@@ -28,7 +28,7 @@ final class StatisticsPresenter: UserDataDelegate {
         self.userDataModel = userDataModel
     }
     
-    func didLoadDataFromServer() {
+    func loadDataFromServer() {
         userDataModel?.fetchUsers() { [weak self] in
             guard let self = self else { return }
             self.viewController?.reloadTableView()

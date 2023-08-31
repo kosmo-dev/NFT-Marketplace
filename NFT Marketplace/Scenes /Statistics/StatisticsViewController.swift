@@ -42,7 +42,7 @@ final class StatisticsViewController: UIViewController, ViewControllerProtocol {
         setupTableView()
         
         presenter.viewController = self
-        presenter.didLoadDataFromServer()
+        presenter.loadDataFromServer()
     }
     
     init(presenter: UserDataDelegate) {
@@ -98,14 +98,12 @@ extension StatisticsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        statisticsTableView.deselectRow(at: indexPath, animated: true)
         //TODO: переход на новый контроллер с профилем пользователя по нажатию на ячейку
     }
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return false
     }
-
 }
 
 // MARK: - UITableViewDataSource
@@ -120,10 +118,8 @@ extension StatisticsViewController: UITableViewDataSource {
         guard let user = presenter.user(at: indexPath.row) else { return UITableViewCell() }
         
         presenter.didLoadImageForUser(at: indexPath.row) { image in
-            DispatchQueue.main.async {
-                if let image = image {
-                    cell.updateCell(number: (indexPath.row + 1), avatar: image, name: user.name, rating: user.rating)
-                }
+            if let image = image {
+                cell.updateCell(number: (indexPath.row + 1), avatar: image, name: user.name, rating: user.rating)
             }
         }
         
