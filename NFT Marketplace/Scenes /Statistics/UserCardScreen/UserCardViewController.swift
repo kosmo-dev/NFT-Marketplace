@@ -7,10 +7,6 @@
 
 import UIKit
 
-//protocol ViewControllerProtocol: AnyObject {
-//    func reloadTableView()
-//}
-
 final class UserCardViewController: UIViewController {
     var presenter: UserCardPresenter?
     
@@ -25,7 +21,6 @@ final class UserCardViewController: UIViewController {
     private let userName: UILabel = {
         let userName = UILabel()
         userName.translatesAutoresizingMaskIntoConstraints = false
-//        userName.text = "Joaquin Phoenix"
         userName.textColor = .blackDayNight
         userName.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         return userName
@@ -34,11 +29,11 @@ final class UserCardViewController: UIViewController {
     private let userDescription: UILabel = {
         let userDescription = UILabel()
         userDescription.translatesAutoresizingMaskIntoConstraints = false
-//        userDescription.text = "Ничего не найденоzg`fg`sgfzgsg`sdhjfb` zksdjhg` `sdjh`bdf`a sdjh`bdkjf`a d s`dhgb`djfhb`lad djh`bdljhabgl`jahb fgajhg;asgha'g argjafg'asdg dsflhkdjgh dsadjhga;skdjgs;b ;dkfjgfkh"
         userDescription.numberOfLines = 0
         userDescription.lineBreakMode = .byWordWrapping
         userDescription.textColor = .blackDayNight
         userDescription.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        userDescription.sizeToFit()
         return userDescription
     }()
     
@@ -75,6 +70,14 @@ final class UserCardViewController: UIViewController {
         userCollectionsButton.translatesAutoresizingMaskIntoConstraints = false
         userCollectionsButton.addTarget(self, action: #selector(userCollectionsTapped), for: .touchUpInside)
         return userCollectionsButton
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [userDescription, userWebsiteButton])
+        stackView.axis = .vertical
+        stackView.spacing = 28
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
     
     private let chevron: UIImageView = {
@@ -123,7 +126,10 @@ final class UserCardViewController: UIViewController {
             userDescription.topAnchor.constraint(equalTo: userAvatar.bottomAnchor, constant: 20),
             userDescription.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             userDescription.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
-            userDescription.heightAnchor.constraint(equalToConstant: 80),
+            
+            stackView.topAnchor.constraint(equalTo: userAvatar.bottomAnchor, constant: 20),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
             
             userWebsiteButton.topAnchor.constraint(equalTo: userDescription.bottomAnchor, constant: 28),
             userWebsiteButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -143,6 +149,7 @@ final class UserCardViewController: UIViewController {
     private func addSubviews() {
         view.addSubview(userAvatar)
         view.addSubview(userName)
+        view.addSubview(stackView)
         view.addSubview(userDescription)
         view.addSubview(backwardButton)
         view.addSubview(userWebsiteButton)
