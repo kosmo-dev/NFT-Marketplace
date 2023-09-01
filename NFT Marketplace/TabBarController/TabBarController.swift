@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
+final class TabBarController: UITabBarController {
 
     let appConfiguration: AppConfiguration
 
@@ -23,22 +23,22 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         appConfiguration.profileViewController.tabBarItem = UITabBarItem(
-            title: S.TabBarController.profileTabBarTitle,
+            title: TextStrings.TabBarController.profileTabBarTitle,
             image: UIImage(systemName: "person.crop.circle.fill"),
             selectedImage: nil
         )
         appConfiguration.catalogViewController.tabBarItem = UITabBarItem(
-            title: S.TabBarController.catalogTabBarTitle,
+            title: TextStrings.TabBarController.catalogTabBarTitle,
             image: UIImage(systemName: "rectangle.stack.fill"),
             selectedImage: nil
         )
         appConfiguration.cartViewController.tabBarItem = UITabBarItem(
-            title: S.TabBarController.cartTabBarTitle,
+            title: TextStrings.TabBarController.cartTabBarTitle,
             image: UIImage(named: "CartIcon"),
             selectedImage: nil
         )
         appConfiguration.statisticViewController.tabBarItem = UITabBarItem(
-            title: S.TabBarController.statisticTabBarTitle,
+            title: TextStrings.TabBarController.statisticTabBarTitle,
             image: UIImage(systemName: "flag.2.crossed.fill"),
             selectedImage: nil
         )
@@ -46,7 +46,7 @@ class TabBarController: UITabBarController {
         self.viewControllers = [
             appConfiguration.profileViewController,
             appConfiguration.catalogViewController,
-            appConfiguration.cartViewController,
+            appConfiguration.cartNavigationController,
             appConfiguration.statisticViewController
         ]
 
@@ -59,6 +59,7 @@ class TabBarController: UITabBarController {
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
             appearance.backgroundColor = .whiteDayNight
+            appearance.shadowColor = nil
             appearance.stackedLayoutAppearance.normal.iconColor = .blackDayNight
             appearance.stackedLayoutAppearance.selected.iconColor = .blueUni
             tabBar.standardAppearance = appearance
