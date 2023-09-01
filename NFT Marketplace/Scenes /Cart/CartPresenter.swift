@@ -10,6 +10,7 @@ import Foundation
 protocol CartPresenterProtocol {
     var viewController: CartViewControllerProtocol? { get set }
     var nfts: [NFT] { get }
+    var numberFormatter: NumberFormatter { get }
 
     func viewWillAppear()
     func deleteNFT()
@@ -17,12 +18,6 @@ protocol CartPresenterProtocol {
 }
 
 final class CartPresenter: CartPresenterProtocol {
-    // MARK: - Enumerations
-    enum CartViewState {
-        case empty
-        case loaded
-    }
-
     // MARK: - Public Properties
     var nfts: [NFT] {
         return cartController.cart
@@ -40,6 +35,13 @@ final class CartPresenter: CartPresenterProtocol {
             viewControllerShouldChangeView()
         }
     }
+
+    let numberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.locale = Locale(identifier: "ru_RU")
+        return numberFormatter
+    }()
 
     // MARK: - Initializers
     init(cartController: CartControllerProtocol) {
@@ -73,10 +75,13 @@ final class CartPresenter: CartPresenterProtocol {
     }
 
     // MARK: - Private Methods
-    private func calculateTotalPrice() -> Double {
-        nfts.reduce(into: 0) { partialResult, nft in
+    private func calculateTotalPrice() -> String {
+        let price = nfts.reduce(into: 0) { partialResult, nft in
             partialResult += nft.price
         }
+        let number = NSNumber(value: price)
+        let formatted = numberFormatter.string(from: number) ?? ""
+        return formatted
     }
 
     private func viewControllerShouldChangeView() {
@@ -94,5 +99,13 @@ final class CartPresenter: CartPresenterProtocol {
         } else {
             currentState = .loaded
         }
+    }
+}
+
+// MARK: - CartViewState
+extension CartPresenter {
+    enum CartViewState {
+        case empty
+        case loaded
     }
 }

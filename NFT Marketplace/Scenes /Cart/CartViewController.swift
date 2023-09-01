@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol CartViewControllerProtocol: AnyObject {
-    func updatePayView(count: Int, price: Double)
+    func updatePayView(count: Int, price: String)
     func didDeleteNFT(for indexPath: IndexPath)
     func displayEmptyCart()
     func displayLoadedCart()
@@ -183,11 +184,16 @@ extension CartViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: CartNFTCell = tableView.dequeueReusableCell()
         let nft = presenter.nfts[indexPath.row]
-        let cellViewModel = CartCellViewModel(
-            id: nft.id, imageURL: nft.images[0], title: nft.name, price: "\(nft.price) ETH", rating: nft.rating)
-        cell.configureCell(cellViewModel)
+        let priceString = presenter.numberFormatter.string(from: NSNumber(value: nft.price)) ?? ""
+        let cellModel = CartCellModel(
+            id: nft.id, imageURL: nft.images[0], title: nft.name, price: "\(priceString) ETH", rating: nft.rating)
+        cell.configureCell(cellModel)
         cell.delegate = self
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
     }
 }
 
@@ -196,12 +202,26 @@ extension CartViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
     }
+    func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: TextStrings.CartViewController.deleteButton) { [weak self] _, _, completionHandler in
+            guard let self else { return }
+
+            let nft = presenter.nfts[indexPath.row]
+            deleteNFTButtonDidTapped(id: nft.id, imageURL: nft.images[0], returnHandler: completionHandler)
+        }
+
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
+    }
 }
 
 // MARK: - CartViewControllerProtocol
 extension CartViewController: CartViewControllerProtocol {
-    func updatePayView(count: Int, price: Double) {
-        nftCounterLabel.text = "\(count)"
+    func updatePayView(count: Int, price: String) {
+        nftCounterLabel.text = "\(count) NFT"
         totalPriceLabel.text = "\(price) ETH"
     }
 
@@ -225,9 +245,10 @@ extension CartViewController: CartViewControllerProtocol {
 
 // MARK: - CartNFTCellDelegate
 extension CartViewController: CartNFTCellDelegate {
-    func deleteNFTButtonDidTapped(id: String, image: UIImage) {
+    func deleteNFTButtonDidTapped(id: String, imageURL: String, returnHandler: ((Bool) -> Void)?) {
         presenter.didSelectCellToDelete(id: id)
-        deleteNFTView.setImage(image)
+        deleteNFTView.setImage(imageURL)
+        deleteNFTView.setReturnHandler(returnHandler)
         enableBlurEffect()
         blurredView.contentView.addSubview(deleteNFTView)
         NSLayoutConstraint.activate([

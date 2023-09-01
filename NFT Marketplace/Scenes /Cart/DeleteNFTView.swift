@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol DeleteNFTViewDelegate: AnyObject {
     func deleteButtonTapped()
@@ -41,6 +42,7 @@ final class DeleteNFTView: UIView {
             title: TextStrings.CartViewController.deleteButton,
             action: #selector(deleteButtonTapped))
         deleteButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        deleteButton.layer.cornerRadius = 12
         deleteButton.setTitleColor(.redUni, for: .normal)
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         return deleteButton
@@ -52,6 +54,7 @@ final class DeleteNFTView: UIView {
             title: TextStrings.CartViewController.returnButton,
             action: #selector(returnButtonTapped))
         returnButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        returnButton.layer.cornerRadius = 12
         returnButton.setTitleColor(.whiteDayNight, for: .normal)
         returnButton.translatesAutoresizingMaskIntoConstraints = false
         return returnButton
@@ -65,6 +68,8 @@ final class DeleteNFTView: UIView {
         return stackView
     }()
 
+    private var returnHandler: ((Bool) -> Void)?
+
     init() {
         super.init(frame: .zero)
         configureView()
@@ -74,8 +79,13 @@ final class DeleteNFTView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setImage(_ image: UIImage) {
-        nftImage.image = image
+    func setImage(_ imageURL: String) {
+        let url = URL(string: imageURL)
+        nftImage.kf.setImage(with: url)
+    }
+
+    func setReturnHandler(_ handler: ((Bool) -> Void)?) {
+        returnHandler = handler
     }
 
     private func configureView() {
@@ -109,5 +119,8 @@ final class DeleteNFTView: UIView {
 
     @objc private func returnButtonTapped() {
         delegate?.returnButtonTapped()
+        if let returnHandler {
+            returnHandler(true)
+        }
     }
 }

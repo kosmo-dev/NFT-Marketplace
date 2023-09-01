@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 protocol CartNFTCellDelegate: AnyObject {
-    func deleteNFTButtonDidTapped(id: String, image: UIImage)
+    func deleteNFTButtonDidTapped(id: String, imageURL: String, returnHandler: ((Bool) -> Void)?)
 }
 
 final class CartNFTCell: UITableViewCell, ReuseIdentifying {
@@ -67,7 +67,7 @@ final class CartNFTCell: UITableViewCell, ReuseIdentifying {
         return ratingView
     }()
 
-    private var cellId: String?
+    private var cartCellModel: CartCellModel?
     private var indexPath: IndexPath?
 
     // MARK: - Initializers
@@ -81,13 +81,13 @@ final class CartNFTCell: UITableViewCell, ReuseIdentifying {
     }
 
     // MARK: - Public Methods
-    func configureCell(_ cartCellViewModel: CartCellViewModel) {
-        let imageURL = URL(string: cartCellViewModel.imageURL)
+    func configureCell(_ cartCellModel: CartCellModel) {
+        let imageURL = URL(string: cartCellModel.imageURL)
         nftImage.kf.setImage(with: imageURL)
-        title.text = cartCellViewModel.title
-        price.text = cartCellViewModel.price
-        ratingView.configureRating(cartCellViewModel.rating)
-        cellId = cartCellViewModel.id
+        title.text = cartCellModel.title
+        price.text = cartCellModel.price
+        ratingView.configureRating(cartCellModel.rating)
+        self.cartCellModel = cartCellModel
     }
 
     override func prepareForReuse() {
@@ -102,14 +102,14 @@ final class CartNFTCell: UITableViewCell, ReuseIdentifying {
             nftImage.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             nftImage.leadingAnchor.constraint(equalTo: leadingAnchor),
             nftImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-            nftImage.widthAnchor.constraint(equalTo: nftImage.heightAnchor, multiplier: 1),
+            nftImage.widthAnchor.constraint(equalTo: nftImage.heightAnchor),
 
             title.topAnchor.constraint(equalTo: topAnchor, constant: 24),
             title.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 20),
 
             ratingView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 4),
             ratingView.leadingAnchor.constraint(equalTo: title.leadingAnchor),
-            ratingView.widthAnchor.constraint(equalToConstant: 68),
+            ratingView.widthAnchor.constraint(equalToConstant: 80),
 
             priceDescription.topAnchor.constraint(equalTo: ratingView.bottomAnchor, constant: 12),
             priceDescription.leadingAnchor.constraint(equalTo: title.leadingAnchor),
@@ -125,8 +125,7 @@ final class CartNFTCell: UITableViewCell, ReuseIdentifying {
     }
 
     @objc private func deleteButtonTapped() {
-        let image = nftImage.image ?? UIImage()
-        guard let cellId else { return }
-        delegate?.deleteNFTButtonDidTapped(id: cellId, image: image)
+        guard let cartCellModel else { return }
+        delegate?.deleteNFTButtonDidTapped(id: cartCellModel.id, imageURL: cartCellModel.imageURL, returnHandler: nil)
     }
 }
