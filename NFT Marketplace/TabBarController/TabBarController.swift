@@ -22,19 +22,22 @@ class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        appConfiguration.profileViewController.tabBarItem = UITabBarItem(
+        let profileNavigationController = UINavigationController(rootViewController: appConfiguration.profileViewController)
+        profileNavigationController.tabBarItem = UITabBarItem(
             title: S.TabBarController.profileTabBarTitle,
             image: UIImage(systemName: "person.crop.circle.fill"),
             selectedImage: nil
         )
+
         appConfiguration.catalogViewController.tabBarItem = UITabBarItem(
             title: S.TabBarController.catalogTabBarTitle,
             image: UIImage(systemName: "rectangle.stack.fill"),
             selectedImage: nil
         )
+        // TODO: Заменить изображение тут на значение из фигмы
         appConfiguration.cartViewController.tabBarItem = UITabBarItem(
             title: S.TabBarController.cartTabBarTitle,
-            image: UIImage(named: "CartIcon"),
+            image: UIImage(systemName: "bag.fill"),
             selectedImage: nil
         )
         appConfiguration.statisticViewController.tabBarItem = UITabBarItem(
@@ -44,23 +47,21 @@ class TabBarController: UITabBarController {
         )
 
         self.viewControllers = [
-            appConfiguration.profileViewController,
+//            appConfiguration.profileViewController
+            profileNavigationController,
             appConfiguration.catalogViewController,
             appConfiguration.cartViewController,
             appConfiguration.statisticViewController
         ]
 
         tabBar.isTranslucent = false
-        view.tintColor = .blueUni
-        tabBar.backgroundColor = .whiteDayNight
-        tabBar.unselectedItemTintColor = .blackDayNight
+        view.tintColor = .systemBlue
+        tabBar.backgroundColor = .white
 
         if #available(iOS 15.0, *) {
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = .whiteDayNight
-            appearance.stackedLayoutAppearance.normal.iconColor = .blackDayNight
-            appearance.stackedLayoutAppearance.selected.iconColor = .blueUni
+            appearance.backgroundColor = .white
             tabBar.standardAppearance = appearance
             tabBar.scrollEdgeAppearance = appearance
         }
