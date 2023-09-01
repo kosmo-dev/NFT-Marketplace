@@ -15,4 +15,11 @@ struct S {
         static let cartTabBarTitle = "Корзина"
         static let statisticTabBarTitle = "Статистика"
     }
+    
+    struct CatalogVC {
+        static let sorting = "Cортировка"
+        static let sortByName = "По названию"
+        static let sortByNFTCount = "По количеству NFT"
+        static let close = "Закрыть"
+    }
 }

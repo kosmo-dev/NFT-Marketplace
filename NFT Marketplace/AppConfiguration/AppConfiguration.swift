@@ -13,11 +13,19 @@ class AppConfiguration {
     let cartViewController: UIViewController
     let statisticViewController: UIViewController
 
+    let catalogNavigationController: UINavigationController
+
     // TODO: Заменить вью контроллеры на свои
     init() {
-        profileViewController = UIViewController()
-        catalogViewController = UIViewController()
+    
+        let dataProvider = DataProvider(networkClient: DefaultNetworkClient())
+        let catalogPresenter = CatalogPresenter(dataProvider: dataProvider)
+        
+        catalogViewController = CatalogViewController(presenter: catalogPresenter)
         cartViewController = CartViewController()
+        profileViewController = UIViewController()
         statisticViewController = UIViewController()
+        
+        catalogNavigationController = UINavigationController(rootViewController: catalogViewController)
     }
 }
