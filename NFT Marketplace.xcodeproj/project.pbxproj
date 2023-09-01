@@ -46,6 +46,8 @@
 		928F6B582AA0C42D003023DD /* ProfileVCPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B552AA0C42D003023DD /* ProfileVCPresenter.swift */; };
 		928F6B5C2AA0C445003023DD /* UserProfileStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B5A2AA0C445003023DD /* UserProfileStackView.swift */; };
 		928F6B5D2AA0C445003023DD /* ProfileButtonsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B5B2AA0C445003023DD /* ProfileButtonsStackView.swift */; };
+		92D0F14B2AA11793007D0EE9 /* ProfileEditStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F14A2AA11793007D0EE9 /* ProfileEditStackView.swift */; };
+		92D0F14D2AA1180E007D0EE9 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F14C2AA1180E007D0EE9 /* ProfileEditViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +109,8 @@
 		928F6B552AA0C42D003023DD /* ProfileVCPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVCPresenter.swift; sourceTree = "<group>"; };
 		928F6B5A2AA0C445003023DD /* UserProfileStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileStackView.swift; sourceTree = "<group>"; };
 		928F6B5B2AA0C445003023DD /* ProfileButtonsStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileButtonsStackView.swift; sourceTree = "<group>"; };
+		92D0F14A2AA11793007D0EE9 /* ProfileEditStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditStackView.swift; sourceTree = "<group>"; };
+		92D0F14C2AA1180E007D0EE9 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -342,10 +346,11 @@
 		928F6B522AA0C419003023DD /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				928F6B592AA0C435003023DD /* CustomViews */,
+				92D0F1492AA11758007D0EE9 /* ProfileEdit */,
 				928F6B542AA0C42D003023DD /* ProfileService.swift */,
 				928F6B552AA0C42D003023DD /* ProfileVCPresenter.swift */,
 				928F6B532AA0C42D003023DD /* ProfileViewController.swift */,
+				928F6B592AA0C435003023DD /* CustomViews */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -355,8 +360,17 @@
 			children = (
 				928F6B5B2AA0C445003023DD /* ProfileButtonsStackView.swift */,
 				928F6B5A2AA0C445003023DD /* UserProfileStackView.swift */,
+				92D0F14A2AA11793007D0EE9 /* ProfileEditStackView.swift */,
 			);
 			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		92D0F1492AA11758007D0EE9 /* ProfileEdit */ = {
+			isa = PBXGroup;
+			children = (
+				92D0F14C2AA1180E007D0EE9 /* ProfileEditViewController.swift */,
+			);
+			path = ProfileEdit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -549,6 +563,7 @@
 				3DEBDFDE2A97D48E001C7517 /* FavouriteNFTController.swift in Sources */,
 				928F6B562AA0C42D003023DD /* ProfileViewController.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
+				92D0F14D2AA1180E007D0EE9 /* ProfileEditViewController.swift in Sources */,
 				928F6B5D2AA0C445003023DD /* ProfileButtonsStackView.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
 				3DEBDFE02A97D4A5001C7517 /* FavouriteNFTControllerProtocol.swift in Sources */,
@@ -568,6 +583,7 @@
 				3DEBDFDA2A97D45B001C7517 /* CartController.swift in Sources */,
 				3DEBDFE22A97D4C9001C7517 /* NFT.swift in Sources */,
 				928F6B482AA0C373003023DD /* ProfileButton.swift in Sources */,
+				92D0F14B2AA11793007D0EE9 /* ProfileEditStackView.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
 				3DEBDFD42A97D17B001C7517 /* StarRatingView.swift in Sources */,
 			);

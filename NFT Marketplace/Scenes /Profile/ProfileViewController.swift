@@ -75,7 +75,7 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc func rightButtonTapped() {
-        
+        navigateToEditProfileScreen()
     }
 
 }
@@ -92,7 +92,9 @@ extension ProfileViewController: ProfileViewProtocol {
     }
     
     func navigateToEditProfileScreen() {
-        
+        let editProfileVC = ProfileEditViewController()
+        editProfileVC.modalPresentationStyle = .pageSheet
+        present(editProfileVC, animated: true, completion: nil)
     }
     
     func navigateToMyNFTsScreen() {
