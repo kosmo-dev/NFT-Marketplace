@@ -25,7 +25,7 @@ final class StatisticsCell: UITableViewCell, ReuseIdentifying {
         return backgroundCardView
     }()
     
-    private let avatarImage: UIImageView = {
+    var avatarImage: UIImageView = {
         let avatarImage = UIImageView()
         //        avatarImage.layer.cornerRadius = avatarImage.bounds.height / 2
         avatarImage.clipsToBounds = true

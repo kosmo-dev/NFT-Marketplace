@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol UserDataDelegate: AnyObject {
     var viewController: ViewControllerProtocol? { get set }
     
     func loadDataFromServer()
-    func didLoadImageForUser(at index: Int, completion: @escaping (UIImage?) -> Void)
+//    func didLoadImageForUser(at index: Int, completion: @escaping (UIImage?) -> Void)
+    func loadProfileImage(imageView: UIImageView, url: String)
     func usersCount() -> Int
     func user(at index: Int) -> UserElement?
     func sortByName()
@@ -22,32 +24,42 @@ protocol UserDataDelegate: AnyObject {
 
 final class StatisticsPresenter: UserDataDelegate {
     weak var viewController: ViewControllerProtocol?
-    private var userDataModel: UserDataProtocol?
+    private var userDataService: UserDataProtocol?
     
-    init(userDataModel: UserDataProtocol) {
-        self.userDataModel = userDataModel
+    init(userDataService: UserDataProtocol) {
+        self.userDataService = userDataService
     }
     
     func loadDataFromServer() {
-        userDataModel?.fetchUsers() { [weak self] in
+        userDataService?.fetchUsers() { [weak self] in
             guard let self = self else { return }
             self.viewController?.reloadTableView()
+
+//            self.userDataService?.downloadProfileImage(at: index, completion: { completed in
+//                if completed {
+//                    self.viewController?.reloadTableView()
+//                }
+//            })
         }
     }
     
     func user(at index: Int) -> UserElement? {
-        return userDataModel?.users[index]
+        return userDataService?.users[index]
     }
     
-    func didLoadImageForUser(at index: Int, completion: @escaping (UIImage?) -> Void) {
-        userDataModel?.downloadProfileImage(at: index) { image in
-            guard let image = image else { return }
-            completion(image)
-        }
-    }
+    func loadProfileImage(imageView: UIImageView, url: String) {
+        userDataService?.loadProfileImage(imageView: imageView, url: url)
+     }
+    
+//    func didLoadImageForUser(at index: Int, completion: @escaping (UIImage?) -> Void) {
+//        userDataService?.downloadProfileImage(at: index) { image in
+//            guard let image = image else { return }
+//            completion(image)
+//        }
+//    } 
     
     func usersCount() -> Int {
-        return userDataModel?.users.count ?? 0
+        return userDataService?.users.count ?? 0
     }
     
     func sortButtonTapped() -> UIAlertController {
@@ -72,12 +84,12 @@ final class StatisticsPresenter: UserDataDelegate {
     }
     
     func sortByName() {
-        userDataModel?.users.sort { $0.name < $1.name }
-        userDataModel?.sortDirection = .sortByName
+        userDataService?.users.sort { $0.name < $1.name }
+        userDataService?.sortDirection = .sortByName
     }
     
     func sortByRating() {
-        userDataModel?.users.sort { Int($0.rating) ?? 0 > Int($1.rating) ?? 0 }
-        userDataModel?.sortDirection = .sortByRating
+        userDataService?.users.sort { Int($0.rating) ?? 0 > Int($1.rating) ?? 0 }
+        userDataService?.sortDirection = .sortByRating
     }
 }

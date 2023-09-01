@@ -100,7 +100,11 @@ extension StatisticsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
+        guard let user = presenter.user(at: indexPath.row) else { fatalError() }
+        let model = UserCardModel(user: user)
+        let presenter = UserCardPresenter(model: model)
         let userCardViewController = UserCardViewController()
+        userCardViewController.presenter = presenter
         userCardViewController.modalPresentationStyle = .fullScreen
         present(userCardViewController, animated: true, completion: nil)
     }
@@ -121,13 +125,9 @@ extension StatisticsViewController: UITableViewDataSource {
         cell.selectedBackgroundView = selectedView
         
         guard let user = presenter.user(at: indexPath.row) else { return UITableViewCell() }
-        
-        presenter.didLoadImageForUser(at: indexPath.row) { image in
-            if let image = image {
-                cell.updateCell(number: (indexPath.row + 1), avatar: image, name: user.name, rating: user.rating)
-            }
-        }
-        
+//        let avatar = presenter.getAvatar(url: user.avatar) ?? UIImage()
+        cell.updateCell(number: (indexPath.row + 1), avatar: UIImage(), name: user.name, rating: user.rating)
+        presenter.loadProfileImage(imageView: cell.avatarImage, url: user.avatar)
         return cell
     }
 }

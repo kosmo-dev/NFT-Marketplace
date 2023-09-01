@@ -7,7 +7,12 @@
 
 import UIKit
 
+//protocol ViewControllerProtocol: AnyObject {
+//    func reloadTableView()
+//}
+
 final class UserCardViewController: UIViewController {
+    var presenter: UserCardPresenter?
     
     private let userAvatar: UIImageView = {
         let userAvatar = UIImageView()
@@ -20,7 +25,7 @@ final class UserCardViewController: UIViewController {
     private let userName: UILabel = {
         let userName = UILabel()
         userName.translatesAutoresizingMaskIntoConstraints = false
-        userName.text = "Joaquin Phoenix"
+//        userName.text = "Joaquin Phoenix"
         userName.textColor = .blackDayNight
         userName.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         return userName
@@ -29,7 +34,7 @@ final class UserCardViewController: UIViewController {
     private let userDescription: UILabel = {
         let userDescription = UILabel()
         userDescription.translatesAutoresizingMaskIntoConstraints = false
-        userDescription.text = "Ничего не найденоzg`fg`sgfzgsg`sdhjfb` zksdjhg` `sdjh`bdf`a sdjh`bdkjf`a d s`dhgb`djfhb`lad djh`bdljhabgl`jahb fgajhg;asgha'g argjafg'asdg dsflhkdjgh dsadjhga;skdjgs;b ;dkfjgfkh"
+//        userDescription.text = "Ничего не найденоzg`fg`sgfzgsg`sdhjfb` zksdjhg` `sdjh`bdf`a sdjh`bdkjf`a d s`dhgb`djfhb`lad djh`bdljhabgl`jahb fgajhg;asgha'g argjafg'asdg dsflhkdjgh dsadjhga;skdjgs;b ;dkfjgfkh"
         userDescription.numberOfLines = 0
         userDescription.lineBreakMode = .byWordWrapping
         userDescription.textColor = .blackDayNight
@@ -63,7 +68,6 @@ final class UserCardViewController: UIViewController {
     
     private lazy var userCollectionsButton: UIButton = {
         let userCollectionsButton = UIButton(type: .custom)
-        userCollectionsButton.setTitle("Коллекция NFT"+" (\(12))", for: .normal)
         userCollectionsButton.setTitleColor(UIColor.blackDayNight, for: .normal)
         userCollectionsButton.titleLabel?.textColor = .blackDayNight
         userCollectionsButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
@@ -86,6 +90,7 @@ final class UserCardViewController: UIViewController {
         view.backgroundColor = .white
         addSubviews()
         setupConstraints()
+        setupUserInfo()
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backwardButton)
     }
     
@@ -143,5 +148,11 @@ final class UserCardViewController: UIViewController {
         view.addSubview(userWebsiteButton)
         view.addSubview(userCollectionsButton)
         userCollectionsButton.addSubview(chevron)
+    }
+    
+    private func setupUserInfo() {
+        userName.text = presenter?.getUserName()
+        userDescription.text = presenter?.getUserDescription()
+        userCollectionsButton.setTitle("Коллекция NFT"+" (\(presenter?.getNFT() ?? ""))", for: .normal)
     }
 }
