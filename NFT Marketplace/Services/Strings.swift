@@ -4,7 +4,6 @@
 //
 //  Created by Вадим Кузьмин on 24.08.2023.
 //
-// swiftlint:disable type_name
 
 import Foundation
 
@@ -26,5 +25,12 @@ struct TextStrings {
         static let deleteButton = "Удалить"
         static let returnButton = "Вернуться"
         static let emptyCartLabel = "Корзина пуста"
+    }
+
+    struct PaymentViewController {
+        static let navigationTitle = "Выберите способ оплаты"
+        static let payButtonTitle = "Оплатить"
+        static let payDescription = "Совершая покупку, вы соглашаетесь с условиями"
+        static let userAgreementTitle = "Пользовательского соглашения"
     }
 }

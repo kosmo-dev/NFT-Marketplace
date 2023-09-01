@@ -45,6 +45,7 @@ final class CurrencyCell: UICollectionViewCell, ReuseIdentifying {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupView()
     }
 
     required init?(coder: NSCoder) {

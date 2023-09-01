@@ -127,7 +127,7 @@ final class CartViewController: UIViewController {
         [nftCounterLabel, totalPriceLabel, toPaymentButton].forEach { payBackroundView.addSubview($0) }
 
         sortNavigationButton.tintColor = .blackDayNight
-        navigationController?.navigationBar.tintColor = .whiteDayNight
+        navigationController?.navigationBar.tintColor = .blackDayNight
         navigationItem.rightBarButtonItem = sortNavigationButton
 
         if #available(iOS 15, *) {
@@ -169,6 +169,7 @@ final class CartViewController: UIViewController {
     }
 
     @objc private func toPaymentButtonTapped() {
+        presenter.toPaymentButtonTapped()
     }
 
     @objc private func sortButtonTapped() {

@@ -15,6 +15,7 @@
 		3D76F77C2A9901F900C6FC84 /* CartCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D76F77B2A9901F900C6FC84 /* CartCellModel.swift */; };
 		3DCFE47A2AA257F400E3A222 /* CurrencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCFE4792AA257F400E3A222 /* CurrencyCell.swift */; };
 		3DCFE47C2AA25BC200E3A222 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCFE47B2AA25BC200E3A222 /* PaymentViewController.swift */; };
+		3DCFE47E2AA25F1600E3A222 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCFE47D2AA25F1600E3A222 /* Currency.swift */; };
 		3DEBDFCA2A97CDE2001C7517 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEBDFC92A97CDE2001C7517 /* AppConfiguration.swift */; };
 		3DEBDFCC2A97CE1D001C7517 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEBDFCB2A97CE1D001C7517 /* TabBarController.swift */; };
 		3DEBDFCE2A97CE4F001C7517 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEBDFCD2A97CE4F001C7517 /* Strings.swift */; };
@@ -74,6 +75,7 @@
 		3D76F77B2A9901F900C6FC84 /* CartCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCellModel.swift; sourceTree = "<group>"; };
 		3DCFE4792AA257F400E3A222 /* CurrencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCell.swift; sourceTree = "<group>"; };
 		3DCFE47B2AA25BC200E3A222 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
+		3DCFE47D2AA25F1600E3A222 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		3DEBDFC92A97CDE2001C7517 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		3DEBDFCB2A97CE1D001C7517 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		3DEBDFCD2A97CE4F001C7517 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				3DEBDFE12A97D4C9001C7517 /* NFT.swift */,
+				3DCFE47D2AA25F1600E3A222 /* Currency.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -528,6 +531,7 @@
 				3DEBDFD62A97D1A9001C7517 /* CustomButton.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
 				3DEBDFCE2A97CE4F001C7517 /* Strings.swift in Sources */,
+				3DCFE47E2AA25F1600E3A222 /* Currency.swift in Sources */,
 				3DEBDFDE2A97D48E001C7517 /* FavouriteNFTController.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				3DEBDFCC2A97CE1D001C7517 /* TabBarController.swift in Sources */,

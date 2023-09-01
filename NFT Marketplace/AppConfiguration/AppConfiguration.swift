@@ -25,5 +25,6 @@ final class AppConfiguration {
         statisticViewController = UIViewController()
 
         cartNavigationController = UINavigationController(rootViewController: cartViewController)
+        cartPresenter.navigationController = cartNavigationController
     }
 }
