@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WebKit
 
 final class UserCardViewController: UIViewController {
     var presenter: UserCardPresenter?
@@ -102,7 +103,10 @@ final class UserCardViewController: UIViewController {
     }
     
     @objc private func userWebsiteTapped() {
-        
+        guard let website = self.presenter?.webSiteView() else { return }
+        DispatchQueue.main.async {
+            self.present(website, animated: true, completion: nil)
+        }
     }
     
     @objc private func userCollectionsTapped() {
@@ -162,4 +166,8 @@ final class UserCardViewController: UIViewController {
         userDescription.text = presenter?.getUserDescription()
         userCollectionsButton.setTitle("Коллекция NFT"+" (\(presenter?.getNFT() ?? ""))", for: .normal)
     }
+}
+
+extension UserCardViewController: WKNavigationDelegate {
+    
 }

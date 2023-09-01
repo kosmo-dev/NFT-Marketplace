@@ -5,9 +5,10 @@
 //  Created by Margarita Pitinova on 31.08.2023.
 //
 
-import Foundation
+import UIKit
+import WebKit
 
-final class UserCardModel {
+final class UserCardService {
     var user: UserElement?
     
     init(user: UserElement) {
@@ -24,9 +25,6 @@ final class UserCardModel {
     
     func userNFT() -> String {
         let nftCount = user?.nfts.count
-        print("user nft \(user?.nfts)")
-        
-        // тут всегда выходит ноль, массив nft почему-то пустой
         return "\(nftCount ?? 0)"
     }
 }

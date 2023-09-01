@@ -45,8 +45,8 @@ final class UserDataService: UserDataProtocol {
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 switch result {
-                case .success(let userElement):
-                    self.users = userElement
+                case .success(let userElements):
+                    self.users = userElements
                     
                     if let sortDirection = self.sortDirection {
                         switch sortDirection {

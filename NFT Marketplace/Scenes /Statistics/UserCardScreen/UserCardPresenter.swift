@@ -5,9 +5,12 @@
 //  Created by Margarita Pitinova on 31.08.2023.
 //
 
-import Foundation
+import UIKit
+import WebKit
 
 protocol UserCardDelegate: AnyObject {
+    var webView: WKWebView? { get }
+    
     func getUserName() -> String
     func getUserDescription() -> String
     func getNFT() -> String
@@ -15,21 +18,31 @@ protocol UserCardDelegate: AnyObject {
 
 final class UserCardPresenter: UserCardDelegate {
     
-    var model: UserCardModel?
+    var userCardService: UserCardService?
+    var webView: WKWebView?
     
-    init(model: UserCardModel) {
-        self.model = model
+    init(model: UserCardService) {
+        self.userCardService = model
     }
     
     func getUserName() -> String {
-        return self.model?.userName() ?? ""
+        return self.userCardService?.userName() ?? ""
     }
     
     func getUserDescription() -> String {
-        return self.model?.userDescription() ?? ""
+        return self.userCardService?.userDescription() ?? ""
     }
     
     func getNFT() -> String {
-        return self.model?.userNFT() ?? ""
+        return self.userCardService?.userNFT() ?? ""
+    }
+    
+    func webSiteView() -> UIViewController? {
+        guard let user = userCardService?.user,
+              let url = URL(string: user.website)
+        else { return nil }
+        let userWebsiteController = UserWebsiteWebView(request: URLRequest(url: url))
+        userWebsiteController.modalPresentationStyle = .pageSheet
+        return userWebsiteController
     }
 }

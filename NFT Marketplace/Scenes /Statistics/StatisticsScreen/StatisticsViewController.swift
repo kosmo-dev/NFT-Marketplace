@@ -101,12 +101,14 @@ extension StatisticsViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: false)
         
         guard let user = presenter.user(at: indexPath.row) else { fatalError() }
-        let model = UserCardModel(user: user)
+        let model = UserCardService(user: user)
         let presenter = UserCardPresenter(model: model)
         let userCardViewController = UserCardViewController()
         userCardViewController.presenter = presenter
         userCardViewController.modalPresentationStyle = .fullScreen
-        present(userCardViewController, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(userCardViewController, animated: true, completion: nil)
+        }
     }
 }
 
