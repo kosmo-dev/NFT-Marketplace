@@ -22,11 +22,14 @@ class ProfileEditStackView: UIStackView {
         let textView = UITextView()
         textView.backgroundColor = .lightGreyDayNight
         textView.textColor = .blackDayNight
-        textView.font = UIFont.systemFont(ofSize: 17) // установите шрифт, который вам подходит
+        textView.font = UIFont.systemFont(ofSize: 17)
         textView.isScrollEnabled = false // чтобы textView изменял свой размер в зависимости от содержимого
-        textView.text = "Пример текста" // начальное содержимое
+        textView.text = "Пример текста"
+        
+        textView.layer.cornerRadius = 8
+        textView.clipsToBounds = true
 
-        // Устанавливаем отступы
+        // Устанавил отступы по краям
         textView.textContainerInset = UIEdgeInsets(top: 11, left: 16, bottom: 11, right: 16)
         
         // Создание панели с кнопкой "Готово" для textView
@@ -35,6 +38,7 @@ class ProfileEditStackView: UIStackView {
          let doneButton = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(dismissKeyboard))
          toolBar.setItems([flexibleSpace, doneButton], animated: false)
         textView.inputAccessoryView = toolBar
+        
         return textView
     }()
 
@@ -52,6 +56,7 @@ class ProfileEditStackView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: -Private Methods
     private func setupViews() {
         addArrangedSubview(label)
         addArrangedSubview(textView)

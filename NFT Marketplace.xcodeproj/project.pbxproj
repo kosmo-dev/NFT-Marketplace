@@ -48,6 +48,7 @@
 		928F6B5D2AA0C445003023DD /* ProfileButtonsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B5B2AA0C445003023DD /* ProfileButtonsStackView.swift */; };
 		92D0F14B2AA11793007D0EE9 /* ProfileEditStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F14A2AA11793007D0EE9 /* ProfileEditStackView.swift */; };
 		92D0F14D2AA1180E007D0EE9 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F14C2AA1180E007D0EE9 /* ProfileEditViewController.swift */; };
+		92D0F14F2AA26E5E007D0EE9 /* ProfileEditUserPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F14E2AA26E5E007D0EE9 /* ProfileEditUserPicture.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		928F6B5B2AA0C445003023DD /* ProfileButtonsStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileButtonsStackView.swift; sourceTree = "<group>"; };
 		92D0F14A2AA11793007D0EE9 /* ProfileEditStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditStackView.swift; sourceTree = "<group>"; };
 		92D0F14C2AA1180E007D0EE9 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
+		92D0F14E2AA26E5E007D0EE9 /* ProfileEditUserPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditUserPicture.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,6 +363,7 @@
 				928F6B5B2AA0C445003023DD /* ProfileButtonsStackView.swift */,
 				928F6B5A2AA0C445003023DD /* UserProfileStackView.swift */,
 				92D0F14A2AA11793007D0EE9 /* ProfileEditStackView.swift */,
+				92D0F14E2AA26E5E007D0EE9 /* ProfileEditUserPicture.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
 				3DEBDFE02A97D4A5001C7517 /* FavouriteNFTControllerProtocol.swift in Sources */,
 				920BE3772A98A43A009B2F43 /* UIColor + Extension.swift in Sources */,
+				92D0F14F2AA26E5E007D0EE9 /* ProfileEditUserPicture.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				927DBB362AA0D9E700A04FDF /* TabBarController.swift in Sources */,
 				928F6B572AA0C42D003023DD /* ProfileService.swift in Sources */,
