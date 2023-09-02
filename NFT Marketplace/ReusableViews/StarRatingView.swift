@@ -41,7 +41,10 @@ final class StarRatingView: UIStackView {
 
     private func makeStarView() -> UIImageView {
         let star = UIImageView()
-        star.image = UIImage(systemName: "star.fill")
+        let height: CGFloat = 15
+        let pointSize: CGFloat = 3 / 4 * height
+        let config = UIImage.SymbolConfiguration(pointSize: pointSize)
+        star.image = UIImage(systemName: "star.fill", withConfiguration: config)
         star.contentMode = .scaleAspectFit
         star.translatesAutoresizingMaskIntoConstraints = false
         return star
