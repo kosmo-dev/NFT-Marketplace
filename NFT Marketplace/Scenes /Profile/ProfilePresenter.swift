@@ -1,5 +1,5 @@
 //
-//  ProfileVCPresenter.swift
+//  ProfilePresenter.swift
 //  NFT Marketplace
 //
 //  Created by Денис on 28.08.2023.

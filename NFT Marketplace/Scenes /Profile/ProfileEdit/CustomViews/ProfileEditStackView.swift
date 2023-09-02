@@ -65,6 +65,10 @@ class ProfileEditStackView: UIStackView {
         spacing = 5
     }
     
+    func getTextContent() -> String? {
+        return textView.text
+    }
+    
     func updateTextContent(_ text: String) {
         textView.text = text
     }

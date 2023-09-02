@@ -98,11 +98,21 @@ extension ProfileViewController: ProfileViewProtocol {
     }
     
     func navigateToEditProfileScreen() {
-        let editProfileVC = ProfileEditViewController(image: currentAvatarImage)
-        editProfileVC.currentUserProfile = presenter?.currentUserProfile
+        let profileService = ProfileService()
+        
+        // Шаг 1: Создаем ProfileEditViewController, но без презентера.
+        let editProfileVC = ProfileEditViewController(presenter: nil, image: currentAvatarImage)
+        
+        // Шаг 2: Создаем ProfileEditPresenter, используя ProfileEditViewController в качестве view.
+        let editProfilePresenter = ProfileEditPresenter(view: editProfileVC, profileService: profileService)
+        editProfilePresenter.delegate = self
+        // Шаг 3: Устанавливаем презентер для ProfileEditViewController.
+        editProfileVC.presenter = editProfilePresenter
+        editProfileVC.currentUserProfile = self.presenter?.currentUserProfile
         editProfileVC.modalPresentationStyle = .pageSheet
         present(editProfileVC, animated: true, completion: nil)
     }
+
     
     func navigateToMyNFTsScreen() {
         
@@ -114,5 +124,11 @@ extension ProfileViewController: ProfileViewProtocol {
     
     func navigateToAboutDeveloperScreen() {
         
+    }
+}
+
+extension ProfileViewController: ProfileEditPresenterDelegate {
+    func profileDidUpdate(_ profile: UserProfile) {
+        self.updateUI(with: profile)
     }
 }

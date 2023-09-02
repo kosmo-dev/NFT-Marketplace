@@ -6,8 +6,18 @@
 //
 
 import UIKit
+import ProgressHUD
+
+protocol ProfileEditViewProtocol: AnyObject {
+    func showLoadingState()
+    func hideLoadingState()
+    func displayError(_ error: Error)
+    func profileUpdateSuccessful()
+}
 
 final class ProfileEditViewController: UIViewController {
+    
+    var presenter: ProfileEditPresenterProtocol?
     
     private lazy var doneButton: UIButton = {
         let button = UIButton(type: .system)
@@ -48,7 +58,8 @@ final class ProfileEditViewController: UIViewController {
         }
     }
     
-    init(image: UIImage?) {
+    init(presenter: ProfileEditPresenterProtocol?, image: UIImage?) {
+        self.presenter = presenter
         self.userImage = image
         super.init(nibName: nil, bundle: nil)
     }
@@ -107,6 +118,10 @@ final class ProfileEditViewController: UIViewController {
     
     
     @objc func doneButtonTapped() {
+        let name = nameStackView.getTextContent()
+        let description = descriptionStackView.getTextContent()
+        let website = websiteStackView.getTextContent()
+        presenter?.updateProfile(name: name, description: description, website: website)
         self.dismiss(animated: true, completion: nil)
 
     }
@@ -143,4 +158,24 @@ extension ProfileEditViewController: ProfileEditUserPictureDelegate {
     func didTapTapOnImage() {
         openImagePicker()
     }
+}
+
+extension ProfileEditViewController: ProfileEditViewProtocol {
+    func showLoadingState() {
+        ProgressHUD.show()
+    }
+    
+    func hideLoadingState() {
+        ProgressHUD.dismiss()
+    }
+    
+    func displayError(_ error: Error) {
+        ProgressHUD.showError("\(error.localizedDescription)")
+    }
+    
+    func profileUpdateSuccessful() {
+        ProgressHUD.showSucceed("Профиль успешно обновлен", delay: 2.0)
+    }
+    
+    
 }
