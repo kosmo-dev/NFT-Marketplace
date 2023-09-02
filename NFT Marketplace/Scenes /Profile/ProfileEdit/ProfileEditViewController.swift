@@ -38,13 +38,11 @@ final class ProfileEditViewController: UIViewController {
         return stack
     }()
     
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .whiteDayNight
+        
+        profileAvatarView.delegate = self
         
         setupLayout()
         // Добавляем распознаватель тапов для закрытия клавиатуры
@@ -89,4 +87,32 @@ final class ProfileEditViewController: UIViewController {
         view.endEditing(true)
     }
     
+}
+
+extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func openImagePicker() {
+     let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        //MARK: -Depricated in future
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            profileAvatarView.updateImage(selectedImage)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ProfileEditViewController: ProfileEditUserPictureDelegate {
+    func didTapTapOnImage() {
+        openImagePicker()
+    }
 }

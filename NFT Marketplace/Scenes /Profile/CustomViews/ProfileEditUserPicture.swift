@@ -7,12 +7,18 @@
 
 import UIKit
 
+protocol ProfileEditUserPictureDelegate: AnyObject {
+    func didTapTapOnImage()
+}
+
 final class ProfileEditUserPicture: UIView {
+    
+    weak var delegate: ProfileEditUserPictureDelegate?
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 8
+        imageView.layer.cornerRadius = 30
         imageView.layer.masksToBounds = true
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -42,9 +48,7 @@ final class ProfileEditUserPicture: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
-    var didSelectPicture: (() -> Void)?
-    
+        
     init(frame: CGRect, image: UIImage?, text: String) {
         super.init(frame: frame) 
         imageView.image = image
@@ -90,12 +94,11 @@ final class ProfileEditUserPicture: UIView {
     
     @objc func avatarImageTap() {
         print("Привет")
-        didSelectPicture?()
+        delegate?.didTapTapOnImage()
     }
     
     func updateImage(_ image: UIImage) {
         imageView.image = image
     }
-    
     
 }
