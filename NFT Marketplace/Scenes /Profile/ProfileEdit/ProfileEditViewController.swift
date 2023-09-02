@@ -18,7 +18,11 @@ final class ProfileEditViewController: UIViewController {
         return button
     }()
     
-    let profileAvatarView = ProfileEditUserPicture(frame: CGRect(x: 0, y: 0, width: 70, height: 70), image: UIImage(named: "Profile_placeholder"), text: "Cменить\nфото")
+    var userImage: UIImage?
+    
+    private lazy var profileAvatarView: ProfileEditUserPicture = {
+        return ProfileEditUserPicture(frame: CGRect(x: 0, y: 0, width: 70, height: 70), image: userImage ?? UIImage(named: "Profile_placeholder"), text: "Cменить\nфото")
+    }()
     
     private lazy var nameStackView: ProfileEditStackView = {
         let stack = ProfileEditStackView(labelText: "Имя", textContent: "Введите ваше имя")
@@ -37,6 +41,23 @@ final class ProfileEditViewController: UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
+    
+    var currentUserProfile: UserProfile? {
+        didSet {
+            updateUIWithProfile()
+        }
+    }
+    
+    init(image: UIImage?) {
+        self.userImage = image
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +96,13 @@ final class ProfileEditViewController: UIViewController {
             websiteStackView.leadingAnchor.constraint(equalTo: descriptionStackView.leadingAnchor),
             websiteStackView.trailingAnchor.constraint(equalTo: descriptionStackView.trailingAnchor)
         ])
+    }
+    
+    private func updateUIWithProfile() {
+        guard let profile = currentUserProfile else { return }
+        nameStackView.updateTextContent(profile.name)
+        descriptionStackView.updateTextContent(profile.description)
+        websiteStackView.updateTextContent(profile.website)
     }
     
     

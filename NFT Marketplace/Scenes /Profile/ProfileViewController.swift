@@ -22,6 +22,9 @@ final class ProfileViewController: UIViewController {
     private var presenter: ProfilePresenterProtocol?
     private var userProfileStackView: UserProfileStackView!
     private var profileButtonsStackView: ProfileButtonsStackView!
+    
+    private var currentAvatarImage: UIImage?
+    
 
     init(presenter: ProfilePresenterProtocol?) {
         self.presenter = presenter
@@ -84,6 +87,9 @@ final class ProfileViewController: UIViewController {
 extension ProfileViewController: ProfileViewProtocol {
     func updateUI(with profile: UserProfile) {
         userProfileStackView.update(with: profile)
+        userProfileStackView.onImageLoaded = { [weak self] image in
+            self?.currentAvatarImage = image
+        }
         profileButtonsStackView.update(with: profile)
     }
     
@@ -92,7 +98,8 @@ extension ProfileViewController: ProfileViewProtocol {
     }
     
     func navigateToEditProfileScreen() {
-        let editProfileVC = ProfileEditViewController()
+        let editProfileVC = ProfileEditViewController(image: currentAvatarImage)
+        editProfileVC.currentUserProfile = presenter?.currentUserProfile
         editProfileVC.modalPresentationStyle = .pageSheet
         present(editProfileVC, animated: true, completion: nil)
     }

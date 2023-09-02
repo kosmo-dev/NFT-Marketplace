@@ -46,10 +46,11 @@ final class UserProfileStackView: UIView {
         label.isUserInteractionEnabled = true
         label.textColor = .blueUni
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-//        label.text = "https://website.com"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    var onImageLoaded: ((UIImage) -> Void)?
     
     //MARK: - Initiliazers
     override init(frame: CGRect) {
@@ -111,6 +112,7 @@ extension UserProfileStackView {
                 switch result {
                 case .success(let value):
                     print("Image: \(value.image). Got from: \(value.cacheType)")
+                    self.onImageLoaded?(value.image)
                 case .failure(let error):
                     print("Error: \(error)")
                 }

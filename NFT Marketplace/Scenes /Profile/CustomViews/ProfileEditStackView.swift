@@ -65,6 +65,10 @@ class ProfileEditStackView: UIStackView {
         spacing = 5
     }
     
+    func updateTextContent(_ text: String) {
+        textView.text = text
+    }
+    
     @objc func dismissKeyboard() {
         textView.resignFirstResponder()
     }
