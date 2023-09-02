@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 protocol PaymentPresesnterProtocol {
     var currenciesCellModel: [CurrencyCellModel] { get }
@@ -13,6 +14,7 @@ protocol PaymentPresesnterProtocol {
 
     func viewDidLoad()
     func didSelectItemAt(_ indexPath: IndexPath)
+    func userAgreementButtonTapped()
 }
 
 final class PaymentPresenter: PaymentPresesnterProtocol {
@@ -45,6 +47,12 @@ final class PaymentPresenter: PaymentPresesnterProtocol {
         seletedItemIndexPath = indexPath
         makeCurrenciesCellModel()
         viewController?.reloadCollectionView()
+    }
+
+    func userAgreementButtonTapped() {
+        guard let url = URL(string: "https://yandex.ru/legal/practicum_termsofuse/") else { return }
+        let safariViewController = SFSafariViewController(url: url)
+        viewController?.presentView(safariViewController)
     }
 
     // MARK: - Private Methods

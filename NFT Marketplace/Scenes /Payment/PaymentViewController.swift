@@ -12,6 +12,7 @@ protocol PaymentViewControllerProtocol: AnyObject {
     func reloadCollectionView()
     func displayLoadingIndicator()
     func removeLoadingIndicator()
+    func presentView(_ viewController: UIViewController)
 }
 
 final class PaymentViewController: UIViewController {
@@ -56,7 +57,7 @@ final class PaymentViewController: UIViewController {
         userAgreementButton.setTitle(TextStrings.PaymentViewController.userAgreementTitle, for: .normal)
         userAgreementButton.setTitleColor(.blueUni, for: .normal)
         userAgreementButton.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        userAgreementButton.addTarget(nil, action: #selector(userAgreementButtonTapped), for: .touchUpInside)
+        userAgreementButton.isUserInteractionEnabled = true
         userAgreementButton.translatesAutoresizingMaskIntoConstraints = false
         return userAgreementButton
     }()
@@ -100,6 +101,7 @@ final class PaymentViewController: UIViewController {
     }
 
     override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         payView.removeFromSuperview()
         payViewIsAddedToWindow = false
     }
@@ -135,6 +137,9 @@ final class PaymentViewController: UIViewController {
     private func setupPayView() {
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
+
+            userAgreementButton.addTarget(self, action: #selector(userAgreementButtonTapped), for: .touchUpInside)
+            payButton.addTarget(self, action: #selector(payButtonTapped), for: .touchUpInside)
 
             window.addSubview(payView)
             payViewIsAddedToWindow = true
@@ -215,11 +220,10 @@ final class PaymentViewController: UIViewController {
     }
 
     @objc private func payButtonTapped() {
-
     }
 
     @objc private func userAgreementButtonTapped() {
-
+        presenter.userAgreementButtonTapped()
     }
 }
 
@@ -258,5 +262,9 @@ extension PaymentViewController: PaymentViewControllerProtocol {
 
     func removeLoadingIndicator() {
         ProgressHUD.dismiss()
+    }
+
+    func presentView(_ viewController: UIViewController) {
+        present(viewController, animated: true)
     }
 }

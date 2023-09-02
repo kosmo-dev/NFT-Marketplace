@@ -20,6 +20,10 @@
 		3DCFE4822AA32DBC00E3A222 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCFE4812AA32DBC00E3A222 /* NetworkManager.swift */; };
 		3DCFE4842AA331B300E3A222 /* PaymentRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCFE4832AA331B300E3A222 /* PaymentRequests.swift */; };
 		3DCFE4862AA33D7900E3A222 /* CurrencyCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCFE4852AA33D7900E3A222 /* CurrencyCellModel.swift */; };
+		3DCFE4882AA34A4400E3A222 /* PaymentPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCFE4872AA34A4400E3A222 /* PaymentPresenterTests.swift */; };
+		3DCFE48B2AA34AA700E3A222 /* NetworkManagerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCFE48A2AA34AA700E3A222 /* NetworkManagerStub.swift */; };
+		3DCFE48D2AA34B0100E3A222 /* CurrencyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCFE48C2AA34B0100E3A222 /* CurrencyMock.swift */; };
+		3DCFE48F2AA34C3A00E3A222 /* PaymentViewControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCFE48E2AA34C3A00E3A222 /* PaymentViewControllerSpy.swift */; };
 		3DEBDFCA2A97CDE2001C7517 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEBDFC92A97CDE2001C7517 /* AppConfiguration.swift */; };
 		3DEBDFCC2A97CE1D001C7517 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEBDFCB2A97CE1D001C7517 /* TabBarController.swift */; };
 		3DEBDFCE2A97CE4F001C7517 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEBDFCD2A97CE4F001C7517 /* Strings.swift */; };
@@ -84,6 +88,10 @@
 		3DCFE4812AA32DBC00E3A222 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		3DCFE4832AA331B300E3A222 /* PaymentRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentRequests.swift; sourceTree = "<group>"; };
 		3DCFE4852AA33D7900E3A222 /* CurrencyCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCellModel.swift; sourceTree = "<group>"; };
+		3DCFE4872AA34A4400E3A222 /* PaymentPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentPresenterTests.swift; sourceTree = "<group>"; };
+		3DCFE48A2AA34AA700E3A222 /* NetworkManagerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerStub.swift; sourceTree = "<group>"; };
+		3DCFE48C2AA34B0100E3A222 /* CurrencyMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyMock.swift; sourceTree = "<group>"; };
+		3DCFE48E2AA34C3A00E3A222 /* PaymentViewControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewControllerSpy.swift; sourceTree = "<group>"; };
 		3DEBDFC92A97CDE2001C7517 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		3DEBDFCB2A97CE1D001C7517 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		3DEBDFCD2A97CE4F001C7517 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -158,6 +166,16 @@
 			path = Payment;
 			sourceTree = "<group>";
 		};
+		3DCFE4892AA34A9700E3A222 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3DCFE48A2AA34AA700E3A222 /* NetworkManagerStub.swift */,
+				3DCFE48C2AA34B0100E3A222 /* CurrencyMock.swift */,
+				3DCFE48E2AA34C3A00E3A222 /* PaymentViewControllerSpy.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		3DEBDFC72A97CDB9001C7517 /* AppConfiguration */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +230,8 @@
 			children = (
 				3DEE59DD2A97E06200F84C21 /* CartControllerTests.swift */,
 				3DEE59DF2A97E22600F84C21 /* FavouriteNFTControllerTests.swift */,
+				3DCFE4872AA34A4400E3A222 /* PaymentPresenterTests.swift */,
+				3DCFE4892AA34A9700E3A222 /* Helpers */,
 			);
 			path = "NFT MarketplaceTests";
 			sourceTree = "<group>";
@@ -521,6 +541,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DEE59E02A97E22600F84C21 /* FavouriteNFTControllerTests.swift in Sources */,
+				3DCFE4882AA34A4400E3A222 /* PaymentPresenterTests.swift in Sources */,
+				3DCFE48B2AA34AA700E3A222 /* NetworkManagerStub.swift in Sources */,
+				3DCFE48D2AA34B0100E3A222 /* CurrencyMock.swift in Sources */,
+				3DCFE48F2AA34C3A00E3A222 /* PaymentViewControllerSpy.swift in Sources */,
 				3DEE59DE2A97E06200F84C21 /* CartControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
