@@ -6,6 +6,13 @@
 //
 
 import UIKit
+import ProgressHUD
+
+protocol PaymentViewControllerProtocol: AnyObject {
+    func reloadCollectionView()
+    func displayLoadingIndicator()
+    func removeLoadingIndicator()
+}
 
 final class PaymentViewController: UIViewController {
 
@@ -54,19 +61,15 @@ final class PaymentViewController: UIViewController {
         return userAgreementButton
     }()
 
+    private var presenter: PaymentPresesnterProtocol
+
     private var payViewInitialBottomConstraint: NSLayoutConstraint?
     private var payViewFinalBottomConstraint: NSLayoutConstraint?
     private var payViewIsAddedToWindow: Bool = false
 
-    let mockCurrencies: [Currency] = [
-        Currency(title: "Bitcoin", image: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Bitcoin_(BTC).png", id: "1", ticker: "BTC"),
-        Currency(title: "Dogecoin", image: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Dogecoin_(DOGE).png", id: "2", ticker: "DOGE"),
-        Currency(title: "Tether", image: "https://code.s3.yandex.net/Mobile/iOS/Currencies/Tether_(USDT).png", id: "3", ticker: "USDT"),
-        Currency(title: "Apecoin", image: "https://code.s3.yandex.net/Mobile/iOS/Currencies/ApeCoin_(APE).png", id: "4", ticker: "APE")
-    ]
-
     // MARK: - Initializers
-    init() {
+    init(presenter: PaymentPresesnterProtocol) {
+        self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
         setupView()
     }
@@ -79,8 +82,11 @@ final class PaymentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.register(CurrencyCell.self)
         configureNavigationBar()
+        presenter.viewController = self
+        presenter.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -130,7 +136,6 @@ final class PaymentViewController: UIViewController {
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
 
-            print("setupPayView")
             window.addSubview(payView)
             payViewIsAddedToWindow = true
             [payDescription, userAgreementButton, payButton].forEach { payView.addSubview($0) }
@@ -161,7 +166,6 @@ final class PaymentViewController: UIViewController {
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
 
-            print(payViewIsAddedToWindow)
             if !payViewIsAddedToWindow {
                 setupPayView()
             }
@@ -176,7 +180,6 @@ final class PaymentViewController: UIViewController {
 
             UIView.animate(withDuration: 0.2) {
                 window.layoutIfNeeded()
-                print("payView.frame ", self.payView.frame)
             }
         }
     }
@@ -190,7 +193,6 @@ final class PaymentViewController: UIViewController {
 
             UIView.animate(withDuration: 0.2) {
                 window.layoutIfNeeded()
-                print(self.payView.frame)
             }
         }
     }
@@ -224,15 +226,37 @@ final class PaymentViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 extension PaymentViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        mockCurrencies.count
+        presenter.currenciesCellModel.count
     }
 
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: CurrencyCell = collectionView.dequeueReusableCell(indexPath: indexPath)
-        let currency = mockCurrencies[indexPath.row]
-        cell.configureCell(imageURL: currency.image, title: currency.title, ticker: currency.ticker)
-        return cell
+            let cell: CurrencyCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let model = presenter.currenciesCellModel[indexPath.row]
+            cell.configureCell(cellModel: model)
+            return cell
+        }
+}
+
+// MARK: - UICollectionViewDelegate
+extension PaymentViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter.didSelectItemAt(indexPath)
+    }
+}
+
+// MARK: - PaymentViewControllerProtocol
+extension PaymentViewController: PaymentViewControllerProtocol {
+    func reloadCollectionView() {
+        collectionView.reloadData()
+    }
+
+    func displayLoadingIndicator() {
+        ProgressHUD.show()
+    }
+
+    func removeLoadingIndicator() {
+        ProgressHUD.dismiss()
     }
 }

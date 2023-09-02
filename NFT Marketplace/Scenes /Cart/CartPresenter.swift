@@ -78,7 +78,10 @@ final class CartPresenter: CartPresenterProtocol {
     }
 
     func toPaymentButtonTapped() {
-        let viewController = PaymentViewController()
+        let networkClient = DefaultNetworkClient()
+        let networkManager = NetworkManager(networkClient: networkClient)
+        let presenter = PaymentPresenter(networkManager: networkManager)
+        let viewController = PaymentViewController(presenter: presenter)
         let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         navigationController?.pushViewController(viewController, animated: true)

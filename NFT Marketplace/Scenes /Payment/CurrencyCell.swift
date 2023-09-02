@@ -14,6 +14,7 @@ final class CurrencyCell: UICollectionViewCell, ReuseIdentifying {
         let background = UIView()
         background.backgroundColor = .lightGreyDayNight
         background.layer.cornerRadius = 12
+        background.layer.borderColor = UIColor.blackDayNight.cgColor
         background.translatesAutoresizingMaskIntoConstraints = false
         return background
     }()
@@ -52,11 +53,17 @@ final class CurrencyCell: UICollectionViewCell, ReuseIdentifying {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configureCell(imageURL: String, title: String, ticker: String) {
-        let url = URL(string: imageURL)
+    func configureCell(cellModel: CurrencyCellModel) {
+        let url = URL(string: cellModel.imageURL)
         currencyImage.kf.setImage(with: url)
-        self.title.text = title
-        self.ticker.text = ticker
+        title.text = cellModel.title
+        ticker.text = cellModel.ticker
+
+        if cellModel.isSelected {
+            background.layer.borderWidth = 1
+        } else {
+            background.layer.borderWidth = 0
+        }
     }
 
     private func setupView() {
