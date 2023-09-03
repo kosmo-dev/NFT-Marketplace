@@ -12,10 +12,10 @@ final class UserProfileStackView: UIView {
     
     //MARK: - Computered Properties
     
-    let avatarImage: UIImageView = {
-       let imageView = UIImageView()
-//        imageView.layer.cornerRadius = 30
+    let avatarImageView: UIImageView = {
+        let imageView = UIImageView()
         imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 30
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(named: "Profile_Placeholder")
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +42,7 @@ final class UserProfileStackView: UIView {
     }()
     
     let websiteLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.isUserInteractionEnabled = true
         label.textColor = .blueUni
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -65,7 +65,7 @@ final class UserProfileStackView: UIView {
     
     private func setupStackView() {
         //Задаю стэк "Ава + Имя"
-        let horizontalStack = UIStackView(arrangedSubviews: [avatarImage, nameLabel])
+        let horizontalStack = UIStackView(arrangedSubviews: [avatarImageView, nameLabel])
         horizontalStack.axis = .horizontal
         horizontalStack.distribution = .fill
         horizontalStack.spacing = 10
@@ -81,8 +81,8 @@ final class UserProfileStackView: UIView {
         verticalStack.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            avatarImage.widthAnchor.constraint(equalToConstant: 70),
-            avatarImage.heightAnchor.constraint(equalToConstant: 70),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 70),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 70),
             verticalStack.leadingAnchor.constraint(equalTo: leadingAnchor),
             verticalStack.trailingAnchor.constraint(equalTo: trailingAnchor),
             verticalStack.topAnchor.constraint(equalTo: topAnchor),
@@ -101,65 +101,43 @@ final class UserProfileStackView: UIView {
     }
 }
 
+//MARK: - Метод для обновления данных при переходе на ProfileViewController
 extension UserProfileStackView {
     func update(with profile: UserProfile) {
         nameLabel.text = profile.name
         userInfoText.text = profile.description
         websiteLabel.text = profile.website
         
-        if let url = URL(string: profile.avatar) {
-            avatarImage.kf.setImage(with: url, placeholder: UIImage(named: "Profile_Placeholder")) { [weak self] result in
-                switch result {
-                case .success(let value):
-                    print("Image: \(value.image). Got from: \(value.cacheType)")
-                    self?.onImageLoaded?(value.image)
-                case .failure(let error):
-                    print("Error: \(error)")
+        ImageCache.default.retrieveImage(forKey: "userAvatarImage", options: nil) { [weak self] result in
+            switch result {
+            case .success(let cacheResult):
+                if let cachedImage = cacheResult.image {
+                    self?.avatarImageView.image = cachedImage
+                    self?.onImageLoaded?(cachedImage)
+                } else {
+                    if let url = URL(string: profile.avatar) {
+                        self?.avatarImageView.kf.setImage(with: url, placeholder: UIImage(named: "Profile_Placeholder")) { result in
+                            switch result {
+                            case .success(let value):
+                                print("Image: \(value.image). Got from: \(value.cacheType)")
+                                self?.onImageLoaded?(value.image)
+                            case .failure(let error):
+                                print("Error: \(error)")
+                            }
+                        }
+                    }
                 }
+            case .failure(let error):
+                print("Error retrieving from cache: \(error)")
+                // Здесь можно добавить дополнительную логику, если что-то пойдет не так с кэшем.
             }
         }
     }
 }
 
 
-
-
-
-//let cache = ImageCache.default
-//cache.retrieveImage(forKey: "userAvatarImage", options: nil) { [weak self] result in
-//    switch result {
-//    case .success(let cacheResult):
-//        if let cachedImage = cacheResult.image {
-//            // Если изображение найдено в кэше (в памяти или на диске)
-//            self?.avatarImage.image = cachedImage
-//            self?.onImageLoaded?(cachedImage)
-//        }
-//    case .failure:
-//        if let url = URL(string: profile.avatar) {
-//            self?.avatarImage.kf.setImage(with: url, placeholder: UIImage(named: "Profile_Placeholder")) { result in
-//                switch result {
-//                case .success(let value):
-//                    print("Image: \(value.image). Got from: \(value.cacheType)")
-//                    self?.onImageLoaded?(value.image)
-//                    if value.cacheType == .none { // если изображение не из кэша, сохраняем его в кэше
-//                        cache.store(value.image, forKey: "userAvatarImage")
-//                    }
-//                case .failure(let error):
-//                    print("Error: \(error)")
-//                }
-//            }
-//        }
-//    }
-//}
-
-//if let url = URL(string: profile.avatar) {
-//    avatarImage.kf.setImage(with: url, placeholder: UIImage(named: "Profile_Placeholder")) { result in
-//        switch result {
-//        case .success(let value):
-//            print("Image: \(value.image). Got from: \(value.cacheType)")
-//
-//        case .failure(let error):
-//            print("Error: \(error)")
-//        }
-//    }
-//}
+extension UserProfileStackView {
+    func updateAvatarImage(_ newImage: UIImage) {
+        avatarImageView.image = newImage
+    }
+}

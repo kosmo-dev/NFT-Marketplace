@@ -7,6 +7,7 @@
 
 import UIKit
 import ProgressHUD
+import Kingfisher
 
 protocol ProfileEditViewProtocol: AnyObject {
     func showLoadingState()
@@ -15,9 +16,11 @@ protocol ProfileEditViewProtocol: AnyObject {
     func profileUpdateSuccessful()
 }
 
+protocol ProfileEditViewControllerDelegate: AnyObject {
+    func didUpdateAvatar(_ newAvatar: UIImage)
+}
+
 final class ProfileEditViewController: UIViewController {
-    
-    var presenter: ProfileEditPresenterProtocol?
     
     private lazy var doneButton: UIButton = {
         let button = UIButton(type: .system)
@@ -52,12 +55,19 @@ final class ProfileEditViewController: UIViewController {
         return stack
     }()
     
+    var presenter: ProfileEditPresenterProtocol?
+    weak var delegate: ProfileEditViewControllerDelegate?
+    
+    
     var currentUserProfile: UserProfile? {
         didSet {
             updateUIWithProfile()
         }
     }
     
+    var updatedAvatar: UIImage?
+    
+    //MARK: -Initializer
     init(presenter: ProfileEditPresenterProtocol?, image: UIImage?) {
         self.presenter = presenter
         self.userImage = image
@@ -118,8 +128,10 @@ final class ProfileEditViewController: UIViewController {
         let description = descriptionStackView.getTextContent()
         let website = websiteStackView.getTextContent()
         presenter?.updateProfile(name: name, description: description, website: website)
+        if let avatar = updatedAvatar {
+             delegate?.didUpdateAvatar(avatar)
+         }
         self.dismiss(animated: true, completion: nil)
-
     }
     
     @objc func dismissKeyboard() {
@@ -128,6 +140,7 @@ final class ProfileEditViewController: UIViewController {
     
 }
 
+//MARK: -UIImagePickerControllerDelegate
 extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func openImagePicker() {
@@ -141,6 +154,7 @@ extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigati
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             profileAvatarView.updateImage(selectedImage)
+            updatedAvatar = selectedImage
         }
         dismiss(animated: true, completion: nil)
     }
@@ -171,5 +185,11 @@ extension ProfileEditViewController: ProfileEditViewProtocol {
     
     func profileUpdateSuccessful() {
         ProgressHUD.showSucceed("Профиль успешно обновлен", delay: 2.0)
+        
+        let cache = ImageCache.default
+        if let newAvatar = updatedAvatar {
+            cache.store(newAvatar, forKey: "userAvatarImage")
+        }
     }
 }
+

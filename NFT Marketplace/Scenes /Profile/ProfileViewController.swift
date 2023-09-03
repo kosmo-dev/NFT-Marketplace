@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol ProfileViewProtocol: AnyObject {
     func updateUI(with profile: UserProfile)
@@ -17,7 +18,6 @@ protocol ProfileViewProtocol: AnyObject {
 }
 
 final class ProfileViewController: UIViewController {
-    
     //MARK: - Private Properties
     private var presenter: ProfilePresenterProtocol?
     private var userProfileStackView: UserProfileStackView!
@@ -25,7 +25,6 @@ final class ProfileViewController: UIViewController {
     
     private var currentAvatarImage: UIImage?
     
-
     init(presenter: ProfilePresenterProtocol?) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -43,7 +42,6 @@ final class ProfileViewController: UIViewController {
         
         setupNavigationBar()
         setupViews()
-      
     }
     
     private func setupNavigationBar() {
@@ -74,13 +72,11 @@ final class ProfileViewController: UIViewController {
             profileButtonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             profileButtonsStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
-        
     }
     
     @objc func rightButtonTapped() {
         navigateToEditProfileScreen()
     }
-
 }
 
 //MARK: -ProfileViewProtocol
@@ -88,6 +84,7 @@ extension ProfileViewController: ProfileViewProtocol {
     func updateUI(with profile: UserProfile) {
         userProfileStackView.update(with: profile)
         userProfileStackView.onImageLoaded = { [weak self] image in
+            guard self?.currentAvatarImage != image else { return }
             self?.currentAvatarImage = image
         }
         profileButtonsStackView.update(with: profile)
@@ -99,20 +96,18 @@ extension ProfileViewController: ProfileViewProtocol {
     
     func navigateToEditProfileScreen() {
         let profileService = ProfileService()
-        
-        // Шаг 1: Создаем ProfileEditViewController, но без презентера.
+        //Создаем ProfileEditViewController без презентера.
         let editProfileVC = ProfileEditViewController(presenter: nil, image: currentAvatarImage)
-        
-        // Шаг 2: Создаем ProfileEditPresenter, используя ProfileEditViewController в качестве view.
+        editProfileVC.delegate = self
+        //Создаем ProfileEditPresenter, используя ProfileEditViewController в качестве view.
         let editProfilePresenter = ProfileEditPresenter(view: editProfileVC, profileService: profileService)
         editProfilePresenter.delegate = self
-        // Шаг 3: Устанавливаем презентер для ProfileEditViewController.
+        //Устанавливаем презентер для ProfileEditViewController.
         editProfileVC.presenter = editProfilePresenter
         editProfileVC.currentUserProfile = self.presenter?.currentUserProfile
         editProfileVC.modalPresentationStyle = .pageSheet
         present(editProfileVC, animated: true, completion: nil)
     }
-
     
     func navigateToMyNFTsScreen() {
         
@@ -132,3 +127,12 @@ extension ProfileViewController: ProfileEditPresenterDelegate {
         self.updateUI(with: profile)
     }
 }
+
+    extension ProfileViewController: ProfileEditViewControllerDelegate {
+        func didUpdateAvatar(_ newAvatar: UIImage) {
+            self.userProfileStackView.updateAvatarImage(newAvatar)
+            let cache = ImageCache.default
+            cache.store(newAvatar, forKey: "userAvatarImage")
+            self.currentAvatarImage = newAvatar
+        }
+    }
