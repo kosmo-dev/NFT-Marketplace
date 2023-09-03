@@ -50,7 +50,7 @@ final class ProfileEditUserPicture: UIView {
     }()
     
     init(frame: CGRect, image: UIImage?, text: String) {
-        super.init(frame: frame) 
+        super.init(frame: frame)
         imageView.image = image
         label.text = text
         setupLayout()

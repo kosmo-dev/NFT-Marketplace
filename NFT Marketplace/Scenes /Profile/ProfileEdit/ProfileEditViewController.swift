@@ -186,10 +186,6 @@ extension ProfileEditViewController: ProfileEditViewProtocol {
     func profileUpdateSuccessful() {
         ProgressHUD.showSucceed("Профиль успешно обновлен", delay: 2.0)
         
-        let cache = ImageCache.default
-        if let newAvatar = updatedAvatar {
-            cache.store(newAvatar, forKey: "userAvatarImage")
-        }
     }
 }
 
