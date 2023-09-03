@@ -28,20 +28,20 @@ class ProfileEditStackView: UIStackView {
         
         textView.layer.cornerRadius = 8
         textView.clipsToBounds = true
-
+        
         // Устанавил отступы по краям
         textView.textContainerInset = UIEdgeInsets(top: 11, left: 16, bottom: 11, right: 16)
         
         // Создание панели с кнопкой "Готово" для textView
-         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
-         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-         let doneButton = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(dismissKeyboard))
-         toolBar.setItems([flexibleSpace, doneButton], animated: false)
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(dismissKeyboard))
+        toolBar.setItems([flexibleSpace, doneButton], animated: false)
         textView.inputAccessoryView = toolBar
         
         return textView
     }()
-
+    
     // Инициализация со значениями
     init(labelText: String, textContent: String) {
         super.init(frame: .zero)
@@ -51,7 +51,7 @@ class ProfileEditStackView: UIStackView {
         
         setupViews()
     }
-
+    
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

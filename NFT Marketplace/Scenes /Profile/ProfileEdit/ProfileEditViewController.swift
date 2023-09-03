@@ -50,7 +50,7 @@ final class ProfileEditViewController: UIViewController {
     }()
     
     private var websiteStackView: ProfileEditStackView = {
-       let stack = ProfileEditStackView(labelText: "Сайт", textContent: "Введите ваш Веб-сайт")
+        let stack = ProfileEditStackView(labelText: "Сайт", textContent: "Введите ваш Веб-сайт")
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -84,8 +84,8 @@ final class ProfileEditViewController: UIViewController {
         profileAvatarView.delegate = self
         setupLayout()
         // Добавляем распознаватель тапов для закрытия клавиатуры
-         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-         view.addGestureRecognizer(tapGesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
     
     private func setupLayout() {
@@ -129,8 +129,8 @@ final class ProfileEditViewController: UIViewController {
         let website = websiteStackView.getTextContent()
         presenter?.updateProfile(name: name, description: description, website: website)
         if let avatar = updatedAvatar {
-             delegate?.didUpdateAvatar(avatar)
-         }
+            delegate?.didUpdateAvatar(avatar)
+        }
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -144,7 +144,7 @@ final class ProfileEditViewController: UIViewController {
 extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func openImagePicker() {
-     let imagePickerController = UIImagePickerController()
+        let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         //MARK: -Depricated in future
         imagePickerController.sourceType = .photoLibrary

@@ -48,7 +48,7 @@ final class ProfileEditUserPicture: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-        
+    
     init(frame: CGRect, image: UIImage?, text: String) {
         super.init(frame: frame) 
         imageView.image = image

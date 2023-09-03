@@ -8,6 +8,10 @@
 import UIKit
 import Kingfisher
 
+protocol UserProfileStackViewDelegate: AnyObject {
+    func userProfileStackViewDidTapWebsite(_ stackView: UserProfileStackView, url: URL)
+}
+
 final class UserProfileStackView: UIView {
     
     //MARK: - Computered Properties
@@ -51,6 +55,7 @@ final class UserProfileStackView: UIView {
     }()
     
     var onImageLoaded: ((UIImage) -> Void)?
+    weak var delegate: UserProfileStackViewDelegate?
     
     //MARK: - Initiliazers
     override init(frame: CGRect) {
@@ -95,8 +100,8 @@ final class UserProfileStackView: UIView {
     }
     
     @objc func tapUserWebsite() {
-        if let websiteURL = URL(string: websiteLabel.text ?? "") {
-            UIApplication.shared.open(websiteURL)
+        if let websiteString = websiteLabel.text, let websiteURL = URL(string: websiteString) {
+            delegate?.userProfileStackViewDidTapWebsite(self, url: websiteURL)
         }
     }
 }

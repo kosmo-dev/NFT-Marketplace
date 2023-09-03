@@ -43,7 +43,7 @@ final class ProfileButtonsStackView: UIView {
         [userNFTButton, userFavoritesNFTButton, aboutDeveloperButton].forEach {
             buttonsStackView.addArrangedSubview($0)
         }
-
+        
         buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([

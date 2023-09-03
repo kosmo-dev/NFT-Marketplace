@@ -44,7 +44,7 @@ class ProfilePresenter: ProfilePresenterProtocol {
             }
         }
     }
-
+    
     
     
     func didTapEditProfile() {
@@ -62,7 +62,7 @@ class ProfilePresenter: ProfilePresenterProtocol {
     func didTapAboutDeveloper() {
         
     }
-
+    
     
 }
 

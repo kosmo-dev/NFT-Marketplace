@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import SafariServices
 
 protocol ProfileViewProtocol: AnyObject {
     func updateUI(with profile: UserProfile)
@@ -37,7 +38,7 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .whiteDayNight
-
+        
         presenter?.viewDidLoad()
         
         setupNavigationBar()
@@ -55,6 +56,7 @@ final class ProfileViewController: UIViewController {
     private func setupViews() {
         userProfileStackView = UserProfileStackView()
         profileButtonsStackView = ProfileButtonsStackView()
+        userProfileStackView.delegate = self
         
         view.addSubview(userProfileStackView)
         view.addSubview(profileButtonsStackView)
@@ -128,11 +130,18 @@ extension ProfileViewController: ProfileEditPresenterDelegate {
     }
 }
 
-    extension ProfileViewController: ProfileEditViewControllerDelegate {
-        func didUpdateAvatar(_ newAvatar: UIImage) {
-            self.userProfileStackView.updateAvatarImage(newAvatar)
-            let cache = ImageCache.default
-            cache.store(newAvatar, forKey: "userAvatarImage")
-            self.currentAvatarImage = newAvatar
-        }
+extension ProfileViewController: ProfileEditViewControllerDelegate {
+    func didUpdateAvatar(_ newAvatar: UIImage) {
+        self.userProfileStackView.updateAvatarImage(newAvatar)
+        let cache = ImageCache.default
+        cache.store(newAvatar, forKey: "userAvatarImage")
+        self.currentAvatarImage = newAvatar
     }
+}
+
+extension ProfileViewController: UserProfileStackViewDelegate {
+    func userProfileStackViewDidTapWebsite(_ stackView: UserProfileStackView, url: URL) {
+        let safaryVC = SFSafariViewController(url: url)
+        self.present(safaryVC, animated: true, completion: nil)
+    }
+}
