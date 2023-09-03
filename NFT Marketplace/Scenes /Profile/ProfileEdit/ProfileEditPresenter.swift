@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ProfileEditPresenterProtocol: AnyObject {
     func updateProfile(name: String?, description: String?, website: String?)
@@ -39,7 +40,6 @@ final class ProfileEditPresenter: ProfileEditPresenterProtocol {
                 case .success(let profile):
                     self?.delegate?.profileDidUpdate(profile)
                     self?.view?.profileUpdateSuccessful()
-//                    self?.view?.hideLoadingState()
                 case .failure(let error):
                     self?.view?.displayError(error)
                     self?.view?.hideLoadingState()

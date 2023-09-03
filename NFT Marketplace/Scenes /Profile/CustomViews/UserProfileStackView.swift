@@ -108,11 +108,11 @@ extension UserProfileStackView {
         websiteLabel.text = profile.website
         
         if let url = URL(string: profile.avatar) {
-            avatarImage.kf.setImage(with: url, placeholder: UIImage(named: "Profile_Placeholder")) { result in
+            avatarImage.kf.setImage(with: url, placeholder: UIImage(named: "Profile_Placeholder")) { [weak self] result in
                 switch result {
                 case .success(let value):
                     print("Image: \(value.image). Got from: \(value.cacheType)")
-                    self.onImageLoaded?(value.image)
+                    self?.onImageLoaded?(value.image)
                 case .failure(let error):
                     print("Error: \(error)")
                 }
@@ -120,3 +120,46 @@ extension UserProfileStackView {
         }
     }
 }
+
+
+
+
+
+//let cache = ImageCache.default
+//cache.retrieveImage(forKey: "userAvatarImage", options: nil) { [weak self] result in
+//    switch result {
+//    case .success(let cacheResult):
+//        if let cachedImage = cacheResult.image {
+//            // Если изображение найдено в кэше (в памяти или на диске)
+//            self?.avatarImage.image = cachedImage
+//            self?.onImageLoaded?(cachedImage)
+//        }
+//    case .failure:
+//        if let url = URL(string: profile.avatar) {
+//            self?.avatarImage.kf.setImage(with: url, placeholder: UIImage(named: "Profile_Placeholder")) { result in
+//                switch result {
+//                case .success(let value):
+//                    print("Image: \(value.image). Got from: \(value.cacheType)")
+//                    self?.onImageLoaded?(value.image)
+//                    if value.cacheType == .none { // если изображение не из кэша, сохраняем его в кэше
+//                        cache.store(value.image, forKey: "userAvatarImage")
+//                    }
+//                case .failure(let error):
+//                    print("Error: \(error)")
+//                }
+//            }
+//        }
+//    }
+//}
+
+//if let url = URL(string: profile.avatar) {
+//    avatarImage.kf.setImage(with: url, placeholder: UIImage(named: "Profile_Placeholder")) { result in
+//        switch result {
+//        case .success(let value):
+//            print("Image: \(value.image). Got from: \(value.cacheType)")
+//
+//        case .failure(let error):
+//            print("Error: \(error)")
+//        }
+//    }
+//}

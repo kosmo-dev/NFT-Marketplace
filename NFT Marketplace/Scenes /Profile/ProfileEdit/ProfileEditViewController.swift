@@ -68,14 +68,10 @@ final class ProfileEditViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .whiteDayNight
-        
         profileAvatarView.delegate = self
-        
         setupLayout()
         // Добавляем распознаватель тапов для закрытия клавиатуры
          let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -176,6 +172,4 @@ extension ProfileEditViewController: ProfileEditViewProtocol {
     func profileUpdateSuccessful() {
         ProgressHUD.showSucceed("Профиль успешно обновлен", delay: 2.0)
     }
-    
-    
 }
