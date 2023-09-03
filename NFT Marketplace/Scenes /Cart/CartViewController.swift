@@ -161,7 +161,7 @@ final class CartViewController: UIViewController {
             toPaymentButton.topAnchor.constraint(equalTo: payBackroundView.topAnchor, constant: padding),
             toPaymentButton.trailingAnchor.constraint(equalTo: payBackroundView.trailingAnchor, constant: -padding),
             toPaymentButton.bottomAnchor.constraint(equalTo: payBackroundView.bottomAnchor, constant: -padding),
-            toPaymentButton.leadingAnchor.constraint(equalTo: totalPriceLabel.trailingAnchor, constant: 24),
+            toPaymentButton.leadingAnchor.constraint(equalTo: totalPriceLabel.trailingAnchor, constant: padding * 1.5),
 
             emptyPlaceholderLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             emptyPlaceholderLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)

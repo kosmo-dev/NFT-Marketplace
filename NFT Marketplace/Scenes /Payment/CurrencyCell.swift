@@ -75,16 +75,23 @@ final class CurrencyCell: UICollectionViewCell, ReuseIdentifying {
             background.trailingAnchor.constraint(equalTo: trailingAnchor),
             background.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-            currencyImage.topAnchor.constraint(equalTo: background.topAnchor, constant: 5),
-            currencyImage.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 12),
-            currencyImage.bottomAnchor.constraint(equalTo: background.bottomAnchor, constant: -5),
+            currencyImage.topAnchor.constraint(equalTo: background.topAnchor, constant: Constants.imageOffset),
+            currencyImage.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: Constants.defaultLeadingOffset * 3),
+            currencyImage.bottomAnchor.constraint(equalTo: background.bottomAnchor, constant: -Constants.imageOffset),
             currencyImage.widthAnchor.constraint(equalTo: currencyImage.heightAnchor),
 
             title.topAnchor.constraint(equalTo: currencyImage.topAnchor),
-            title.leadingAnchor.constraint(equalTo: currencyImage.trailingAnchor, constant: 4),
+            title.leadingAnchor.constraint(equalTo: currencyImage.trailingAnchor, constant: Constants.defaultLeadingOffset),
 
-            ticker.leadingAnchor.constraint(equalTo: currencyImage.trailingAnchor, constant: 4),
+            ticker.leadingAnchor.constraint(equalTo: currencyImage.trailingAnchor, constant: Constants.defaultLeadingOffset),
             ticker.bottomAnchor.constraint(equalTo: currencyImage.bottomAnchor)
         ])
+    }
+}
+
+extension CurrencyCell {
+    private enum Constants {
+        static let imageOffset: CGFloat = 5
+        static let defaultLeadingOffset: CGFloat = 4
     }
 }
