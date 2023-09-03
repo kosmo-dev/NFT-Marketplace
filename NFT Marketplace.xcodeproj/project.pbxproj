@@ -51,6 +51,7 @@
 		92D0F14F2AA26E5E007D0EE9 /* ProfileEditUserPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F14E2AA26E5E007D0EE9 /* ProfileEditUserPicture.swift */; };
 		92D0F1522AA3628A007D0EE9 /* ProfileEditPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F1512AA3628A007D0EE9 /* ProfileEditPresenter.swift */; };
 		92D0F1542AA3910C007D0EE9 /* UploadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F1532AA3910C007D0EE9 /* UploadModel.swift */; };
+		92D0F15B2AA4DB2B007D0EE9 /* Декомп. Редактирования профиля.md in Resources */ = {isa = PBXBuildFile; fileRef = 92D0F15A2AA4DB2B007D0EE9 /* Декомп. Редактирования профиля.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,7 @@
 		92D0F14E2AA26E5E007D0EE9 /* ProfileEditUserPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditUserPicture.swift; sourceTree = "<group>"; };
 		92D0F1512AA3628A007D0EE9 /* ProfileEditPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditPresenter.swift; sourceTree = "<group>"; };
 		92D0F1532AA3910C007D0EE9 /* UploadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadModel.swift; sourceTree = "<group>"; };
+		92D0F15A2AA4DB2B007D0EE9 /* Декомп. Редактирования профиля.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Декомп. Редактирования профиля.md"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +242,7 @@
 		3F68069529CBBAF100B4F915 /* NFT Marketplace */ = {
 			isa = PBXGroup;
 			children = (
+				92D0F15A2AA4DB2B007D0EE9 /* Декомп. Редактирования профиля.md */,
 				928F6B452AA0C1F2003023DD /* Декомпозиция Профиля.md */,
 				3F68069629CBBAF100B4F915 /* AppDelegate.swift */,
 				3F68069829CBBAF100B4F915 /* SceneDelegate.swift */,
@@ -518,6 +521,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92D0F15B2AA4DB2B007D0EE9 /* Декомп. Редактирования профиля.md in Resources */,
 				3F6806A329CBBAF200B4F915 /* LaunchScreen.storyboard in Resources */,
 				928F6B462AA0C1F2003023DD /* Декомпозиция Профиля.md in Resources */,
 				3F6806A029CBBAF200B4F915 /* Assets.xcassets in Resources */,
