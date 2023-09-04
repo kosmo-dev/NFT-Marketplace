@@ -32,9 +32,9 @@ final class ProfileButtonsStackView: UIView {
     //MARK: - Private Methods
     ///Временный метод для начальной настройки Вью
     private func setupButtons() {
-        userNFTButton.setText("Мои NFT (0)")
-        userFavoritesNFTButton.setText("Избранные NFT (0)")
-        aboutDeveloperButton.setText("О разработчике")
+        userNFTButton.setText(S.ProfileButtonsStackView.myNFTLabel + " " + "(0)")
+        userFavoritesNFTButton.setText(S.ProfileButtonsStackView.favoritesNFTLabel + " " + "(0)")
+        aboutDeveloperButton.setText(S.ProfileButtonsStackView.aboutDeveloperLabel)
     }
     
     private func setupButtonsStackView() {
@@ -66,7 +66,9 @@ extension ProfileButtonsStackView {
     func update(with profile: UserProfile) {
         let myNFTCount = profile.nfts.count
         let favouritesCount = profile.likes.count
-        
-        setButtonText(button1Text: "Мои NFT", button2Text: "Избранные NFT", button3Text: "О разработчике", counts: [myNFTCount, favouritesCount])
+        setButtonText(button1Text: S.ProfileButtonsStackView.myNFTLabel,
+                      button2Text: S.ProfileButtonsStackView.favoritesNFTLabel,
+                      button3Text: S.ProfileButtonsStackView.aboutDeveloperLabel,
+                      counts: [myNFTCount, favouritesCount])
     }
 }

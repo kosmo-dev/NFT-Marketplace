@@ -29,7 +29,7 @@ final class UserProfileStackView: UIView {
     let nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.font = UIFont.boldSystemFont(ofSize: 22)
-        nameLabel.text = "Имя Пользователя"
+        nameLabel.text = S.UserProfileStackView.userNameLabel
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         return nameLabel
     }()
@@ -37,7 +37,7 @@ final class UserProfileStackView: UIView {
     let userInfoText: UILabel = {
         let userInfo = UILabel()
         userInfo.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        userInfo.text = "Это информация о пользователе. Здесь может быть его биография, интересы или другая полезная информация."
+        userInfo.text = S.UserProfileStackView.userInfoLabel
         userInfo.textAlignment = .left
         userInfo.numberOfLines = 0
         userInfo.translatesAutoresizingMaskIntoConstraints = false
@@ -48,6 +48,7 @@ final class UserProfileStackView: UIView {
     let websiteLabel: UILabel = {
         let label = UILabel()
         label.isUserInteractionEnabled = true
+        label.text = S.UserProfileStackView.websiteLabel
         label.textColor = .blueUni
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false

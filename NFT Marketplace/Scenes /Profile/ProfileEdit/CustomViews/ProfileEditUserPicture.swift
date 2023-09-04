@@ -39,6 +39,7 @@ final class ProfileEditUserPicture: UIView {
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 10, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .whiteUni
         return label
     }()
     
@@ -93,7 +94,6 @@ final class ProfileEditUserPicture: UIView {
     }
     
     @objc func avatarImageTap() {
-        print("Привет")
         delegate?.didTapTapOnImage()
     }
     

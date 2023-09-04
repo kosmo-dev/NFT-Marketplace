@@ -24,9 +24,9 @@ class ProfileEditStackView: UIStackView {
         textView.textColor = .blackDayNight
         textView.font = UIFont.systemFont(ofSize: 17)
         textView.isScrollEnabled = false // чтобы textView изменял свой размер в зависимости от содержимого
-        textView.text = "Пример текста"
+        textView.text = ""
         
-        textView.layer.cornerRadius = 8
+        textView.layer.cornerRadius = 12
         textView.clipsToBounds = true
         
         // Устанавил отступы по краям
@@ -35,7 +35,8 @@ class ProfileEditStackView: UIStackView {
         // Создание панели с кнопкой "Готово" для textView
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(dismissKeyboard))
+        let doneButton = UIBarButtonItem(title: S.ProfileEditStackView.keyboardDoneButton,
+                                         style: .done, target: self, action: #selector(dismissKeyboard))
         toolBar.setItems([flexibleSpace, doneButton], animated: false)
         textView.inputAccessoryView = toolBar
         
@@ -62,7 +63,7 @@ class ProfileEditStackView: UIStackView {
         addArrangedSubview(textView)
         
         axis = .vertical
-        spacing = 5
+        spacing = 8
     }
     
     func getTextContent() -> String? {

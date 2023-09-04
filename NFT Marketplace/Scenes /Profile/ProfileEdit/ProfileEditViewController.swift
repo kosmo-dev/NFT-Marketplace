@@ -34,23 +34,26 @@ final class ProfileEditViewController: UIViewController {
     var userImage: UIImage?
     
     private lazy var profileAvatarView: ProfileEditUserPicture = {
-        return ProfileEditUserPicture(frame: CGRect(x: 0, y: 0, width: 70, height: 70), image: userImage ?? UIImage(named: "Profile_placeholder"), text: "Cменить\nфото")
+        return ProfileEditUserPicture(frame: CGRect(x: 0, y: 0, width: 70, height: 70), image: userImage ?? UIImage(named: "Profile_placeholder"), text: S.ProfileEditVC.avatarLabel)
     }()
     
     private lazy var nameStackView: ProfileEditStackView = {
-        let stack = ProfileEditStackView(labelText: "Имя", textContent: "Введите ваше имя")
+        let stack = ProfileEditStackView(labelText: S.ProfileEditVC.nameStackViewLabel,
+                                         textContent: S.ProfileEditVC.nameStackViewContent)
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
     
     private var descriptionStackView: ProfileEditStackView = {
-        let stack = ProfileEditStackView(labelText: "Описание", textContent: "Введите ваше описание")
+        let stack = ProfileEditStackView(labelText: S.ProfileEditVC.descriptionStackViewLabel,
+                                         textContent: S.ProfileEditVC.descriptionStackViewContent)
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
     
     private var websiteStackView: ProfileEditStackView = {
-        let stack = ProfileEditStackView(labelText: "Сайт", textContent: "Введите ваш Веб-сайт")
+        let stack = ProfileEditStackView(labelText: S.ProfileEditVC.websiteStackViewLabel,
+                                         textContent: S.ProfileEditVC.websiteStackViewContent)
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -65,7 +68,7 @@ final class ProfileEditViewController: UIViewController {
         }
     }
     
-    var updatedAvatar: UIImage?
+    private var updatedAvatar: UIImage?
     
     //MARK: -Initializer
     init(presenter: ProfileEditPresenterProtocol?, image: UIImage?) {
@@ -89,11 +92,7 @@ final class ProfileEditViewController: UIViewController {
     }
     
     private func setupLayout() {
-        view.addSubview(doneButton)
-        view.addSubview(profileAvatarView)
-        view.addSubview(nameStackView)
-        view.addSubview(descriptionStackView)
-        view.addSubview(websiteStackView)
+        [doneButton, profileAvatarView, nameStackView, descriptionStackView, websiteStackView].forEach { view.addSubview($0) }
         profileAvatarView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -184,8 +183,7 @@ extension ProfileEditViewController: ProfileEditViewProtocol {
     }
     
     func profileUpdateSuccessful() {
-        ProgressHUD.showSucceed("Профиль успешно обновлен", delay: 2.0)
-        
+        ProgressHUD.showSucceed(S.ProfileEditVC.profileUpdatedSuccesfully, delay: 2.0)
     }
 }
 
