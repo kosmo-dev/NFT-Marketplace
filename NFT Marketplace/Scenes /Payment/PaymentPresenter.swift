@@ -8,7 +8,7 @@
 import UIKit
 import SafariServices
 
-protocol PaymentPresesnterProtocol {
+protocol PaymentPresenterProtocol {
     var currenciesCellModel: [CurrencyCellModel] { get }
     var viewController: PaymentViewControllerProtocol? { get set }
 
@@ -17,7 +17,7 @@ protocol PaymentPresesnterProtocol {
     func userAgreementButtonTapped()
 }
 
-final class PaymentPresenter: PaymentPresesnterProtocol {
+final class PaymentPresenter: PaymentPresenterProtocol {
     // MARK: - Public Properties
     weak var viewController: PaymentViewControllerProtocol?
     var currenciesCellModel: [CurrencyCellModel] = []

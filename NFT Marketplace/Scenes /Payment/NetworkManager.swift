@@ -12,7 +12,7 @@ protocol NetworkManagerProtocol {
     func cancelAllLoadTasks()
 }
 
-final class NetworkManager: NetworkManagerProtocol {
+final class NetworkManager {
     // MARK: - Private Properties
     private var networkClient: NetworkClient
     private var onGoingTasks: [String: NetworkTask] = [:]
@@ -24,7 +24,16 @@ final class NetworkManager: NetworkManagerProtocol {
         self.networkClient = networkClient
     }
 
-    // MARK: - Public Methods
+    // MARK: - Private Properties
+    private func shouldBreakTaskForId(_ id: String) -> Bool {
+        onGoingTasksQueue.sync {
+            onGoingTasks[id] != nil ? true : false
+        }
+    }
+}
+
+// MARK: - NetworkManagerProtocol
+extension NetworkManager: NetworkManagerProtocol {
     func send<T>(
         request: NetworkRequest,
         type: T.Type,
@@ -49,13 +58,6 @@ final class NetworkManager: NetworkManagerProtocol {
     func cancelAllLoadTasks() {
         onGoingTasksQueue.sync {
             onGoingTasks.forEach { $0.value.cancel() }
-        }
-    }
-
-    // MARK: - Private Properties
-    private func shouldBreakTaskForId(_ id: String) -> Bool {
-        onGoingTasksQueue.sync {
-            onGoingTasks[id] != nil ? true : false
         }
     }
 }

@@ -16,7 +16,6 @@ protocol PaymentViewControllerProtocol: AnyObject {
 }
 
 final class PaymentViewController: UIViewController {
-
     // MARK: - Private Properties
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCollectionViewLayout())
@@ -62,14 +61,14 @@ final class PaymentViewController: UIViewController {
         return userAgreementButton
     }()
 
-    private var presenter: PaymentPresesnterProtocol
+    private var presenter: PaymentPresenterProtocol
 
     private var payViewInitialBottomConstraint: NSLayoutConstraint?
     private var payViewFinalBottomConstraint: NSLayoutConstraint?
     private var payViewIsAddedToWindow: Bool = false
 
     // MARK: - Initializers
-    init(presenter: PaymentPresesnterProtocol) {
+    init(presenter: PaymentPresenterProtocol) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
         setupView()
@@ -82,9 +81,7 @@ final class PaymentViewController: UIViewController {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(CurrencyCell.self)
+        configureCollectionView()
         configureNavigationBar()
         presenter.viewController = self
         presenter.viewDidLoad()
@@ -118,6 +115,12 @@ final class PaymentViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         setupPayView()
+    }
+
+    private func configureCollectionView() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(CurrencyCell.self)
     }
 
     private func configureNavigationBar() {
