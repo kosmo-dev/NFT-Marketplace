@@ -40,6 +40,7 @@ final class UserDataService: UserDataProtocol {
     }
     
     func fetchUsers(completion: @escaping () -> Void) {
+        UIBlockingProgressHUD.show()
         networkClient.send(request: request, type: [UserElement].self) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else { return }
@@ -61,6 +62,7 @@ final class UserDataService: UserDataProtocol {
                 case .failure(let error):
                     print(error)
                 }
+                UIBlockingProgressHUD.dismiss()
             }
         }
     }

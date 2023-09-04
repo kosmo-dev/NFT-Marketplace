@@ -41,6 +41,7 @@
 		645E62E82AA1340600AD871D /* UserCardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645E62E72AA1340600AD871D /* UserCardPresenter.swift */; };
 		645E62EA2AA1342B00AD871D /* UserCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645E62E92AA1342B00AD871D /* UserCardService.swift */; };
 		64690AAD2AA2839A0033BAB6 /* UserWebsiteWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64690AAC2AA2839A0033BAB6 /* UserWebsiteWebView.swift */; };
+		64AAD07F2AA67E74003E9211 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AAD07E2AA67E74003E9211 /* UIBlockingProgressHUD.swift */; };
 		64BA8B862A9BF65F007BE1F3 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BA8B852A9BF65F007BE1F3 /* StatisticsViewController.swift */; };
 		64E1852F2A9BF95D004ACD0A /* StatisticsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E1852E2A9BF95D004ACD0A /* StatisticsCell.swift */; };
 		64E185412A9D3880004ACD0A /* StatisticsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E185402A9D3880004ACD0A /* StatisticsPresenter.swift */; };
@@ -103,6 +104,7 @@
 		645E62E72AA1340600AD871D /* UserCardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardPresenter.swift; sourceTree = "<group>"; };
 		645E62E92AA1342B00AD871D /* UserCardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardService.swift; sourceTree = "<group>"; };
 		64690AAC2AA2839A0033BAB6 /* UserWebsiteWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWebsiteWebView.swift; sourceTree = "<group>"; };
+		64AAD07E2AA67E74003E9211 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		64BA8B852A9BF65F007BE1F3 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		64E1852E2A9BF95D004ACD0A /* StatisticsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsCell.swift; sourceTree = "<group>"; };
 		64E185402A9D3880004ACD0A /* StatisticsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsPresenter.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				64E1852E2A9BF95D004ACD0A /* StatisticsCell.swift */,
 				64E185402A9D3880004ACD0A /* StatisticsPresenter.swift */,
 				64E185422A9D44F7004ACD0A /* UserDataService.swift */,
+				64AAD07E2AA67E74003E9211 /* UIBlockingProgressHUD.swift */,
 			);
 			path = StatisticsScreen;
 			sourceTree = "<group>";
@@ -574,6 +577,7 @@
 				3DEBDFE22A97D4C9001C7517 /* NFT.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
 				3DEBDFD42A97D17B001C7517 /* StarRatingView.swift in Sources */,
+				64AAD07F2AA67E74003E9211 /* UIBlockingProgressHUD.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
