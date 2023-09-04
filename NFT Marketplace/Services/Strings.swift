@@ -25,10 +25,12 @@ struct S {
         static let websiteStackViewLabel: String = "Сайт"
         static let websiteStackViewContent: String = "Введите Ваш Сайт"
         static let profileUpdatedSuccesfully: String = "Профиль успешно обновлен"
+        static let saveButton: String = "Сохранить"
     }
     
     struct ProfileEditStackView {
         static let keyboardDoneButton: String = "Готово"
+        static let keyboardResetButton: String = "Отменить ввод"
     }
     
     struct ProfileButtonsStackView {

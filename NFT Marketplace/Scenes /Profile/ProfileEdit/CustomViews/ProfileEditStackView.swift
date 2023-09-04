@@ -31,17 +31,10 @@ class ProfileEditStackView: UIStackView {
         
         // Устанавил отступы по краям
         textView.textContainerInset = UIEdgeInsets(top: 11, left: 16, bottom: 11, right: 16)
-        
-        // Создание панели с кнопкой "Готово" для textView
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: S.ProfileEditStackView.keyboardDoneButton,
-                                         style: .done, target: self, action: #selector(dismissKeyboard))
-        toolBar.setItems([flexibleSpace, doneButton], animated: false)
-        textView.inputAccessoryView = toolBar
-        
         return textView
     }()
+    
+    private var originalTextContent: String?
     
     // Инициализация со значениями
     init(labelText: String, textContent: String) {
@@ -49,7 +42,10 @@ class ProfileEditStackView: UIStackView {
         
         label.text = labelText
         textView.text = textContent
+        originalTextContent = textContent
         
+        textView.inputAccessoryView = setupKeyboardToolBar()
+
         setupViews()
     }
     
@@ -65,13 +61,29 @@ class ProfileEditStackView: UIStackView {
         axis = .vertical
         spacing = 8
     }
-    
+    //MARK: - Private Methods
+    private func setupKeyboardToolBar() -> UIToolbar {
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: S.ProfileEditStackView.keyboardDoneButton,
+                                         style: .done, target: self, action: #selector(dismissKeyboard))
+        let resetButton = UIBarButtonItem(title: S.ProfileEditStackView.keyboardResetButton,
+                                          style: .done, target: self, action: #selector(resetTextToOriginal))
+        toolBar.setItems([flexibleSpace, resetButton, doneButton], animated: false)
+        return toolBar
+    }
+    //MARK: - Public Methods
     func getTextContent() -> String? {
         return textView.text
     }
     
     func updateTextContent(_ text: String) {
         textView.text = text
+        originalTextContent = text
+    }
+    
+    @objc func resetTextToOriginal() {
+        textView.text = originalTextContent
     }
     
     @objc func dismissKeyboard() {

@@ -24,7 +24,7 @@ final class ProfileEditViewController: UIViewController {
     
     private lazy var doneButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Готово", for: .normal)
+        button.setTitle(S.ProfileEditVC.saveButton, for: .normal)
         button.tintColor = .blackDayNight
         button.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
