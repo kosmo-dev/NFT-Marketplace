@@ -33,4 +33,11 @@ struct TextStrings {
         static let payDescription = "Совершая покупку, вы соглашаетесь с условиями"
         static let userAgreementTitle = "Пользовательского соглашения"
     }
+
+    struct PaymentConfirmationViewController {
+        static let paymentConfirmed = "Успех! Оплата прошла, поздравляем с покупкой!"
+        static let paymentFailed = "Упс! Что-то пошло не так :( Попробуйте еще раз!"
+        static let returnButton = "Вернуться в каталог"
+        static let tryAgainButton = "Попробовать еще раз"
+    }
 }
