@@ -37,6 +37,10 @@ final class UserCardPresenter: UserCardDelegate {
         return self.userCardService?.userNFT() ?? ""
     }
     
+    func getUserImage() -> UIImageView {
+        return self.userCardService?.userImage() ?? UIImageView()
+    }
+    
     func webSiteView() -> UIViewController? {
         guard let user = userCardService?.user,
               let url = URL(string: user.website)

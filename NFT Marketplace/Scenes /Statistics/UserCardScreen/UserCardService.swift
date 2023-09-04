@@ -6,13 +6,14 @@
 //
 
 import UIKit
-import WebKit
 
 final class UserCardService {
     var user: UserElement?
+    let userAvatar: UIImageView?
     
-    init(user: UserElement) {
+    init(user: UserElement, userAvatar: UIImageView) {
         self.user = user
+        self.userAvatar = userAvatar
     }
     
     func userName() -> String {
@@ -26,5 +27,9 @@ final class UserCardService {
     func userNFT() -> String {
         let nftCount = user?.nfts.count
         return "\(nftCount ?? 0)"
+    }
+    
+    func userImage() -> UIImageView {
+        return userAvatar ?? UIImageView()
     }
 }

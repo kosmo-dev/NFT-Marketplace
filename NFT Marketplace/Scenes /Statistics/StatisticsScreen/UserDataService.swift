@@ -14,7 +14,6 @@ protocol UserDataProtocol {
     
     func fetchUsers(completion: @escaping () -> Void)
     func loadProfileImage(imageView: UIImageView, url: String)
-//    func downloadProfileImage(at index: Int, completion: @escaping (UIImage?) -> Void)
 }
 
 struct NFTRequest: NetworkRequest {
@@ -70,65 +69,13 @@ final class UserDataService: UserDataProtocol {
         guard let avatarURL = URL(string: url) else { return }
         imageView.kf.setImage(with: avatarURL) { result in
             switch result {
-            case .success(let imageResult):
+            case .success(_):
                 print("Image loaded for \(url)")
             case .failure(let error):
                 print(error)
             }
         }
      }
-//    func downloadProfileImage(at index: Int, completion: @escaping (UIImage?) -> Void) {
-//        var counter = 0
-//        for index in 0...page {
-//            let user = users[index]
-//            guard let avatarURL = URL(string: user.avatar) else { return }
-//
-//            let imageView = UIImageView()
-//            imageView.kf.setImage(with: avatarURL) { [weak self] result in
-//                guard let self else { return }
-//                switch result {
-//                case .success(let imageResult):
-//                    self.usersImages[user.avatar] = imageResult.image
-//                    DispatchQueue.global().async {
-//                        counter += 1
-//                        if counter == self.page {
-//                            completion(true)
-//                        }
-//                    }
-//                case .failure(let error):
-//                    print(error)
-//                }
-//            }
-//        }
-//    }
-    
-    
-    
-    
-    
-    
-    
-    //    func downloadProfileImage(at index: Int, completion: @escaping (UIImage?) -> Void) {
-    //        guard index >= 0 && index < users.count else {
-    //            completion(nil)
-    //            return
-    //        }
-    //
-    //        let user = users[index]
-    //        if let avatarURL = URL(string: user.avatar) {
-    //            let imageView = UIImageView()
-    //            imageView.kf.setImage(with: avatarURL) { result in
-    //                switch result {
-    //                case .success(let imageResult):
-    //                    completion(imageResult.image)
-    //                case .failure(_):
-    //                    completion(nil)
-    //                }
-    //            }
-    //        } else {
-    //            completion(nil)
-    //        }
-    //    }
 }
 
 enum SortDirection: String {

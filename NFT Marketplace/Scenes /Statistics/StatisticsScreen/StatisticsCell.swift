@@ -27,7 +27,6 @@ final class StatisticsCell: UITableViewCell, ReuseIdentifying {
     
     var avatarImage: UIImageView = {
         let avatarImage = UIImageView()
-        //        avatarImage.layer.cornerRadius = avatarImage.bounds.height / 2
         avatarImage.clipsToBounds = true
         avatarImage.translatesAutoresizingMaskIntoConstraints = false
         return avatarImage

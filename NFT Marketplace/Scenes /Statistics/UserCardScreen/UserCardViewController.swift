@@ -6,16 +6,16 @@
 //
 
 import UIKit
-import WebKit
 
 final class UserCardViewController: UIViewController {
     var presenter: UserCardPresenter?
     
     private let userAvatar: UIImageView = {
-        let userAvatar = UIImageView()
+        let userAvatar = UIImageView(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
+        userAvatar.clipsToBounds = true
+        userAvatar.image = UIImage(named: "UserPhoto")
         userAvatar.layer.cornerRadius = userAvatar.bounds.height / 2
         userAvatar.translatesAutoresizingMaskIntoConstraints = false
-        userAvatar.image = UIImage(named: "UserPhoto")
         return userAvatar
     }()
     
@@ -165,9 +165,6 @@ final class UserCardViewController: UIViewController {
         userName.text = presenter?.getUserName()
         userDescription.text = presenter?.getUserDescription()
         userCollectionsButton.setTitle("Коллекция NFT"+" (\(presenter?.getNFT() ?? ""))", for: .normal)
+        userAvatar.image = presenter?.getUserImage().image ?? UIImage()
     }
-}
-
-extension UserCardViewController: WKNavigationDelegate {
-    
 }

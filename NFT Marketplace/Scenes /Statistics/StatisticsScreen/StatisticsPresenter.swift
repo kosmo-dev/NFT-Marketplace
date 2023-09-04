@@ -12,7 +12,6 @@ protocol UserDataDelegate: AnyObject {
     var viewController: ViewControllerProtocol? { get set }
     
     func loadDataFromServer()
-//    func didLoadImageForUser(at index: Int, completion: @escaping (UIImage?) -> Void)
     func loadProfileImage(imageView: UIImageView, url: String)
     func usersCount() -> Int
     func user(at index: Int) -> UserElement?
@@ -34,12 +33,6 @@ final class StatisticsPresenter: UserDataDelegate {
         userDataService?.fetchUsers() { [weak self] in
             guard let self = self else { return }
             self.viewController?.reloadTableView()
-
-//            self.userDataService?.downloadProfileImage(at: index, completion: { completed in
-//                if completed {
-//                    self.viewController?.reloadTableView()
-//                }
-//            })
         }
     }
     
@@ -50,13 +43,6 @@ final class StatisticsPresenter: UserDataDelegate {
     func loadProfileImage(imageView: UIImageView, url: String) {
         userDataService?.loadProfileImage(imageView: imageView, url: url)
      }
-    
-//    func didLoadImageForUser(at index: Int, completion: @escaping (UIImage?) -> Void) {
-//        userDataService?.downloadProfileImage(at: index) { image in
-//            guard let image = image else { return }
-//            completion(image)
-//        }
-//    } 
     
     func usersCount() -> Int {
         return userDataService?.users.count ?? 0

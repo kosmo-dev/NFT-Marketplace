@@ -100,15 +100,19 @@ extension StatisticsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        guard let user = presenter.user(at: indexPath.row) else { fatalError() }
-        let model = UserCardService(user: user)
+        let cell: StatisticsCell = tableView.cellForRow(at: indexPath) as! StatisticsCell
+        let cellImage = cell.avatarImage
+        
+        guard let user = presenter.user(at: indexPath.row) else {
+            fatalError()
+        }
+        let model = UserCardService(user: user, userAvatar: cellImage)
         let presenter = UserCardPresenter(model: model)
         let userCardViewController = UserCardViewController()
         userCardViewController.presenter = presenter
         userCardViewController.modalPresentationStyle = .fullScreen
-        DispatchQueue.main.async {
-            self.present(userCardViewController, animated: true, completion: nil)
-        }
+ 
+        self.present(userCardViewController, animated: true, completion: nil)
     }
 }
 
@@ -127,9 +131,10 @@ extension StatisticsViewController: UITableViewDataSource {
         cell.selectedBackgroundView = selectedView
         
         guard let user = presenter.user(at: indexPath.row) else { return UITableViewCell() }
-//        let avatar = presenter.getAvatar(url: user.avatar) ?? UIImage()
+
         cell.updateCell(number: (indexPath.row + 1), avatar: UIImage(), name: user.name, rating: user.rating)
         presenter.loadProfileImage(imageView: cell.avatarImage, url: user.avatar)
+        
         return cell
     }
 }
