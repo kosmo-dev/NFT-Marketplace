@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol PaymentConfirmationViewControllerProtocol: AnyObject {
+    func configureElements(imageName: String, description: String, buttonText: String)
+}
+
 final class PaymentConfirmationViewController: UIViewController {
     // MARK: - Private Properties
     private let imageConfirmationView: UIImageView = {
@@ -19,6 +23,7 @@ final class PaymentConfirmationViewController: UIViewController {
         let descriptionTitle = UILabel()
         descriptionTitle.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         descriptionTitle.numberOfLines = 0
+        descriptionTitle.textAlignment = .center
         descriptionTitle.textColor = .blackDayNight
         descriptionTitle.translatesAutoresizingMaskIntoConstraints = false
         return descriptionTitle
@@ -30,11 +35,24 @@ final class PaymentConfirmationViewController: UIViewController {
         return button
     }()
 
+    private var presenter: PaymentConfirmationPresenter
+
+    // MARK: - Initiializers
+    init(presenter: PaymentConfirmationPresenter) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         configure()
+        presenter.viewController = self
     }
 
     // MARK: - Public Methods
@@ -69,5 +87,13 @@ final class PaymentConfirmationViewController: UIViewController {
     @objc private func buttonTapped() {
 
     }
+}
 
+// MARK: - PaymentConfirmationViewControllerProtocol
+extension PaymentConfirmationViewController: PaymentConfirmationViewControllerProtocol {
+    func configureElements(imageName: String, description: String, buttonText: String) {
+        imageConfirmationView.image = UIImage(named: imageName)
+        descriptionTitle.text = description
+        button.setTitle(buttonText, for: .normal)
+    }
 }

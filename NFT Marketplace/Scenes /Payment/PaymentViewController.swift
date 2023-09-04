@@ -223,6 +223,7 @@ final class PaymentViewController: UIViewController {
     }
 
     @objc private func payButtonTapped() {
+        presenter.payButtonTapped()
     }
 
     @objc private func userAgreementButtonTapped() {

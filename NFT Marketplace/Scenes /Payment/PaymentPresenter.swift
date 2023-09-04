@@ -15,6 +15,7 @@ protocol PaymentPresenterProtocol {
     func viewDidLoad()
     func didSelectItemAt(_ indexPath: IndexPath)
     func userAgreementButtonTapped()
+    func payButtonTapped()
 }
 
 final class PaymentPresenter: PaymentPresenterProtocol {
@@ -24,6 +25,8 @@ final class PaymentPresenter: PaymentPresenterProtocol {
 
     // MARK: - Private Properties
     private let networkManager: NetworkManagerProtocol
+    private var paymentManager: PaymentManagerProtocol
+    private let cartController: CartControllerProtocol
     private var currentState: PaymentViewState? {
         didSet {
             viewControllerShouldChangeView()
@@ -31,10 +34,17 @@ final class PaymentPresenter: PaymentPresenterProtocol {
     }
     private var currencies: [Currency] = []
     private var seletedItemIndexPath: IndexPath?
+    private var currencyId: Int? {
+        guard let seletedItemIndexPath else { return nil }
+        return Int(currencies[seletedItemIndexPath.row].id)
+    }
 
     // MARK: - Initializers
-    init(networkManager: NetworkManagerProtocol) {
+    init(networkManager: NetworkManagerProtocol, paymentManager: PaymentManagerProtocol, cartController: CartControllerProtocol) {
         self.networkManager = networkManager
+        self.paymentManager = paymentManager
+        self.cartController = cartController
+        self.paymentManager.delegate = self
     }
 
     // MARK: - Public Methods
@@ -53,6 +63,12 @@ final class PaymentPresenter: PaymentPresenterProtocol {
         guard let url = URL(string: "https://yandex.ru/legal/practicum_termsofuse/") else { return }
         let safariViewController = SFSafariViewController(url: url)
         viewController?.presentView(safariViewController)
+    }
+
+    func payButtonTapped() {
+        guard let currencyId else { return }
+        let nfts = getNFTSIds()
+        paymentManager.performPayment(nfts: nfts, currencyId: currencyId)
     }
 
     // MARK: - Private Methods
@@ -105,6 +121,14 @@ final class PaymentPresenter: PaymentPresenterProtocol {
             currenciesCellModel.append(model)
         }
     }
+
+    private func getNFTSIds() -> [String] {
+        var ids: [String] = []
+        for nft in cartController.cart {
+            ids.append(nft.id)
+        }
+        return ids
+    }
 }
 
 // MARK: - PaymentViewState
@@ -112,5 +136,26 @@ extension PaymentPresenter {
     enum PaymentViewState {
         case loading
         case loaded
+    }
+}
+
+// MARK: - PaymentManagerDelegate
+extension PaymentPresenter: PaymentManagerDelegate {
+    func paymentFinishedWithError(_ error: Error) {
+        DispatchQueue.main.async { [weak self] in
+            let presenter = PaymentConfirmationPresenter(configuration: .success)
+            let confirmationViewController = PaymentConfirmationViewController(presenter: presenter)
+            confirmationViewController.modalPresentationStyle = .fullScreen
+            self?.viewController?.presentView(confirmationViewController)
+        }
+    }
+
+    func paymentFinishedWithSuccess() {
+        DispatchQueue.main.async { [weak self] in
+            let presenter = PaymentConfirmationPresenter(configuration: .failure)
+            let confirmationViewController = PaymentConfirmationViewController(presenter: presenter)
+            confirmationViewController.modalPresentationStyle = .fullScreen
+            self?.viewController?.presentView(confirmationViewController)
+        }
     }
 }

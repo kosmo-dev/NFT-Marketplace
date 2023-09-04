@@ -13,7 +13,9 @@ final class PaymentPresenterTests: XCTestCase {
     func testViewDidLoadChangesStateToLoading() {
         // Given
         let networkManager = NetworkManagerStub()
-        let presenter = PaymentPresenter(networkManager: networkManager)
+        let paymentManager = PaymentManagerStub()
+        let cartController = CartControllerStub()
+        let presenter = PaymentPresenter(networkManager: networkManager, paymentManager: paymentManager, cartController: cartController)
         let viewController = PaymentViewControllerSpy()
         presenter.viewController = viewController
 
@@ -27,7 +29,9 @@ final class PaymentPresenterTests: XCTestCase {
     func testSuccessfulFetchDataChangesStateToLoaded() {
         // Given
         let networkManager = NetworkManagerStub()
-        let presenter = PaymentPresenter(networkManager: networkManager)
+        let paymentManager = PaymentManagerStub()
+        let cartController = CartControllerStub()
+        let presenter = PaymentPresenter(networkManager: networkManager, paymentManager: paymentManager, cartController: cartController)
         let viewController = PaymentViewControllerSpy()
         presenter.viewController = viewController
         let expectation = self.expectation(description: "wait for async operation")
