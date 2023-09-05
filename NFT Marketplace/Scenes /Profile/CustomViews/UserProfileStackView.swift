@@ -13,9 +13,9 @@ protocol UserProfileStackViewDelegate: AnyObject {
 }
 
 final class UserProfileStackView: UIView {
-    
-    //MARK: - Computered Properties
-    
+
+    // MARK: - Computered Properties
+
     let avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
@@ -25,67 +25,66 @@ final class UserProfileStackView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     let nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.font = UIFont.boldSystemFont(ofSize: 22)
-        nameLabel.text = S.UserProfileStackView.userNameLabel
+        nameLabel.text = TextLabels.UserProfileStackView.userNameLabel
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         return nameLabel
     }()
-    
+
     let userInfoText: UILabel = {
         let userInfo = UILabel()
         userInfo.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        userInfo.text = S.UserProfileStackView.userInfoLabel
+        userInfo.text = TextLabels.UserProfileStackView.userInfoLabel
         userInfo.textAlignment = .left
         userInfo.numberOfLines = 0
         userInfo.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return userInfo
     }()
-    
+
     let websiteLabel: UILabel = {
         let label = UILabel()
         label.isUserInteractionEnabled = true
-        label.text = S.UserProfileStackView.websiteLabel
+        label.text = TextLabels.UserProfileStackView.websiteLabel
         label.textColor = .blueUni
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     var onImageLoaded: ((UIImage) -> Void)?
     weak var delegate: UserProfileStackViewDelegate?
-    
-    //MARK: - Initiliazers
+
+    // MARK: - Initiliazers
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         setupStackView()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func setupStackView() {
-        //Задаю стэк "Ава + Имя"
+        // Задаю стэк "Ава + Имя"
         let horizontalStack = UIStackView(arrangedSubviews: [avatarImageView, nameLabel])
         horizontalStack.axis = .horizontal
         horizontalStack.distribution = .fill
         horizontalStack.spacing = 10
-        
+
         let verticalStack = UIStackView(arrangedSubviews: [horizontalStack, userInfoText, websiteLabel])
         verticalStack.axis = .vertical
         verticalStack.distribution = .fill
         verticalStack.spacing = 10
         verticalStack.alignment = .top
-        
-        
+
         addSubview(verticalStack)
         verticalStack.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             avatarImageView.widthAnchor.constraint(equalToConstant: 70),
             avatarImageView.heightAnchor.constraint(equalToConstant: 70),
@@ -94,12 +93,12 @@ final class UserProfileStackView: UIView {
             verticalStack.topAnchor.constraint(equalTo: topAnchor),
             verticalStack.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-        
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapUserWebsite))
         websiteLabel.addGestureRecognizer(tapGesture)
-        
+
     }
-    
+
     @objc func tapUserWebsite() {
         if let websiteString = websiteLabel.text, let websiteURL = URL(string: websiteString) {
             delegate?.userProfileStackViewDidTapWebsite(self, url: websiteURL)
@@ -107,13 +106,13 @@ final class UserProfileStackView: UIView {
     }
 }
 
-//MARK: - Метод для обновления данных при переходе на ProfileViewController
+// MARK: - Метод для обновления данных при переходе на ProfileViewController
 extension UserProfileStackView {
     func update(with profile: UserProfile) {
         nameLabel.text = profile.name
         userInfoText.text = profile.description
         websiteLabel.text = profile.website
-        
+
         ImageCache.default.retrieveImage(forKey: "userAvatarImage", options: nil) { [weak self] result in
             switch result {
             case .success(let cacheResult):
@@ -122,7 +121,8 @@ extension UserProfileStackView {
                     self?.onImageLoaded?(cachedImage)
                 } else {
                     if let url = URL(string: profile.avatar) {
-                        self?.avatarImageView.kf.setImage(with: url, placeholder: UIImage(named: "Profile_Placeholder")) { result in
+                        self?.avatarImageView.kf.setImage(with: url,
+                                                          placeholder: UIImage(named: "profilePlaceholder")) { result in
                             switch result {
                             case .success(let value):
                                 print("Image: \(value.image). Got from: \(value.cacheType)")
@@ -140,7 +140,6 @@ extension UserProfileStackView {
         }
     }
 }
-
 
 extension UserProfileStackView {
     func updateAvatarImage(_ newImage: UIImage) {

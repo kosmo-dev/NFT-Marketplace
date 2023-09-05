@@ -13,4 +13,3 @@ struct UploadModel: Encodable {
     let website: String?
     let likes: [String]?
 }
-

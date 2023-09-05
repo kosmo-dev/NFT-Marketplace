@@ -21,75 +21,75 @@ protocol ProfileEditViewControllerDelegate: AnyObject {
 }
 
 final class ProfileEditViewController: UIViewController {
-    
+
     private lazy var doneButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle(S.ProfileEditVC.saveButton, for: .normal)
+        button.setTitle(TextLabels.ProfileEditVC.saveButton, for: .normal)
         button.tintColor = .blackDayNight
         button.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     var userImage: UIImage?
-    
+
     private lazy var profileAvatarView: ProfileEditUserPicture = {
-        return ProfileEditUserPicture(frame: CGRect(x: 0, y: 0, width: 70, height: 70), image: userImage ?? UIImage(named: "Profile_placeholder"), text: S.ProfileEditVC.avatarLabel)
+        return ProfileEditUserPicture(frame: CGRect(x: 0, y: 0, width: 70, height: 70),
+                                      image: userImage ?? UIImage(named: "profilePlaceholder"),
+                                      text: TextLabels.ProfileEditVC.avatarLabel)
     }()
-    
+
     private lazy var nameStackView: ProfileEditStackView = {
-        let stack = ProfileEditStackView(labelText: S.ProfileEditVC.nameStackViewLabel,
-                                         textContent: S.ProfileEditVC.nameStackViewContent)
+        let stack = ProfileEditStackView(labelText: TextLabels.ProfileEditVC.nameStackViewLabel,
+                                         textContent: TextLabels.ProfileEditVC.nameStackViewContent)
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-    
+
     private var descriptionStackView: ProfileEditStackView = {
-        let stack = ProfileEditStackView(labelText: S.ProfileEditVC.descriptionStackViewLabel,
-                                         textContent: S.ProfileEditVC.descriptionStackViewContent)
+        let stack = ProfileEditStackView(labelText: TextLabels.ProfileEditVC.descriptionStackViewLabel,
+                                         textContent: TextLabels.ProfileEditVC.descriptionStackViewContent)
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-    
+
     private var websiteStackView: ProfileEditStackView = {
-        let stack = ProfileEditStackView(labelText: S.ProfileEditVC.websiteStackViewLabel,
-                                         textContent: S.ProfileEditVC.websiteStackViewContent)
+        let stack = ProfileEditStackView(labelText: TextLabels.ProfileEditVC.websiteStackViewLabel,
+                                         textContent: TextLabels.ProfileEditVC.websiteStackViewContent)
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-    
+
     private lazy var scrollView: UIScrollView = {
-        let sv = UIScrollView()
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        return sv
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
     }()
-    
+
     private var scrollViewBottomConstrait: NSLayoutConstraint!
-    
-    
+
     var presenter: ProfileEditPresenterProtocol?
     weak var delegate: ProfileEditViewControllerDelegate?
-    
-    
+
     var currentUserProfile: UserProfile? {
         didSet {
             updateUIWithProfile()
         }
     }
-    
+
     private var updatedAvatar: UIImage?
-    
-    //MARK: -Initializer
+
+    // MARK: - Initializer
     init(presenter: ProfileEditPresenterProtocol?, image: UIImage?) {
         self.presenter = presenter
         self.userImage = image
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self,
                                                   name: UIResponder.keyboardWillShowNotification,
@@ -98,13 +98,13 @@ final class ProfileEditViewController: UIViewController {
                                                   name: UIResponder.keyboardWillHideNotification,
                                                   object: nil)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .whiteDayNight
         profileAvatarView.delegate = self
         setupLayout()
-        
+
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow(notification: )),
                                                name: UIResponder.keyboardWillShowNotification,
@@ -118,15 +118,17 @@ final class ProfileEditViewController: UIViewController {
                                                name: UITextView.textDidChangeNotification,
                                                object: nil)
     }
-    
+
     private func setupLayout() {
-        [doneButton, profileAvatarView, nameStackView, descriptionStackView, websiteStackView].forEach { scrollView.addSubview($0) }
+        [doneButton, profileAvatarView, nameStackView, descriptionStackView, websiteStackView].forEach {
+            scrollView.addSubview($0)
+        }
         view.addSubview(scrollView)
-        
+
         profileAvatarView.translatesAutoresizingMaskIntoConstraints = false
         scrollViewBottomConstrait = scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         scrollViewBottomConstrait.isActive = true
-        
+
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollViewBottomConstrait,
@@ -148,22 +150,21 @@ final class ProfileEditViewController: UIViewController {
             websiteStackView.leadingAnchor.constraint(equalTo: descriptionStackView.leadingAnchor),
             websiteStackView.trailingAnchor.constraint(equalTo: descriptionStackView.trailingAnchor),
             websiteStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -20)
-            
+
         ])
-        
+
         // Добавляем распознаватель тапов для закрытия клавиатуры
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
     }
-    
+
     private func updateUIWithProfile() {
         guard let profile = currentUserProfile else { return }
         nameStackView.updateTextContent(profile.name)
         descriptionStackView.updateTextContent(profile.description)
         websiteStackView.updateTextContent(profile.website)
     }
-    
-    
+
     @objc func doneButtonTapped() {
         let name = nameStackView.getTextContent()
         let description = descriptionStackView.getTextContent()
@@ -174,26 +175,27 @@ final class ProfileEditViewController: UIViewController {
         }
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
-    
-    //MARK: - Methods for NSNotification
-    
+
+    // MARK: - Methods for NSNotification
+
     @objc func keyboardWillShow(notification: NSNotification) {
         print("Показать")
-        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+        guard let keyboardSize = (notification
+            .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
             return
         }
         let keyboardHeight = keyboardSize.height
-        
+
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
         scrollView.scrollIndicatorInsets = scrollView.contentInset
-        
-        //Сдвиг скрола на высоту клавиатуры
-        var activeRect: CGRect? = nil
-        
+
+        // Сдвиг скрола на высоту клавиатуры
+        var activeRect: CGRect?
+
         if nameStackView.textView.isFirstResponder {
             activeRect = nameStackView.frame
         } else if descriptionStackView.textView.isFirstResponder {
@@ -201,7 +203,7 @@ final class ProfileEditViewController: UIViewController {
         } else if websiteStackView.textView.isFirstResponder {
             activeRect = websiteStackView.frame
         }
-        
+
         if let activeRect = activeRect {
             let rectInScrollView = scrollView.convert(activeRect, to: view)
             let offset = rectInScrollView.maxY - (view.bounds.height - keyboardHeight)
@@ -211,7 +213,7 @@ final class ProfileEditViewController: UIViewController {
             }
         }
     }
-    
+
     @objc func keyboardWillHide(notification: NSNotification) {
         print("Скрыть")
         scrollViewBottomConstrait.constant = 0
@@ -220,35 +222,36 @@ final class ProfileEditViewController: UIViewController {
         scrollView.scrollIndicatorInsets = UIEdgeInsets.zero
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
-    
+
     @objc func textViewDidChange(notification: NSNotification) {
         let contentRect: CGRect = scrollView.subviews.reduce(into: .zero) { rect, view in
             rect = rect.union(view.frame)
         }
         scrollView.contentSize = contentRect.size
     }
-    
+
 }
 
-//MARK: -UIImagePickerControllerDelegate
+// MARK: - UIImagePickerControllerDelegate
 extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+
     func openImagePicker() {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
-        //MARK: -Depricated in future
+        // MARK: - Depricated in future
         imagePickerController.sourceType = .photoLibrary
         present(imagePickerController, animated: true, completion: nil)
     }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             profileAvatarView.updateImage(selectedImage)
             updatedAvatar = selectedImage
         }
         dismiss(animated: true, completion: nil)
     }
-    
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
@@ -264,17 +267,16 @@ extension ProfileEditViewController: ProfileEditViewProtocol {
     func showLoadingState() {
         ProgressHUD.show()
     }
-    
+
     func hideLoadingState() {
         ProgressHUD.dismiss()
     }
-    
+
     func displayError(_ error: Error) {
         ProgressHUD.showError("\(error.localizedDescription)")
     }
-    
+
     func profileUpdateSuccessful() {
-        ProgressHUD.showSucceed(S.ProfileEditVC.profileUpdatedSuccesfully, delay: 2.0)
+        ProgressHUD.showSucceed(TextLabels.ProfileEditVC.profileUpdatedSuccesfully, delay: 2.0)
     }
 }
-

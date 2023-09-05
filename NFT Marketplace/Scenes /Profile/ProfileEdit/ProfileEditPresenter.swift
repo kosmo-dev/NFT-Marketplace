@@ -17,24 +17,24 @@ protocol ProfileEditPresenterDelegate: AnyObject {
 }
 
 final class ProfileEditPresenter: ProfileEditPresenterProtocol {
-    
+
     private weak var view: ProfileEditViewProtocol?
-    
+
     private var profileService: ProfileServiceProtocol
-    
+
     weak var delegate: ProfileEditPresenterDelegate?
-    
+
     init(view: ProfileEditViewProtocol, profileService: ProfileServiceProtocol) {
         self.view = view
         self.profileService = profileService
     }
-    
+
     func updateProfile(name: String?, description: String?, website: String?) {
         view?.showLoadingState()
-        
+
         let uploadModel = UploadModel(name: name, description: description, website: website, likes: nil)
         profileService.updateUserProfile(with: uploadModel) { [weak self] result in
-            
+
             DispatchQueue.main.async {
                 switch result {
                 case .success(let profile):
@@ -43,7 +43,7 @@ final class ProfileEditPresenter: ProfileEditPresenterProtocol {
                 case .failure(let error):
                     self?.view?.displayError(error)
                     self?.view?.hideLoadingState()
-                    
+
                 }
             }
         }
