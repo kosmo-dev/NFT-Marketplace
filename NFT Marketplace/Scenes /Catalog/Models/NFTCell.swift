@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+struct NFTCell {
+    let name: String
+    let image: String
+    let rating: Int
+    let price: Double
+    let id: String
+    let isLiked: Bool
+    let isAddedToCard: Bool
+}

@@ -138,6 +138,7 @@ extension CatalogViewController: UITableViewDelegate, UITableViewDataSource {
         let nftModel = presenter.dataSource[indexPath.row]
         let url = URL(string: nftModel.cover.encodeUrl)
         
+        cell.selectionStyle = .none
         cell.cellImage.kf.setImage(with: url)
         cell.catalogNameLabel.text = "\(nftModel.name) \(nftModel.nftCount)"
         return cell
@@ -145,6 +146,15 @@ extension CatalogViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         187
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell: CatalogTableViewCell = tableView.dequeueReusableCell()
+        
+        let viewController = CatalogСollectionViewController()
+        viewController.hidesBottomBarWhenPushed = true
+                
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

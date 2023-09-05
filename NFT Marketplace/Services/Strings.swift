@@ -22,4 +22,8 @@ struct S {
         static let sortByNFTCount = "По количеству NFT"
         static let close = "Закрыть"
     }
+    
+    struct CollectionVC {
+        static let aboutAuthor = "Автор коллекции:"
+    }
 }
