@@ -18,9 +18,8 @@ final class ProfileEditUserPicture: UIView {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 30
+        imageView.layer.cornerRadius = 70
         imageView.layer.masksToBounds = true
-
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -28,7 +27,7 @@ final class ProfileEditUserPicture: UIView {
     private lazy var  dimmingView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        view.layer.cornerRadius = 30
+        view.layer.cornerRadius = 70
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -73,7 +72,7 @@ final class ProfileEditUserPicture: UIView {
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
             dimmingView.topAnchor.constraint(equalTo: imageView.topAnchor),
             dimmingView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
             dimmingView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
@@ -90,6 +89,13 @@ final class ProfileEditUserPicture: UIView {
             overlayButton.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
 
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let radius = imageView.bounds.size.height / 2
+        imageView.layer.cornerRadius = radius
+        dimmingView.layer.cornerRadius = radius
     }
 
     @objc func avatarImageTap() {

@@ -32,7 +32,7 @@ final class ProfileEditPresenter: ProfileEditPresenterProtocol {
     func updateProfile(name: String?, description: String?, website: String?) {
         view?.showLoadingState()
 
-        let uploadModel = UploadModel(name: name, description: description, website: website, likes: nil)
+        let uploadModel = UploadProfileModel(name: name, description: description, website: website, likes: nil)
         profileService.updateUserProfile(with: uploadModel) { [weak self] result in
 
             DispatchQueue.main.async {

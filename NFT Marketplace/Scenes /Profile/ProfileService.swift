@@ -12,7 +12,7 @@ protocol ProfileFetchingProtocol {
 }
 
 protocol ProfileUpdatingProtocol {
-    func updateUserProfile(with data: UploadModel, completion: @escaping (Result<UserProfile, Error>) -> Void)
+    func updateUserProfile(with data: UploadProfileModel, completion: @escaping (Result<UserProfile, Error>) -> Void)
 }
 
 protocol ProfileServiceProtocol: ProfileFetchingProtocol, ProfileUpdatingProtocol {}
@@ -29,7 +29,7 @@ struct ProfileService: ProfileServiceProtocol {
         networkClient.send(request: request, type: UserProfile.self, onResponse: completion)
     }
 
-    func updateUserProfile(with data: UploadModel, completion: @escaping (Result<UserProfile, Error>) -> Void) {
+    func updateUserProfile(with data: UploadProfileModel, completion: @escaping (Result<UserProfile, Error>) -> Void) {
         let request = UserProfileUpdateRequest(userId: "1", updateProfile: data)
         networkClient.send(request: request, type: UserProfile.self, onResponse: completion)
     }
@@ -49,7 +49,7 @@ struct UserProfileRequest: NetworkRequest {
 
 struct UserProfileUpdateRequest: NetworkRequest {
     var userId: String
-    let updateProfile: UploadModel
+    let updateProfile: UploadProfileModel
 
     var endpoint: URL? {
         return URL(string: "https://64e794e8b0fd9648b7902516.mockapi.io/api/v1/profile/\(userId)")

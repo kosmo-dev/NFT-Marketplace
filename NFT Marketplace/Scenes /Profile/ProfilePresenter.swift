@@ -37,9 +37,7 @@ class ProfilePresenter: ProfilePresenterProtocol {
                     self?.currentUserProfile = profile
                     self?.view?.updateUI(with: profile)
                 case .failure(let error):
-                    DispatchQueue.main.async {
-                        self?.view?.displayError(error)
-                    }
+                    self?.view?.displayError(error)
                 }
             }
         }

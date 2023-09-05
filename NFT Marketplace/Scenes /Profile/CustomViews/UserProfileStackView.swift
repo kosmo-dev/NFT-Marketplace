@@ -19,9 +19,9 @@ final class UserProfileStackView: UIView {
     let avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 30
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "Profile_Placeholder")
+        imageView.layer.cornerRadius = 70
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(named: "profilePlaceholder")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -96,7 +96,12 @@ final class UserProfileStackView: UIView {
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapUserWebsite))
         websiteLabel.addGestureRecognizer(tapGesture)
+    }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let radius = avatarImageView.bounds.size.height / 2
+        avatarImageView.layer.cornerRadius = radius
     }
 
     @objc func tapUserWebsite() {

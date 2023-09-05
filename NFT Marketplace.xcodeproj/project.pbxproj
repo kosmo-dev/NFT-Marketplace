@@ -50,7 +50,7 @@
 		92D0F14D2AA1180E007D0EE9 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F14C2AA1180E007D0EE9 /* ProfileEditViewController.swift */; };
 		92D0F14F2AA26E5E007D0EE9 /* ProfileEditUserPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F14E2AA26E5E007D0EE9 /* ProfileEditUserPicture.swift */; };
 		92D0F1522AA3628A007D0EE9 /* ProfileEditPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F1512AA3628A007D0EE9 /* ProfileEditPresenter.swift */; };
-		92D0F1542AA3910C007D0EE9 /* UploadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F1532AA3910C007D0EE9 /* UploadModel.swift */; };
+		92D0F1542AA3910C007D0EE9 /* UploadProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F1532AA3910C007D0EE9 /* UploadProfileModel.swift */; };
 		92D0F15B2AA4DB2B007D0EE9 /* Декомп. Редактирования профиля.md in Resources */ = {isa = PBXBuildFile; fileRef = 92D0F15A2AA4DB2B007D0EE9 /* Декомп. Редактирования профиля.md */; };
 /* End PBXBuildFile section */
 
@@ -117,7 +117,7 @@
 		92D0F14C2AA1180E007D0EE9 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		92D0F14E2AA26E5E007D0EE9 /* ProfileEditUserPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditUserPicture.swift; sourceTree = "<group>"; };
 		92D0F1512AA3628A007D0EE9 /* ProfileEditPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditPresenter.swift; sourceTree = "<group>"; };
-		92D0F1532AA3910C007D0EE9 /* UploadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadModel.swift; sourceTree = "<group>"; };
+		92D0F1532AA3910C007D0EE9 /* UploadProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProfileModel.swift; sourceTree = "<group>"; };
 		92D0F15A2AA4DB2B007D0EE9 /* Декомп. Редактирования профиля.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Декомп. Редактирования профиля.md"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -348,7 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				928F6B4E2AA0C3E0003023DD /* UserProfile.swift */,
-				92D0F1532AA3910C007D0EE9 /* UploadModel.swift */,
+				92D0F1532AA3910C007D0EE9 /* UploadProfileModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -600,7 +600,7 @@
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
-				92D0F1542AA3910C007D0EE9 /* UploadModel.swift in Sources */,
+				92D0F1542AA3910C007D0EE9 /* UploadProfileModel.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				3DEBDFD02A97CE8E001C7517 /* CartViewController.swift in Sources */,
 				3DEBDFDC2A97D474001C7517 /* CartControllerProtocol.swift in Sources */,
