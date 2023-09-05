@@ -42,28 +42,28 @@ final class StatisticsPresenter: UserDataDelegate {
     
     func loadProfileImage(imageView: UIImageView, url: String) {
         userDataService?.loadProfileImage(imageView: imageView, url: url)
-     }
+    }
     
     func usersCount() -> Int {
         return userDataService?.users.count ?? 0
     }
     
     func sortButtonTapped() -> UIAlertController {
-        let alertController = UIAlertController(title: "Сортировка", message: nil, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: S.StatisticsVC.sortingTitle, message: nil, preferredStyle: .actionSheet)
         
-        let sortByNameAction = UIAlertAction(title: "По имени", style: .default) { _ in
+        let sortByNameAction = UIAlertAction(title: S.StatisticsVC.sortByNameTitle, style: .default) { _ in
             self.sortByName()
             self.viewController?.reloadTableView()
         }
         alertController.addAction(sortByNameAction)
         
-        let sortByRatingAction = UIAlertAction(title: "По рейтингу", style: .default) { _ in
+        let sortByRatingAction = UIAlertAction(title: S.StatisticsVC.sortByRatingTitle, style: .default) { _ in
             self.sortByRating()
             self.viewController?.reloadTableView()
         }
         alertController.addAction(sortByRatingAction)
         
-        let closeAction = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
+        let closeAction = UIAlertAction(title: S.StatisticsVC.closeTitle, style: .cancel, handler: nil)
         alertController.addAction(closeAction)
         
         return alertController

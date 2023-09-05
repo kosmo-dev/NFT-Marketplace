@@ -13,7 +13,6 @@ final class UserCardViewController: UIViewController {
     private let userAvatar: UIImageView = {
         let userAvatar = UIImageView(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
         userAvatar.clipsToBounds = true
-        userAvatar.image = UIImage(named: "UserPhoto")
         userAvatar.layer.cornerRadius = userAvatar.bounds.height / 2
         userAvatar.translatesAutoresizingMaskIntoConstraints = false
         return userAvatar
@@ -49,7 +48,7 @@ final class UserCardViewController: UIViewController {
     private lazy var userWebsiteButton: UIButton = {
         let userWebsiteButton = UIButton(type: .custom)
         userWebsiteButton.layer.cornerRadius = 16
-        userWebsiteButton.setTitle("Перейти на сайт пользователя", for: .normal)  // перенести в файл стрингов
+        userWebsiteButton.setTitle(S.UserCardVC.userWebsiteButtonTitle, for: .normal)
         userWebsiteButton.setTitleColor(UIColor.blackDayNight, for: .normal)
         userWebsiteButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         userWebsiteButton.backgroundColor = .white
@@ -162,9 +161,11 @@ final class UserCardViewController: UIViewController {
     }
     
     private func setupUserInfo() {
-        userName.text = presenter?.getUserName()
-        userDescription.text = presenter?.getUserDescription()
-        userCollectionsButton.setTitle("Коллекция NFT"+" (\(presenter?.getNFT() ?? ""))", for: .normal)
-        userAvatar.image = presenter?.getUserImage().image ?? UIImage()
+        DispatchQueue.main.async {
+            self.userName.text = self.presenter?.getUserName()
+            self.userDescription.text = self.presenter?.getUserDescription()
+            self.userCollectionsButton.setTitle(S.UserCardVC.userCollectionsButtonTitle+" (\(self.presenter?.getNFT() ?? ""))", for: .normal)
+            self.userAvatar.image = self.presenter?.getUserImage().image ?? UIImage()
+        }
     }
 }

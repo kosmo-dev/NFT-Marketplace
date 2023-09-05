@@ -12,7 +12,7 @@ final class UserWebsiteWebView: UIViewController, WKNavigationDelegate {
     
     private var request: URLRequest?
     let webView = WKWebView()
-
+    
     init(request: URLRequest?) {
         super.init(nibName: nil, bundle: nil)
         self.request = request

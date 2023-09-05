@@ -77,7 +77,7 @@ final class UserDataService: UserDataProtocol {
                 print(error)
             }
         }
-     }
+    }
 }
 
 enum SortDirection: String {

@@ -100,18 +100,17 @@ extension StatisticsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        let cell: StatisticsCell = tableView.cellForRow(at: indexPath) as! StatisticsCell
+        guard let cell = tableView.cellForRow(at: indexPath) as? StatisticsCell else { return }
         let cellImage = cell.avatarImage
         
-        guard let user = presenter.user(at: indexPath.row) else {
-            fatalError()
-        }
+        guard let user = presenter.user(at: indexPath.row) else { return }
+        
         let model = UserCardService(user: user, userAvatar: cellImage)
         let presenter = UserCardPresenter(model: model)
         let userCardViewController = UserCardViewController()
         userCardViewController.presenter = presenter
         userCardViewController.modalPresentationStyle = .fullScreen
- 
+        
         self.present(userCardViewController, animated: true, completion: nil)
     }
 }
@@ -126,14 +125,16 @@ extension StatisticsViewController: UITableViewDataSource {
         let cell: StatisticsCell = tableView.dequeueReusableCell()
         
         let selectedView = UIView()
-        selectedView.backgroundColor = .lightGreyDayNight
+        selectedView.backgroundColor = .white
         selectedView.layer.cornerRadius = 12
         cell.selectedBackgroundView = selectedView
         
         guard let user = presenter.user(at: indexPath.row) else { return UITableViewCell() }
-
-        cell.updateCell(number: (indexPath.row + 1), avatar: UIImage(), name: user.name, rating: user.rating)
-        presenter.loadProfileImage(imageView: cell.avatarImage, url: user.avatar)
+        
+        DispatchQueue.main.async {
+            cell.updateCell(number: (indexPath.row + 1), avatar: UIImage(), name: user.name, rating: user.rating)
+            self.presenter.loadProfileImage(imageView: cell.avatarImage, url: user.avatar)
+        }
         
         return cell
     }
