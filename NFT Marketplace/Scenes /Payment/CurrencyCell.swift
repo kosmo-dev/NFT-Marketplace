@@ -59,11 +59,7 @@ final class CurrencyCell: UICollectionViewCell, ReuseIdentifying {
         title.text = cellModel.title
         ticker.text = cellModel.ticker
 
-        if cellModel.isSelected {
-            background.layer.borderWidth = 1
-        } else {
-            background.layer.borderWidth = 0
-        }
+        background.layer.borderWidth = cellModel.isSelected ? 1 : 0
     }
 
     private func setupView() {

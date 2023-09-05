@@ -148,6 +148,8 @@ final class PaymentViewController: UIViewController {
             payViewIsAddedToWindow = true
             [payDescription, userAgreementButton, payButton].forEach { payView.addSubview($0) }
 
+            let safeAreaHeight = window.safeAreaInsets.bottom
+
             NSLayoutConstraint.activate([
                 payView.leadingAnchor.constraint(equalTo: window.leadingAnchor),
                 payView.trailingAnchor.constraint(equalTo: window.trailingAnchor),
@@ -162,7 +164,7 @@ final class PaymentViewController: UIViewController {
                 payButton.topAnchor.constraint(equalTo: userAgreementButton.bottomAnchor, constant: Constants.defaultOffset),
                 payButton.leadingAnchor.constraint(equalTo: payView.leadingAnchor, constant: Constants.defaultOffset),
                 payButton.trailingAnchor.constraint(equalTo: payView.trailingAnchor, constant: -Constants.defaultOffset),
-                payButton.bottomAnchor.constraint(equalTo: payView.bottomAnchor, constant: -Constants.bottomOffset),
+                payButton.bottomAnchor.constraint(equalTo: payView.bottomAnchor, constant: -(Constants.bottomOffset+safeAreaHeight)),
                 payButton.heightAnchor.constraint(equalToConstant: Constants.buttonHeight)
             ])
             payViewInitialBottomConstraint = payView.topAnchor.constraint(equalTo: window.bottomAnchor)
@@ -206,7 +208,7 @@ final class PaymentViewController: UIViewController {
     }
 
     private func makeCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-        let spacing: CGFloat = 7
+        let spacing = Constants.collectionViewSpacing
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
             heightDimension: .fractionalHeight(1))
@@ -235,9 +237,10 @@ extension PaymentViewController {
     private enum Constants {
         static let defaultOffset: CGFloat = 16
         static let buttonHeight: CGFloat = 60
-        static let bottomOffset: CGFloat = 50
+        static let bottomOffset: CGFloat = 16
         static let topOffset: CGFloat = 20
         static let cellEstimatedHeight: CGFloat = 46
+        static let collectionViewSpacing: CGFloat = 7
     }
 }
 

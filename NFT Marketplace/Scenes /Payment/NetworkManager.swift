@@ -14,7 +14,7 @@ protocol NetworkManagerProtocol {
 
 final class NetworkManager {
     // MARK: - Private Properties
-    private var networkClient: NetworkClient
+    private let networkClient: NetworkClient
     private var onGoingTasks: [String: NetworkTask] = [:]
 
     private let onGoingTasksQueue = DispatchQueue(label: "com.nftMarketplace.onGoingTasks")
@@ -27,7 +27,7 @@ final class NetworkManager {
     // MARK: - Private Properties
     private func shouldBreakTaskForId(_ id: String) -> Bool {
         onGoingTasksQueue.sync {
-            onGoingTasks[id] != nil ? true : false
+            onGoingTasks[id] != nil
         }
     }
 }
