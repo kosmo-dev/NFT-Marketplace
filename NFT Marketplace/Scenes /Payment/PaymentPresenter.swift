@@ -38,6 +38,11 @@ final class PaymentPresenter: PaymentPresenterProtocol {
         guard let seletedItemIndexPath else { return nil }
         return Int(currencies[seletedItemIndexPath.row].id)
     }
+    private var payButtonState: PayButtonState? {
+        didSet {
+            viewControllerShouldChnangeButtonAppearance()
+        }
+    }
 
     // MARK: - Initializers
     init(networkManager: NetworkManagerProtocol, paymentManager: PaymentManagerProtocol, cartController: CartControllerProtocol) {
@@ -50,6 +55,7 @@ final class PaymentPresenter: PaymentPresenterProtocol {
     // MARK: - Public Methods
     func viewDidLoad() {
         checkState()
+        payButtonState = .disabled
         fetchCurrencies()
     }
 
@@ -57,6 +63,7 @@ final class PaymentPresenter: PaymentPresenterProtocol {
         seletedItemIndexPath = indexPath
         makeCurrenciesCellModel()
         viewController?.reloadCollectionView()
+        payButtonState = .enabled
     }
 
     func userAgreementButtonTapped() {
@@ -68,6 +75,7 @@ final class PaymentPresenter: PaymentPresenterProtocol {
     func payButtonTapped() {
         guard let currencyId else { return }
         let nfts = getNFTSIds()
+        payButtonState = .loading
         paymentManager.performPayment(nfts: nfts, currencyId: currencyId)
     }
 
@@ -129,6 +137,18 @@ final class PaymentPresenter: PaymentPresenterProtocol {
         }
         return ids
     }
+
+    private func viewControllerShouldChnangeButtonAppearance() {
+        guard let payButtonState else { return }
+        switch payButtonState {
+        case .disabled:
+            viewController?.changeButtonState(color: .greyUni, isEnabled: false, isLoading: false)
+        case .enabled:
+            viewController?.changeButtonState(color: .blackDayNight, isEnabled: true, isLoading: false)
+        case .loading:
+            viewController?.changeButtonState(color: .blackDayNight, isEnabled: false, isLoading: true)
+        }
+    }
 }
 
 // MARK: - PaymentViewState
@@ -157,5 +177,13 @@ extension PaymentPresenter: PaymentManagerDelegate {
             confirmationViewController.modalPresentationStyle = .fullScreen
             self?.viewController?.presentView(confirmationViewController)
         }
+    }
+}
+
+extension PaymentPresenter {
+    enum PayButtonState {
+        case disabled
+        case enabled
+        case loading
     }
 }

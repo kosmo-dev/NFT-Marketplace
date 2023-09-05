@@ -13,6 +13,7 @@ protocol PaymentViewControllerProtocol: AnyObject {
     func displayLoadingIndicator()
     func removeLoadingIndicator()
     func presentView(_ viewController: UIViewController)
+    func changeButtonState(color: UIColor, isEnabled: Bool, isLoading: Bool)
 }
 
 final class PaymentViewController: UIViewController {
@@ -222,6 +223,22 @@ final class PaymentViewController: UIViewController {
         return UICollectionViewCompositionalLayout(section: section)
     }
 
+    private func setButtonToLoadingState() {
+        payButton.setTitle("", for: .normal)
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.color = .whiteDayNight
+
+        payButton.addSubview(indicator)
+        payButton.bringSubviewToFront(indicator)
+
+        NSLayoutConstraint.activate([
+            indicator.centerXAnchor.constraint(equalTo: payButton.centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo: payButton.centerYAnchor)
+        ])
+        indicator.startAnimating()
+    }
+
     @objc private func payButtonTapped() {
         presenter.payButtonTapped()
     }
@@ -281,5 +298,14 @@ extension PaymentViewController: PaymentViewControllerProtocol {
 
     func presentView(_ viewController: UIViewController) {
         present(viewController, animated: true)
+    }
+
+    func changeButtonState(color: UIColor, isEnabled: Bool, isLoading: Bool) {
+        payButton.backgroundColor = color
+        payButton.isEnabled = isEnabled
+
+        if isLoading {
+            setButtonToLoadingState()
+        }
     }
 }
