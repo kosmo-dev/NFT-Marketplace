@@ -10,22 +10,22 @@ import Foundation
 // MARK: - Protocol
 
 protocol DataProviderProtocol: AnyObject {
-    func fetchNFTCollection(completion: @escaping () -> Void) 
-    func sortNFTCollections(by : NFTCollectionsSortAttributes)
+    func fetchNFTCollection(completion: @escaping () -> Void)
+    func sortNFTCollections(by: NFTCollectionsSortAttributes)
     var NFTCollections: [NFTCollection] { get }
 }
 
 // MARK: - Final Class
 
 final class DataProvider: DataProviderProtocol {
-    
+
     var NFTCollections: [NFTCollection] = []
     let networkClient: DefaultNetworkClient
-    
+
     init(networkClient: DefaultNetworkClient) {
         self.networkClient = networkClient
     }
-    
+
     func fetchNFTCollection(completion: @escaping () -> Void) {
         networkClient.send(request: NFTTableViewRequest(), type: [NFTCollection].self) { [weak self] result in
             guard let self = self else { return }
@@ -33,14 +33,14 @@ final class DataProvider: DataProviderProtocol {
             case .success(let nft):
                 NFTCollections = nft
                 completion()
-                
+
             case .failure(let error):
                 print(error)
             }
         }
     }
-    
-    func sortNFTCollections(by : NFTCollectionsSortAttributes) {
+
+    func sortNFTCollections(by: NFTCollectionsSortAttributes) {
         switch by {
         case .name:
             NFTCollections.sort { $0.name < $1.name }
