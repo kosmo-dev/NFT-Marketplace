@@ -150,6 +150,7 @@ extension CatalogViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell: CatalogTableViewCell = tableView.dequeueReusableCell()
+        //TODO: переход на новый контроллер с вложенной коллекцией по нажатию на ячейку
         
         let viewController = CatalogСollectionViewController()
         viewController.hidesBottomBarWhenPushed = true
