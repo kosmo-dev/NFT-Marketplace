@@ -8,12 +8,13 @@
 import Foundation
 
 protocol PaymentConfirmationPresenterProtocol {
-    var viewController: PaymentConfirmationViewControllerProtocol { get set }
+    var viewController: PaymentConfirmationViewControllerProtocol? { get set }
 
     func viewDidLoad()
+    func buttonTapped()
 }
 
-final class PaymentConfirmationPresenter {
+final class PaymentConfirmationPresenter: PaymentConfirmationPresenterProtocol {
     weak var viewController: PaymentConfirmationViewControllerProtocol?
     private var configuration: Configuration
 
@@ -34,6 +35,10 @@ final class PaymentConfirmationPresenter {
                 description: TextStrings.PaymentConfirmationViewController.paymentFailed,
                 buttonText: TextStrings.PaymentConfirmationViewController.tryAgainButton)
         }
+    }
+
+    func buttonTapped() {
+
     }
 }
 

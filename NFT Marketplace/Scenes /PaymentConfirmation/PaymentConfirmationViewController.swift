@@ -51,15 +51,8 @@ final class PaymentConfirmationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        configure()
         presenter.viewController = self
-    }
-
-    // MARK: - Public Methods
-    func configure() {
-        descriptionTitle.text = TextStrings.PaymentConfirmationViewController.paymentConfirmed
-        button.setTitle(TextStrings.PaymentConfirmationViewController.returnButton, for: .normal)
-        imageConfirmationView.image = UIImage(named: "PaymentSuccededImage")
+        presenter.viewDidLoad()
     }
 
     // MARK: - Private Methods
