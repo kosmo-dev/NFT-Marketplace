@@ -11,7 +11,7 @@ import Kingfisher
 protocol UserDataProtocol {
     var users: [UserElement] { get set }
     var sortDirection: SortDirection? { get set }
-    
+
     func fetchUsers(completion: @escaping () -> Void)
     func loadProfileImage(imageView: UIImageView, url: String)
 }
@@ -21,7 +21,7 @@ struct NFTRequest: NetworkRequest {
 }
 
 final class UserDataService: UserDataProtocol {
-    
+
     var users: [UserElement] = []
     var usersImages: [String: UIImage] = [:]
     var page = 20
@@ -29,7 +29,9 @@ final class UserDataService: UserDataProtocol {
     private let networkClient = DefaultNetworkClient()
     var sortDirection: SortDirection? {
         get {
-            guard let direction = UserDefaults.standard.string(forKey: "sortDirection") else { return SortDirection.empty }
+            guard let direction = UserDefaults.standard.string(forKey: "sortDirection") else {
+                return SortDirection.empty
+            }
             return SortDirection(rawValue: direction)
         }
         set {
@@ -38,7 +40,7 @@ final class UserDataService: UserDataProtocol {
             }
         }
     }
-    
+
     func fetchUsers(completion: @escaping () -> Void) {
         UIBlockingProgressHUD.show()
         networkClient.send(request: request, type: [UserElement].self) { [weak self] result in
@@ -47,7 +49,7 @@ final class UserDataService: UserDataProtocol {
                 switch result {
                 case .success(let userElements):
                     self.users = userElements
-                    
+
                     if let sortDirection = self.sortDirection {
                         switch sortDirection {
                         case .sortByName:
@@ -66,12 +68,12 @@ final class UserDataService: UserDataProtocol {
             }
         }
     }
-    
+
     func loadProfileImage(imageView: UIImageView, url: String) {
         guard let avatarURL = URL(string: url) else { return }
         imageView.kf.setImage(with: avatarURL) { result in
             switch result {
-            case .success(_):
+            case .success:
                 print("Image loaded for \(url)")
             case .failure(let error):
                 print(error)

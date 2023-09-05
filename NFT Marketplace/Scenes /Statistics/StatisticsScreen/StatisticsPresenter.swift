@@ -10,7 +10,7 @@ import Kingfisher
 
 protocol UserDataDelegate: AnyObject {
     var viewController: ViewControllerProtocol? { get set }
-    
+
     func loadDataFromServer()
     func loadProfileImage(imageView: UIImageView, url: String)
     func usersCount() -> Int
@@ -20,60 +20,63 @@ protocol UserDataDelegate: AnyObject {
     func sortButtonTapped() -> UIAlertController
 }
 
-
 final class StatisticsPresenter: UserDataDelegate {
     weak var viewController: ViewControllerProtocol?
     private var userDataService: UserDataProtocol?
-    
+
     init(userDataService: UserDataProtocol) {
         self.userDataService = userDataService
     }
-    
+
     func loadDataFromServer() {
-        userDataService?.fetchUsers() { [weak self] in
+        userDataService?.fetchUsers { [weak self] in
             guard let self = self else { return }
             self.viewController?.reloadTableView()
         }
     }
-    
+
     func user(at index: Int) -> UserElement? {
         return userDataService?.users[index]
     }
-    
+
     func loadProfileImage(imageView: UIImageView, url: String) {
         userDataService?.loadProfileImage(imageView: imageView, url: url)
     }
-    
+
     func usersCount() -> Int {
         return userDataService?.users.count ?? 0
     }
-    
+
     func sortButtonTapped() -> UIAlertController {
-        let alertController = UIAlertController(title: S.StatisticsVC.sortingTitle, message: nil, preferredStyle: .actionSheet)
-        
-        let sortByNameAction = UIAlertAction(title: S.StatisticsVC.sortByNameTitle, style: .default) { _ in
+        let alertController = UIAlertController(
+            title: TextLabels.StatisticsVC.sortingTitle,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+
+        let sortByNameAction = UIAlertAction(title: TextLabels.StatisticsVC.sortByNameTitle, style: .default) { _ in
             self.sortByName()
             self.viewController?.reloadTableView()
         }
         alertController.addAction(sortByNameAction)
-        
-        let sortByRatingAction = UIAlertAction(title: S.StatisticsVC.sortByRatingTitle, style: .default) { _ in
+
+        let sortByRatingAction = UIAlertAction(title: TextLabels.StatisticsVC.sortByRatingTitle, style: .default) { _ in
             self.sortByRating()
             self.viewController?.reloadTableView()
         }
         alertController.addAction(sortByRatingAction)
-        
-        let closeAction = UIAlertAction(title: S.StatisticsVC.closeTitle, style: .cancel, handler: nil)
+
+        let closeAction = UIAlertAction(title: TextLabels.StatisticsVC.closeTitle, style: .cancel, handler: nil)
         alertController.addAction(closeAction)
-        
+
         return alertController
     }
-    
+
     func sortByName() {
         userDataService?.users.sort { $0.name < $1.name }
         userDataService?.sortDirection = .sortByName
     }
-    
+
     func sortByRating() {
         userDataService?.users.sort { Int($0.rating) ?? 0 > Int($1.rating) ?? 0 }
         userDataService?.sortDirection = .sortByRating
