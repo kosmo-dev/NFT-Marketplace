@@ -62,7 +62,7 @@ final class CartNFTCell: UITableViewCell, ReuseIdentifying {
     }()
 
     private let ratingView: StarRatingView = {
-        let ratingView = StarRatingView()
+        let ratingView = StarRatingView(height: 14)
         ratingView.translatesAutoresizingMaskIntoConstraints = false
         return ratingView
     }()
@@ -99,33 +99,39 @@ final class CartNFTCell: UITableViewCell, ReuseIdentifying {
     private func configureView() {
         [nftImage, title, ratingView, priceDescription, price, deleteButton].forEach { contentView.addSubview($0) }
         NSLayoutConstraint.activate([
-            nftImage.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            nftImage.topAnchor.constraint(equalTo: topAnchor, constant: Constants.defaultOffset),
             nftImage.leadingAnchor.constraint(equalTo: leadingAnchor),
-            nftImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            nftImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.defaultOffset),
             nftImage.widthAnchor.constraint(equalTo: nftImage.heightAnchor),
 
-            title.topAnchor.constraint(equalTo: topAnchor, constant: 24),
-            title.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: 20),
+            title.topAnchor.constraint(equalTo: topAnchor, constant: Constants.defaultOffset * 1.5),
+            title.leadingAnchor.constraint(equalTo: nftImage.trailingAnchor, constant: Constants.defaultOffset * 1.25),
 
-            ratingView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 4),
+            ratingView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: Constants.defaultOffset / 4),
             ratingView.leadingAnchor.constraint(equalTo: title.leadingAnchor),
-            ratingView.widthAnchor.constraint(equalToConstant: 80),
+            ratingView.widthAnchor.constraint(equalToConstant: Constants.defaultOffset * 5),
 
             priceDescription.topAnchor.constraint(equalTo: ratingView.bottomAnchor, constant: 12),
             priceDescription.leadingAnchor.constraint(equalTo: title.leadingAnchor),
 
-            price.topAnchor.constraint(equalTo: priceDescription.bottomAnchor, constant: 2),
+            price.topAnchor.constraint(equalTo: priceDescription.bottomAnchor, constant: Constants.defaultOffset / 8),
             price.leadingAnchor.constraint(equalTo: title.leadingAnchor),
-            price.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -24),
+            price.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.defaultOffset * 1.5),
 
-            deleteButton.topAnchor.constraint(equalTo: topAnchor, constant: 50),
+            deleteButton.topAnchor.constraint(equalTo: topAnchor, constant: Constants.defaultOffset * 3.125),
             deleteButton.trailingAnchor.constraint(equalTo: trailingAnchor),
-            deleteButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50)
+            deleteButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.defaultOffset * 3.125)
         ])
     }
 
     @objc private func deleteButtonTapped() {
         guard let cartCellModel else { return }
         delegate?.deleteNFTButtonDidTapped(id: cartCellModel.id, imageURL: cartCellModel.imageURL, returnHandler: nil)
+    }
+}
+
+extension CartNFTCell {
+    private enum Constants {
+        static let defaultOffset: CGFloat = 16
     }
 }

@@ -127,7 +127,7 @@ final class CartViewController: UIViewController {
         [nftCounterLabel, totalPriceLabel, toPaymentButton].forEach { payBackroundView.addSubview($0) }
 
         sortNavigationButton.tintColor = .blackDayNight
-        navigationController?.navigationBar.tintColor = .whiteDayNight
+        navigationController?.navigationBar.tintColor = .blackDayNight
         navigationItem.rightBarButtonItem = sortNavigationButton
 
         if #available(iOS 15, *) {
@@ -161,7 +161,7 @@ final class CartViewController: UIViewController {
             toPaymentButton.topAnchor.constraint(equalTo: payBackroundView.topAnchor, constant: padding),
             toPaymentButton.trailingAnchor.constraint(equalTo: payBackroundView.trailingAnchor, constant: -padding),
             toPaymentButton.bottomAnchor.constraint(equalTo: payBackroundView.bottomAnchor, constant: -padding),
-            toPaymentButton.leadingAnchor.constraint(equalTo: totalPriceLabel.trailingAnchor, constant: 24),
+            toPaymentButton.leadingAnchor.constraint(equalTo: totalPriceLabel.trailingAnchor, constant: padding * 1.5),
 
             emptyPlaceholderLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             emptyPlaceholderLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
@@ -169,6 +169,7 @@ final class CartViewController: UIViewController {
     }
 
     @objc private func toPaymentButtonTapped() {
+        presenter.toPaymentButtonTapped()
     }
 
     @objc private func sortButtonTapped() {
