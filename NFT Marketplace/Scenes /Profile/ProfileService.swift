@@ -7,31 +7,60 @@
 
 import Foundation
 
-protocol ProfileServiceProtocol {
-    func fetchUserProfile(competion: @escaping (Result<UserProfile, Error>) -> Void)
+protocol ProfileFetchingProtocol {
+    func fetchUserProfile(completion: @escaping (Result<UserProfile, Error>) -> Void)
 }
+
+protocol ProfileUpdatingProtocol {
+    func updateUserProfile(with data: UploadProfileModel, completion: @escaping (Result<UserProfile, Error>) -> Void)
+}
+
+protocol ProfileServiceProtocol: ProfileFetchingProtocol, ProfileUpdatingProtocol {}
 
 struct ProfileService: ProfileServiceProtocol {
     private let networkClient: NetworkClient
-    
+
     init(networkClient: NetworkClient = DefaultNetworkClient()) {
         self.networkClient = networkClient
     }
-    
-    func fetchUserProfile(competion: @escaping (Result<UserProfile, Error>) -> Void) {
+
+    func fetchUserProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) {
         let request = UserProfileRequest(userId: "1")
-        networkClient.send(request: request, type: UserProfile.self, onResponse: competion)
+        networkClient.send(request: request, type: UserProfile.self, onResponse: completion)
+    }
+
+    func updateUserProfile(with data: UploadProfileModel, completion: @escaping (Result<UserProfile, Error>) -> Void) {
+        let request = UserProfileUpdateRequest(userId: "1", updateProfile: data)
+        networkClient.send(request: request, type: UserProfile.self, onResponse: completion)
     }
 }
 
 struct UserProfileRequest: NetworkRequest {
     let userId: String
-    
+
     var endpoint: URL? {
         return URL(string: "https://64e794e8b0fd9648b7902516.mockapi.io/api/v1/profile/\(userId)")
     }
-    
+
     var httpMethod: HttpMethod {
         return .get
     }
+}
+
+struct UserProfileUpdateRequest: NetworkRequest {
+    var userId: String
+    let updateProfile: UploadProfileModel
+
+    var endpoint: URL? {
+        return URL(string: "https://64e794e8b0fd9648b7902516.mockapi.io/api/v1/profile/\(userId)")
+    }
+
+    var httpMethod: HttpMethod {
+        return .put
+    }
+
+    var dto: Encodable? {
+        return updateProfile
+    }
+
 }
