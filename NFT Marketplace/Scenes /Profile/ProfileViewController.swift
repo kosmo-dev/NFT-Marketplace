@@ -60,6 +60,7 @@ final class ProfileViewController: UIViewController {
         userProfileStackView = UserProfileStackView()
         profileButtonsStackView = ProfileButtonsStackView()
         userProfileStackView.delegate = self
+        profileButtonsStackView.delegate = self
 
         view.addSubview(userProfileStackView)
         view.addSubview(profileButtonsStackView)
@@ -116,15 +117,19 @@ extension ProfileViewController: ProfileViewProtocol {
     }
 
     func navigateToMyNFTsScreen() {
-
+        print("gdf")
+        let myNFTsVC = MyNFTsViewController()
+        self.navigationController?.pushViewController(myNFTsVC, animated: true)
     }
 
     func navigateToFavoritesScreen() {
-
+        let favoritesNFTVC = FavoritesNFTViewController()
+        self.navigationController?.pushViewController(favoritesNFTVC, animated: true)
     }
 
     func navigateToAboutDeveloperScreen() {
-
+        let aboutDeveloperVC = AboutDeveloperViewController()
+        self.navigationController?.pushViewController(aboutDeveloperVC, animated: true)
     }
 }
 
@@ -148,4 +153,19 @@ extension ProfileViewController: UserProfileStackViewDelegate {
         let safaryVC = SFSafariViewController(url: url)
         self.present(safaryVC, animated: true, completion: nil)
     }
+}
+
+extension ProfileViewController: ProfileButtonsStackViewDelegate {
+    func didTapMyNFTButton() {
+        navigateToMyNFTsScreen()
+    }
+
+    func didTapFavoritesNFTButton() {
+        navigateToFavoritesScreen()
+    }
+
+    func didTapAboutDeveloperButton() {
+        navigateToAboutDeveloperScreen()
+    }
+
 }
