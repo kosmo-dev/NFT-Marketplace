@@ -9,13 +9,12 @@ import Foundation
 
 // get rid of cyrillic symbols in url
 
-extension String{
-    var encodeUrl : String
-    {
+extension String {
+    var encodeUrl: String {
         return self.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
     }
-    var decodeUrl : String
-    {
+
+    var decodeUrl: String {
         return self.removingPercentEncoding!
     }
 }

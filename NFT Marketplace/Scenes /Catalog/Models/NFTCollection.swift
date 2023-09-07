@@ -12,7 +12,7 @@ struct NFTCollection: Decodable {
     let cover: String
     let nfts: [String]
     let id: String
-    
+
     var nftCount: Int {
         nfts.count
     }
