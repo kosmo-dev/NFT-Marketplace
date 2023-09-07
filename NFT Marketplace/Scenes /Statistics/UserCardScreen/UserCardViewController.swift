@@ -72,14 +72,6 @@ final class UserCardViewController: UIViewController {
         return userCollectionsButton
     }()
 
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [userDescription, userWebsiteButton])
-        stackView.axis = .vertical
-        stackView.spacing = 28
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-
     private let chevron: UIImageView = {
         let chevron = UIImageView()
         chevron.translatesAutoresizingMaskIntoConstraints = false
@@ -130,10 +122,6 @@ final class UserCardViewController: UIViewController {
             userDescription.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             userDescription.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
 
-            stackView.topAnchor.constraint(equalTo: userAvatar.bottomAnchor, constant: 20),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
-
             userWebsiteButton.topAnchor.constraint(equalTo: userDescription.bottomAnchor, constant: 28),
             userWebsiteButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             userWebsiteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
@@ -152,7 +140,6 @@ final class UserCardViewController: UIViewController {
     private func addSubviews() {
         view.addSubview(userAvatar)
         view.addSubview(userName)
-        view.addSubview(stackView)
         view.addSubview(userDescription)
         view.addSubview(backwardButton)
         view.addSubview(userWebsiteButton)
