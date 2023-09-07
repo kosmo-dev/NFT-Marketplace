@@ -7,15 +7,15 @@
 
 import UIKit
 
-protocol ViewControllerProtocol: AnyObject {
+protocol StatisticsViewControllerProtocol: AnyObject {
     func reloadTableView()
 }
 
-final class StatisticsViewController: UIViewController, ViewControllerProtocol {
+final class StatisticsViewController: UIViewController, StatisticsViewControllerProtocol {
 
     let cellReuseIdentifier = "StatisticsViewController"
 
-    private let presenter: UserDataDelegate
+    private let presenter: StatisticsPresenterProtocol
 
     private lazy var statisticsFilterButton: UIButton = {
         let statisticsFilterButton = UIButton(type: .custom)
@@ -41,11 +41,11 @@ final class StatisticsViewController: UIViewController, ViewControllerProtocol {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: statisticsFilterButton)
         setupTableView()
 
-        presenter.viewController = self
+        presenter.statisticsViewControllerProtocol = self
         presenter.loadDataFromServer()
     }
 
-    init(presenter: UserDataDelegate) {
+    init(presenter: StatisticsPresenterProtocol) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }

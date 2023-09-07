@@ -8,8 +8,8 @@
 import UIKit
 import Kingfisher
 
-protocol UserDataDelegate: AnyObject {
-    var viewController: ViewControllerProtocol? { get set }
+protocol StatisticsPresenterProtocol: AnyObject {
+    var statisticsViewControllerProtocol: StatisticsViewControllerProtocol? { get set }
 
     func loadDataFromServer()
     func loadProfileImage(imageView: UIImageView, url: String)
@@ -20,31 +20,31 @@ protocol UserDataDelegate: AnyObject {
     func sortButtonTapped() -> UIAlertController
 }
 
-final class StatisticsPresenter: UserDataDelegate {
-    weak var viewController: ViewControllerProtocol?
-    private var userDataService: UserDataProtocol?
+final class StatisticsPresenter: StatisticsPresenterProtocol {
+    weak var statisticsViewControllerProtocol: StatisticsViewControllerProtocol?
+    private var userDataService: UserDataProtocol
 
     init(userDataService: UserDataProtocol) {
         self.userDataService = userDataService
     }
 
     func loadDataFromServer() {
-        userDataService?.fetchUsers { [weak self] in
+        userDataService.fetchUsers { [weak self] in
             guard let self = self else { return }
-            self.viewController?.reloadTableView()
+            self.statisticsViewControllerProtocol?.reloadTableView()
         }
     }
 
     func user(at index: Int) -> UserElement? {
-        return userDataService?.users[index]
+        return userDataService.users[index]
     }
 
     func loadProfileImage(imageView: UIImageView, url: String) {
-        userDataService?.loadProfileImage(imageView: imageView, url: url)
+        userDataService.loadProfileImage(imageView: imageView, url: url)
     }
 
     func usersCount() -> Int {
-        return userDataService?.users.count ?? 0
+        return userDataService.users.count
     }
 
     func sortButtonTapped() -> UIAlertController {
@@ -56,13 +56,13 @@ final class StatisticsPresenter: UserDataDelegate {
 
         let sortByNameAction = UIAlertAction(title: TextLabels.StatisticsVC.sortByNameTitle, style: .default) { _ in
             self.sortByName()
-            self.viewController?.reloadTableView()
+            self.statisticsViewControllerProtocol?.reloadTableView()
         }
         alertController.addAction(sortByNameAction)
 
         let sortByRatingAction = UIAlertAction(title: TextLabels.StatisticsVC.sortByRatingTitle, style: .default) { _ in
             self.sortByRating()
-            self.viewController?.reloadTableView()
+            self.statisticsViewControllerProtocol?.reloadTableView()
         }
         alertController.addAction(sortByRatingAction)
 
@@ -73,12 +73,12 @@ final class StatisticsPresenter: UserDataDelegate {
     }
 
     func sortByName() {
-        userDataService?.users.sort { $0.name < $1.name }
-        userDataService?.sortDirection = .sortByName
+        userDataService.users.sort { $0.name < $1.name }
+        userDataService.sortDirection = .sortByName
     }
 
     func sortByRating() {
-        userDataService?.users.sort { Int($0.rating) ?? 0 > Int($1.rating) ?? 0 }
-        userDataService?.sortDirection = .sortByRating
+        userDataService.users.sort { Int($0.rating) ?? 0 > Int($1.rating) ?? 0 }
+        userDataService.sortDirection = .sortByRating
     }
 }

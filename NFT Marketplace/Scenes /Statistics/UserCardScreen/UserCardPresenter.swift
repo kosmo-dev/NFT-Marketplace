@@ -9,8 +9,6 @@ import UIKit
 import WebKit
 
 protocol UserCardDelegate: AnyObject {
-    var webView: WKWebView? { get }
-
     func getUserName() -> String
     func getUserDescription() -> String
     func getNFT() -> String
@@ -18,31 +16,30 @@ protocol UserCardDelegate: AnyObject {
 
 final class UserCardPresenter: UserCardDelegate {
 
-    var userCardService: UserCardService?
-    var webView: WKWebView?
+    private let userCardService: UserCardService
 
     init(model: UserCardService) {
         self.userCardService = model
     }
 
     func getUserName() -> String {
-        return self.userCardService?.userName() ?? ""
+        return self.userCardService.userName()
     }
 
     func getUserDescription() -> String {
-        return self.userCardService?.userDescription() ?? ""
+        return self.userCardService.userDescription()
     }
 
     func getNFT() -> String {
-        return self.userCardService?.userNFT() ?? ""
+        return self.userCardService.userNFT()
     }
 
     func getUserImage() -> UIImageView {
-        return self.userCardService?.userImage() ?? UIImageView()
+        return self.userCardService.userImage()
     }
 
     func webSiteView() -> UIViewController? {
-        guard let user = userCardService?.user,
+        guard let user = userCardService.user,
               let url = URL(string: user.website)
         else { return nil }
         let userWebsiteController = UserWebsiteWebView(request: URLRequest(url: url))

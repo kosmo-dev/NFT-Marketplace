@@ -95,9 +95,7 @@ final class UserCardViewController: UIViewController {
 
     @objc private func userWebsiteTapped() {
         guard let website = self.presenter?.webSiteView() else { return }
-        DispatchQueue.main.async {
             self.present(website, animated: true, completion: nil)
-        }
     }
 
     @objc private func userCollectionsTapped() {
