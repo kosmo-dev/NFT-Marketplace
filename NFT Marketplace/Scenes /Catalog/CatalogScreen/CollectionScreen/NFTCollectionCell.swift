@@ -6,6 +6,14 @@
 //
 
 import UIKit
+// MARK: - Protocol
+
+protocol NFTCollectionCellDelegate: AnyObject {
+    func likeButtonDidTapped(cell: NFTCollectionCell)
+    func addToCardButtonDidTapped(cell: NFTCollectionCell)
+}
+
+// MARK: - Final Class
 
 final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
 
@@ -15,6 +23,8 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
 
         }
     }
+    
+    weak var delegate: NFTCollectionCellDelegate?
 
     private lazy var nftImage: UIImageView = {
         let imageView = UIImageView()
@@ -131,10 +141,10 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
     // MARK: - @objc func
 
     @objc func didTapLike() {
-
+        delegate?.likeButtonDidTapped(cell: self)
     }
 
     @objc func didTapCart() {
-
+        delegate?.addToCardButtonDidTapped(cell: self)
     }
 }

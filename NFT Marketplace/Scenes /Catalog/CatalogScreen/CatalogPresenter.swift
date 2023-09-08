@@ -5,7 +5,7 @@
 //  Created by Dzhami on 28.08.2023.
 //
 
-import UIKit
+import Foundation
 
 // MARK: - Protocol
 
@@ -30,6 +30,7 @@ final class CatalogPresenter: CatalogPresenterProtocol {
     init(dataProvider: DataProviderProtocol) {
         self.dataProvider = dataProvider
     }
+
 
     func fetchCollections() {
         dataProvider.fetchNFTCollection { [weak self] in

@@ -70,7 +70,8 @@ final class CatalogViewController: UIViewController, CatalogViewControllerProtoc
     }
 
     // MARK: - Func
-
+    
+  
     private func setupNavigationBar() {
         sortButton.tintColor = .blackDayNight
         navigationController?.navigationBar.tintColor = .whiteDayNight
@@ -98,11 +99,12 @@ final class CatalogViewController: UIViewController, CatalogViewControllerProtoc
             self.refreshControl.endRefreshing()
         }
     }
+    
+    
 
     // MARK: - @objc func
 
     @objc func showSortingMenu() {
-
         let alertMenu = UIAlertController(title: TextLabels.CatalogVC.sorting, message: nil, preferredStyle: .actionSheet)
 
         alertMenu.addAction(UIAlertAction(title: TextLabels.CatalogVC.sortByName, style: .default, handler: { [weak self] (_) in
@@ -147,12 +149,10 @@ extension CatalogViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell: CatalogTableViewCell = tableView.dequeueReusableCell()
-        // TODO: переход на новый контроллер с вложенной коллекцией по нажатию на ячейку
-
-        let viewController = CatalogСollectionViewController()
-        viewController.hidesBottomBarWhenPushed = true
-
+        let nftModel = presenter.dataSource[indexPath.row]
+        let assembly = CollectionScreenAssembler()
+        let viewController = assembly.assemblyCollectionScreen(with: nftModel)
+        
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

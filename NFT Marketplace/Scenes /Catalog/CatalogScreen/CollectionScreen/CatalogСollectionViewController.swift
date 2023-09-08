@@ -7,8 +7,17 @@
 
 import UIKit
 
-final class CatalogСollectionViewController: UIViewController {
+// MARK: - Protocol
 
+protocol CatalogСollectionViewControllerProtocol: AnyObject {
+    func renderViewData(viewData: CatalogCollectionViewData)
+}
+
+// MARK: - Final Class
+
+final class CatalogСollectionViewController: UIViewController {
+    
+    private var presenter: CatalogСollectionPresenterProtocol
     private var collectionViewHeightConstraint = NSLayoutConstraint()
 
     private lazy var scrollView: UIScrollView = {
@@ -30,7 +39,7 @@ final class CatalogСollectionViewController: UIViewController {
         image.layer.cornerRadius = 12
         image.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.image = UIImage(named: "collectionMockImage")
+//        image.image = UIImage(named: "collectionMockImage")
         return image
     }()
 
@@ -40,7 +49,7 @@ final class CatalogСollectionViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
-        label.text = "Peach"
+//        label.text = "Peach"
         return label
     }()
 
@@ -66,7 +75,7 @@ final class CatalogСollectionViewController: UIViewController {
         textView.textColor = .blueUni
         textView.backgroundColor = .whiteDayNight
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = "Mock Link"
+//        textView.text = "Mock Link"
         return textView
     }()
 
@@ -76,7 +85,7 @@ final class CatalogСollectionViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 13, weight: .light)
         label.textColor = .blackDayNight
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Персиковый — как облака над закатным солнцем в океане. В этой коллекции совмещены трогательная нежность и живая игривость сказочных зефирных зверей."
+//        label.text = "Персиковый — как облака над закатным солнцем в океане. В этой коллекции совмещены трогательная нежность и живая игривость сказочных зефирных зверей."
         return label
     }()
 
@@ -90,11 +99,23 @@ final class CatalogСollectionViewController: UIViewController {
         return collection
     }()
 
+    init(presenter: CatalogСollectionPresenterProtocol) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
+        presenter.viewController = self
         setupConstraints()
         setupNavigationBackButton()
         view.backgroundColor = .whiteDayNight
+        presenter.prepareDataForShow()
     }
+    
 
     private func setupConstraints() {
         view.addSubview(scrollView)
@@ -209,8 +230,37 @@ extension CatalogСollectionViewController: UICollectionViewDataSource, UICollec
 }
 
 // MARK: - UITextViewDelegate
+
 extension CatalogСollectionViewController: UITextViewDelegate {
     //    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
     //
     //    }
+}
+
+// MARK: - NFTCollectionCellDelegate
+
+extension CatalogViewController: NFTCollectionCellDelegate {
+   
+    func likeButtonDidTapped(cell: NFTCollectionCell) {
+        
+    }
+    
+    func addToCardButtonDidTapped(cell: NFTCollectionCell) {
+        
+    }
+}
+
+extension CatalogСollectionViewController: CatalogСollectionViewControllerProtocol {
+    
+    func renderViewData(viewData: CatalogCollectionViewData) {
+        loadCoverImage(url: viewData.coverImageURL)
+        titleLabel.text = viewData.title
+        authorLink.text = viewData.authorLink
+        collectionDescriptionLabel.text = viewData.description
+    }
+    
+    private func loadCoverImage(url : String) {
+        let url = URL(string: url.encodeUrl)
+        coverImageView.kf.setImage(with: url)
+    }
 }
