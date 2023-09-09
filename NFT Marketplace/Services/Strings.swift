@@ -4,15 +4,28 @@
 //
 //  Created by Вадим Кузьмин on 24.08.2023.
 //
-// swiftlint:disable type_name
+// 
 
 import Foundation
 
-struct S {
+struct TextLabels {
     struct TabBarController {
         static let profileTabBarTitle = "Профиль"
         static let catalogTabBarTitle = "Каталог"
         static let cartTabBarTitle = "Корзина"
         static let statisticTabBarTitle = "Статистика"
     }
+
+    struct StatisticsVC {
+        static let sortingTitle = "Cортировка"
+        static let sortByNameTitle = "По имени"
+        static let sortByRatingTitle = "По рейтингу"
+        static let closeTitle = "Закрыть"
+    }
+
+    struct UserCardVC {
+        static let userWebsiteButtonTitle = "Перейти на сайт пользователя"
+        static let userCollectionsButtonTitle = "Коллекция NFT"
+    }
+
 }

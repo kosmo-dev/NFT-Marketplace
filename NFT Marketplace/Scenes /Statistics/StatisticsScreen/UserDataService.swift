@@ -1,5 +1,5 @@
 //
-//  UserData.swift
+//  UserDataService.swift
 //  NFT Marketplace
 //
 //  Created by Margarita Pitinova on 28.08.2023.
@@ -11,23 +11,27 @@ import Kingfisher
 protocol UserDataProtocol {
     var users: [UserElement] { get set }
     var sortDirection: SortDirection? { get set }
-    
+
     func fetchUsers(completion: @escaping () -> Void)
-    func downloadProfileImage(at index: Int, completion: @escaping (UIImage?) -> Void)
+    func loadProfileImage(imageView: UIImageView, url: String)
 }
 
 struct NFTRequest: NetworkRequest {
     var endpoint: URL? = URL(string: "https://64e794e8b0fd9648b7902516.mockapi.io/api/v1/users")
 }
 
-final class UserData: UserDataProtocol {
-    
+final class UserDataService: UserDataProtocol {
+
     var users: [UserElement] = []
-    let request = NFTRequest()
-    let networkClient = DefaultNetworkClient()
+    var usersImages: [String: UIImage] = [:]
+    var page = 20
+    private let request = NFTRequest()
+    private let networkClient = DefaultNetworkClient()
     var sortDirection: SortDirection? {
         get {
-            guard let direction = UserDefaults.standard.string(forKey: "sortDirection") else { return SortDirection.empty }
+            guard let direction = UserDefaults.standard.string(forKey: "sortDirection") else {
+                return SortDirection.empty
+            }
             return SortDirection(rawValue: direction)
         }
         set {
@@ -36,15 +40,16 @@ final class UserData: UserDataProtocol {
             }
         }
     }
-    
+
     func fetchUsers(completion: @escaping () -> Void) {
+        UIBlockingProgressHUD.show()
         networkClient.send(request: request, type: [UserElement].self) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 switch result {
-                case .success(let userElement):
-                    self.users = userElement
-                    
+                case .success(let userElements):
+                    self.users = userElements
+
                     if let sortDirection = self.sortDirection {
                         switch sortDirection {
                         case .sortByName:
@@ -59,29 +64,20 @@ final class UserData: UserDataProtocol {
                 case .failure(let error):
                     print(error)
                 }
+                UIBlockingProgressHUD.dismiss()
             }
         }
     }
-    
-    func downloadProfileImage(at index: Int, completion: @escaping (UIImage?) -> Void) {
-        guard index >= 0 && index < users.count else {
-            completion(nil)
-            return
-        }
-        
-        let user = users[index]
-        if let avatarURL = URL(string: user.avatar) {
-            let imageView = UIImageView()
-            imageView.kf.setImage(with: avatarURL) { result in
-                switch result {
-                case .success(let imageResult):
-                    completion(imageResult.image)
-                case .failure(_):
-                    completion(nil)
-                }
+
+    func loadProfileImage(imageView: UIImageView, url: String) {
+        guard let avatarURL = URL(string: url) else { return }
+        imageView.kf.setImage(with: avatarURL) { result in
+            switch result {
+            case .success:
+                print("Image loaded for \(url)")
+            case .failure(let error):
+                print(error)
             }
-        } else {
-            completion(nil)
         }
     }
 }
