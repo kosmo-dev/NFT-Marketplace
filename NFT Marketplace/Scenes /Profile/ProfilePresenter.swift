@@ -16,10 +16,14 @@ protocol ProfilePresenterProtocol: AnyObject {
     var currentUserProfile: UserProfile? { get }
 }
 
+protocol ProfilePresenterDelegate: AnyObject {
+    func shouldNavigateToMyNFTsScreen(with ids: [String])
+}
+
 class ProfilePresenter: ProfilePresenterProtocol {
 
+    weak var delegate: ProfilePresenterDelegate?
     weak var view: ProfileViewProtocol?
-
     var profileService: ProfileServiceProtocol
 
     private(set) var currentUserProfile: UserProfile?
@@ -36,6 +40,9 @@ class ProfilePresenter: ProfilePresenterProtocol {
                 case .success(let profile):
                     self?.currentUserProfile = profile
                     self?.view?.updateUI(with: profile)
+//                    if let nftIds = self?.getNFTIdsFromCurrentUser() {
+//                        self?.delegate?.shouldNavigateToMyNFTsScreen(with: nftIds)
+//                    }
                 case .failure(let error):
                     self?.view?.displayError(error)
                 }
@@ -48,7 +55,14 @@ class ProfilePresenter: ProfilePresenterProtocol {
     }
 
     func didTapMyNFTs() {
-
+        let nftIds = getNFTIdsFromCurrentUser()
+        if !nftIds.isEmpty {
+            print("Переход")
+            delegate?.shouldNavigateToMyNFTsScreen(with: nftIds)
+        } else {
+            print("ошибка")
+            return
+        }
     }
 
     func didTapFavorites() {
@@ -59,4 +73,10 @@ class ProfilePresenter: ProfilePresenterProtocol {
 
     }
 
+}
+
+extension ProfilePresenter {
+    func getNFTIdsFromCurrentUser() -> [String] {
+        return currentUserProfile?.nfts ?? []
+    }
 }

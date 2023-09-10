@@ -18,6 +18,16 @@ final class MyNFTsViewController: UIViewController {
     private var tableView: UITableView!
     private var presenter: MyNFTsPresenter?
     private var nftModels: [NFTModel] = []
+    private var nftIds: [String]
+
+    init(nftIds: [String]) {
+        self.nftIds = nftIds
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - viewDidLoad()
     override func viewDidLoad() {
@@ -78,7 +88,7 @@ extension MyNFTsViewController: MyNFTsViewProtocol {
 
     func setupPresenter() {
         let profileService = ProfileService()
-        presenter = MyNFTsPresenter(profileService: profileService)
+        presenter = MyNFTsPresenter(nftIds: self.nftIds, profileService: profileService)
         presenter?.view = self
         presenter?.viewDidLoad()
     }

@@ -12,9 +12,11 @@ final class MyNFTsPresenter {
     private let profileService: NFTFetchingProtocol
 
     var nftModels: [NFTModel] = []
+    var nftIds: [String]
 
-    init(profileService: NFTFetchingProtocol) {
+    init(nftIds: [String], profileService: NFTFetchingProtocol) {
         self.profileService = profileService
+        self.nftIds = nftIds
     }
 
     func viewDidLoad() {
@@ -25,8 +27,8 @@ final class MyNFTsPresenter {
         profileService.fetchNFTs(completion: { [weak self] result in
             switch result {
             case .success(let nfts):
-                self?.nftModels = nfts
-                self?.view?.updateWith(nfts: nfts)
+                self?.nftModels = nfts.filter {self?.nftIds.contains($0.id) ?? false}
+                self?.view?.updateWith(nfts: self?.nftModels ?? [])
             case .failure(let error):
                 self?.view?.showError(error)
             }

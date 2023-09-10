@@ -13,9 +13,9 @@ protocol ProfileViewProtocol: AnyObject {
     func updateUI(with profile: UserProfile)
     func displayError(_ error: Error)
     func navigateToEditProfileScreen()
-    func navigateToMyNFTsScreen()
-    func navigateToFavoritesScreen()
-    func navigateToAboutDeveloperScreen()
+//    func navigateToMyNFTsScreen()
+//    func navigateToFavoritesScreen()
+//    func navigateToAboutDeveloperScreen()
 }
 
 final class ProfileViewController: UIViewController {
@@ -40,7 +40,7 @@ final class ProfileViewController: UIViewController {
         view.backgroundColor = .whiteDayNight
 
         presenter?.viewDidLoad()
-
+        (self.presenter as? ProfilePresenter)?.delegate = self
         setupNavigationBar()
         setupViews()
     }
@@ -88,6 +88,7 @@ final class ProfileViewController: UIViewController {
 
 // MARK: - ProfileViewProtocol
 extension ProfileViewController: ProfileViewProtocol {
+
     func updateUI(with profile: UserProfile) {
         userProfileStackView.update(with: profile)
         userProfileStackView.onImageLoaded = { [weak self] image in
@@ -116,11 +117,11 @@ extension ProfileViewController: ProfileViewProtocol {
         present(editProfileVC, animated: true, completion: nil)
     }
 
-    func navigateToMyNFTsScreen() {
-        print("gdf")
-        let myNFTsVC = MyNFTsViewController()
-        self.navigationController?.pushViewController(myNFTsVC, animated: true)
-    }
+//    func navigateToMyNFTsScreen() {
+//        print("gdf")
+//        let myNFTsVC = MyNFTsViewController()
+//        self.navigationController?.pushViewController(myNFTsVC, animated: true)
+//    }
 
     func navigateToFavoritesScreen() {
         let favoritesNFTVC = FavoritesNFTViewController()
@@ -157,7 +158,7 @@ extension ProfileViewController: UserProfileStackViewDelegate {
 
 extension ProfileViewController: ProfileButtonsStackViewDelegate {
     func didTapMyNFTButton() {
-        navigateToMyNFTsScreen()
+        presenter?.didTapMyNFTs()
     }
 
     func didTapFavoritesNFTButton() {
@@ -168,4 +169,11 @@ extension ProfileViewController: ProfileButtonsStackViewDelegate {
         navigateToAboutDeveloperScreen()
     }
 
+}
+
+extension ProfileViewController: ProfilePresenterDelegate {
+    func shouldNavigateToMyNFTsScreen(with ids: [String]) {
+        let myNFTsVC = MyNFTsViewController(nftIds: ids)
+        self.navigationController?.pushViewController(myNFTsVC, animated: true)
+    }
 }
