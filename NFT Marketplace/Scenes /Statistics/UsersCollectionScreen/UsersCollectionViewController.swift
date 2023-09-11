@@ -7,7 +7,13 @@
 
 import UIKit
 
-final class UsersCollectionViewController: UIViewController {
+protocol UsersCollectionViewControllerProtocol: AnyObject {
+    func reloadCollectionView()
+}
+
+final class UsersCollectionViewController: UIViewController, UsersCollectionViewControllerProtocol {
+
+    var presenter: UsersCollectionPresenterProtocol?
 
     private let header: UILabel = {
         let header = UILabel()
@@ -47,6 +53,10 @@ final class UsersCollectionViewController: UIViewController {
         NFTCollection.delegate = self
     }
 
+    func reloadCollectionView() {
+        NFTCollection.reloadData()
+    }
+
     @objc private func backwardTapped() {
         dismiss(animated: true)
     }
@@ -78,8 +88,7 @@ final class UsersCollectionViewController: UIViewController {
 extension UsersCollectionViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // кол-во ячеек (передать кол-во коллекций юзера)
-        5
+        presenter?.userNFTcount() ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

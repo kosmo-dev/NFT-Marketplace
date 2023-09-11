@@ -16,7 +16,7 @@ protocol UserDataProtocol {
     func loadProfileImage(imageView: UIImageView, url: String)
 }
 
-struct NFTRequest: NetworkRequest {
+struct UsersRequest: NetworkRequest {
     var endpoint: URL? = URL(string: "https://64e794e8b0fd9648b7902516.mockapi.io/api/v1/users")
 }
 

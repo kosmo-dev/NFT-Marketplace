@@ -17,12 +17,12 @@ protocol NFTCollectionCellDelegate: AnyObject {
 
 final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
 
-//    private var nftModel: NFTCell? {
-//        didSet {
-//            guard let nftModel = nftModel else { return }
-//
-//        }
-//    }
+    private var nftModel: NFT? {
+        didSet {
+            guard let nftModel = nftModel else { return }
+
+        }
+    }
 
     weak var delegate: NFTCollectionCellDelegate?
 
@@ -70,7 +70,7 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "nftName"
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.font = UIFont.bodyBold
         return label
     }()
 

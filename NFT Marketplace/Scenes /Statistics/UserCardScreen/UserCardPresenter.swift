@@ -46,4 +46,9 @@ final class UserCardPresenter: UserCardDelegate {
         userWebsiteController.modalPresentationStyle = .pageSheet
         return userWebsiteController
     }
+
+    func userNFTIds() -> [String] {
+        let nftIds = userCardService.user?.nfts
+        return nftIds ?? []
+    }
 }

@@ -99,7 +99,13 @@ final class UserCardViewController: UIViewController {
     }
 
     @objc private func userCollectionsTapped() {
+        guard let userNFTIds = presenter?.userNFTIds() else { return }
+
+        let model = UsersCollectionService(userNFTIds: userNFTIds)
+        let presenter = UsersCollectionPresenter(model: model)
+
         let usersCollectionViewController = UsersCollectionViewController()
+        usersCollectionViewController.presenter = presenter
         usersCollectionViewController.modalPresentationStyle = .fullScreen
 
         self.present(usersCollectionViewController, animated: true, completion: nil)
