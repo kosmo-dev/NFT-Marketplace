@@ -41,7 +41,7 @@ final class StatisticsViewController: UIViewController, StatisticsViewController
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: statisticsFilterButton)
         setupTableView()
 
-        presenter.statisticsViewControllerProtocol = self
+        presenter.view = self
         presenter.loadDataFromServer()
     }
 

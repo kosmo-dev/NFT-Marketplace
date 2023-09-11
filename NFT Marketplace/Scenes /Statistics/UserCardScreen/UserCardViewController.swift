@@ -99,7 +99,10 @@ final class UserCardViewController: UIViewController {
     }
 
     @objc private func userCollectionsTapped() {
-        // todo: переход на страницу с коллекциями пользователя UsersCollectoinViewController()
+        let usersCollectionViewController = UsersCollectionViewController()
+        usersCollectionViewController.modalPresentationStyle = .fullScreen
+
+        self.present(usersCollectionViewController, animated: true, completion: nil)
     }
 
     private func setupConstraints() {
