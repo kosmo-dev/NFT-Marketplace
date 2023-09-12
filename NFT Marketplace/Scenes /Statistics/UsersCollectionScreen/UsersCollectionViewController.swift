@@ -43,6 +43,7 @@ final class UsersCollectionViewController: UIViewController, UsersCollectionView
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("View did load")
 
         view.backgroundColor = .white
         addSubviews()
@@ -51,10 +52,15 @@ final class UsersCollectionViewController: UIViewController, UsersCollectionView
 
         NFTCollection.dataSource = self
         NFTCollection.delegate = self
+
+        presenter?.view = self
+        presenter?.loadNFTFromServer()
     }
 
     func reloadCollectionView() {
-        NFTCollection.reloadData()
+        DispatchQueue.main.async {
+            self.NFTCollection.reloadData()
+        }
     }
 
     @objc private func backwardTapped() {
@@ -88,13 +94,15 @@ final class UsersCollectionViewController: UIViewController, UsersCollectionView
 extension UsersCollectionViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        presenter?.userNFTcount() ?? 0
+        print("NTF COUNT TO DRAW CELLS: \(presenter?.userNFTcount() ?? 0)")
+        return presenter?.userNFTcount() ?? 0
     }
 
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
+        print("Drawing cell")
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "NFTCollectionCell",
             for: indexPath
@@ -102,8 +110,18 @@ extension UsersCollectionViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
 
-        // настройка ячейки
+        guard let nft = presenter?.nfts(at: indexPath.row) else { return UICollectionViewCell() }
 
+        DispatchQueue.main.async {
+            cell.nftName.text = nft.name
+            cell.nftPrice.text = "\(nft.price) ETH"
+            cell.nftImage.image = UIImage()
+            cell.starRatingView.configureRating(nft.rating)
+
+            if let firstImage = nft.images.first {
+                self.presenter?.loadNFTImage(imageView: cell.nftImage, url: firstImage)
+            }
+        }
         return cell
     }
 }

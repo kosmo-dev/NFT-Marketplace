@@ -11,12 +11,16 @@ import Kingfisher
 protocol UsersCollectionProtocol {
     var NFTs: [NFT] { get set }
 
-//    func fetchUsers(completion: @escaping () -> Void)
-//    func loadProfileImage(imageView: UIImageView, url: String)
+    func currentCount() -> Int
+    func fetchNFTs(completion: @escaping () -> Void)
+    func loadNFTImage(imageView: UIImageView, url: String)
 }
 
 struct NFTRequest: NetworkRequest {
-    var endpoint: URL? = URL(string: "https://64e794e8b0fd9648b7902516.mockapi.io/api/v1/users")
+    var id: String
+    var endpoint: URL? {
+        URL(string: "https://64e794e8b0fd9648b7902516.mockapi.io/api/v1/nft/\(self.id)")
+    }
 }
 
 final class UsersCollectionService: UsersCollectionProtocol {
@@ -26,50 +30,48 @@ final class UsersCollectionService: UsersCollectionProtocol {
     var NFTs: [NFT] = []
     var NFTsImages: [String: UIImage] = [:]
 
-    private let request = NFTRequest()
+    private let request = UsersRequest()
     private let networkClient = DefaultNetworkClient()
 
     init(userNFTIds: [String]) {
         self.userNFTIds = userNFTIds
     }
 
-//    func fetchUsers(completion: @escaping () -> Void) {
-//        UIBlockingProgressHUD.show()
-//        networkClient.send(request: request, type: [UserElement].self) { [weak self] result in
-//            DispatchQueue.main.async {
-//                guard let self = self else { return }
-//                switch result {
-//                case .success(let userElements):
-//                    self.users = userElements
-//
-//                    if let sortDirection = self.sortDirection {
-//                        switch sortDirection {
-//                        case .sortByName:
-//                            self.users.sort { $0.name < $1.name }
-//                        case .sortByRating:
-//                            self.users.sort { Int($0.rating) ?? 0 > Int($1.rating) ?? 0 }
-//                        case .empty:
-//                            print("No sorting chosen")
-//                        }
-//                    }
-//                    completion()
-//                case .failure(let error):
-//                    print(error)
-//                }
-//                UIBlockingProgressHUD.dismiss()
-//            }
-//        }
-//    }
-//
-//    func loadProfileImage(imageView: UIImageView, url: String) {
-//        guard let avatarURL = URL(string: url) else { return }
-//        imageView.kf.setImage(with: avatarURL) { result in
-//            switch result {
-//            case .success:
-//                print("Image loaded for \(url)")
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
+    func currentCount() -> Int {
+        return NFTs.count
+    }
+
+    func fetchNFTs(completion: @escaping () -> Void) {
+        UIBlockingProgressHUD.show()
+        var count = userNFTIds.count
+        for id in userNFTIds {
+            networkClient.send(request: NFTRequest(id: id), type: NFT.self) { result in
+                switch result {
+                case .success(let nft):
+                    self.NFTs.append(nft)
+                    print("NFT Name: \(nft.name)")
+                    print("NFT Images: \(nft.images)")
+                case .failure(let error):
+                    print("Error fetching NFTs: \(error)")
+                }
+                count -= 1
+                if count == 0 {
+                    UIBlockingProgressHUD.dismiss()
+                    completion()
+                }
+            }
+        }
+    }
+
+    func loadNFTImage(imageView: UIImageView, url: String) {
+        guard let NFTImageURL = URL(string: url) else { return }
+        imageView.kf.setImage(with: NFTImageURL) { result in
+            switch result {
+            case .success:
+                print("Image loaded for \(url)")
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }

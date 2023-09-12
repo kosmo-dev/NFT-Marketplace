@@ -23,9 +23,9 @@ struct UsersRequest: NetworkRequest {
 final class UserDataService: UserDataProtocol {
 
     var users: [UserElement] = []
-    var usersImages: [String: UIImage] = [:]
-    var page = 20
-    private let request = NFTRequest()
+//    var usersImages: [String: UIImage] = [:]
+//    var page = 20
+    private let request = UsersRequest()
     private let networkClient = DefaultNetworkClient()
     var sortDirection: SortDirection? {
         get {

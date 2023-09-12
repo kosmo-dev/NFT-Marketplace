@@ -17,16 +17,9 @@ protocol NFTCollectionCellDelegate: AnyObject {
 
 final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
 
-    private var nftModel: NFT? {
-        didSet {
-            guard let nftModel = nftModel else { return }
-
-        }
-    }
-
     weak var delegate: NFTCollectionCellDelegate?
 
-    private lazy var nftImage: UIImageView = {
+    lazy var nftImage: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 12
@@ -54,7 +47,7 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
         return button
     }()
 
-    private lazy var starRatingView: StarRatingView = {
+    lazy var starRatingView: StarRatingView = {
         let view = StarRatingView()
         view.configureRating(4)
         return view
@@ -74,7 +67,7 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
         return label
     }()
 
-    private lazy var nftPrice: UILabel = {
+    lazy var nftPrice: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "1 ETH"
