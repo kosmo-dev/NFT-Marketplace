@@ -17,12 +17,12 @@ protocol NFTCollectionCellDelegate: AnyObject {
 
 final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
 
-//    private var nftModel: NFTCell? {
-//        didSet {
-//            guard let nftModel = nftModel else { return }
-//
-//        }
-//    }
+    private var nftModel: NFT? {
+        didSet {
+            guard let nftModel = nftModel else { return }
+
+        }
+    }
     
     weak var delegate: NFTCollectionCellDelegate?
 

@@ -11,10 +11,10 @@ import Foundation
 
 protocol CatalogСollectionPresenterProtocol: AnyObject {
     var viewController: CatalogСollectionViewControllerProtocol? { get set }
-    func loadAuthorWebsite()
     var userURL: String? { get }
-    var nftArray: [NFTNetworkModel] { get }
+    var nftArray: [NFT] { get }
     func loadNFTs()
+    func loadAuthorWebsite()
 }
 
 // MARK: - Final Class
@@ -25,7 +25,7 @@ final class CatalogСollectionPresenter: CatalogСollectionPresenterProtocol {
     private var dataProvider: CollectionDataProvider
     let nftModel: NFTCollection
     var userURL: String?
-    var nftArray: [NFTNetworkModel] = []
+    var nftArray: [NFT] = []
 
     init(nftModel: NFTCollection, dataProvider: CollectionDataProvider) {
         self.nftModel = nftModel
@@ -50,7 +50,7 @@ final class CatalogСollectionPresenter: CatalogСollectionPresenterProtocol {
     }
     
     func loadNFTs() {
-        var nftArray: [NFTNetworkModel] = []
+        var nftArray: [NFT] = []
         let group = DispatchGroup()
       
         for nft in nftModel.nfts {

@@ -12,7 +12,6 @@ class AppConfiguration {
     let catalogViewController: UIViewController
     let cartViewController: UIViewController
     let statisticViewController: UIViewController
-
     let catalogNavigationController: UINavigationController
     
 

@@ -49,13 +49,11 @@
 		EC204CAD2A9F88F000FB58E9 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC204CAC2A9F88F000FB58E9 /* String + Extension.swift */; };
 		EC204CB02AA20A1F00FB58E9 /* CatalogСollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC204CAF2AA20A1F00FB58E9 /* CatalogСollectionViewController.swift */; };
 		EC204CB22AA3167E00FB58E9 /* NFTCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC204CB12AA3167E00FB58E9 /* NFTCollectionCell.swift */; };
-		EC4B91DB2AAB4EA40077A4F4 /* CollectionScreenAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4B91DA2AAB4EA40077A4F4 /* CollectionScreenAssembler.swift */; };
 		EC4B91DD2AAB54590077A4F4 /* CatalogCollectionViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4B91DC2AAB54590077A4F4 /* CatalogCollectionViewData.swift */; };
 		EC4B91E12AAC69B30077A4F4 /* UserNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4B91E02AAC69B30077A4F4 /* UserNetworkModel.swift */; };
 		EC4B91E32AADCDE80077A4F4 /* CollectionDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4B91E22AADCDE80077A4F4 /* CollectionDataProvider.swift */; };
 		EC4B91E52AADE8000077A4F4 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4B91E42AADE8000077A4F4 /* UserModel.swift */; };
 		EC4B91E72AAE1FB20077A4F4 /* NFTGetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4B91E62AAE1FB20077A4F4 /* NFTGetRequest.swift */; };
-		EC4B91E92AAE202B0077A4F4 /* NFTNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4B91E82AAE202B0077A4F4 /* NFTNetworkModel.swift */; };
 		EC8A946B2AAA1BAC00EBF303 /* CatalogСollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8A946A2AAA1BAC00EBF303 /* CatalogСollectionPresenter.swift */; };
 /* End PBXBuildFile section */
 
@@ -121,13 +119,11 @@
 		EC204CAC2A9F88F000FB58E9 /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
 		EC204CAF2AA20A1F00FB58E9 /* CatalogСollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CatalogСollectionViewController.swift"; sourceTree = "<group>"; };
 		EC204CB12AA3167E00FB58E9 /* NFTCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCollectionCell.swift; sourceTree = "<group>"; };
-		EC4B91DA2AAB4EA40077A4F4 /* CollectionScreenAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionScreenAssembler.swift; sourceTree = "<group>"; };
 		EC4B91DC2AAB54590077A4F4 /* CatalogCollectionViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewData.swift; sourceTree = "<group>"; };
 		EC4B91E02AAC69B30077A4F4 /* UserNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkModel.swift; sourceTree = "<group>"; };
 		EC4B91E22AADCDE80077A4F4 /* CollectionDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDataProvider.swift; sourceTree = "<group>"; };
 		EC4B91E42AADE8000077A4F4 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		EC4B91E62AAE1FB20077A4F4 /* NFTGetRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTGetRequest.swift; sourceTree = "<group>"; };
-		EC4B91E82AAE202B0077A4F4 /* NFTNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTNetworkModel.swift; sourceTree = "<group>"; };
 		EC8A946A2AAA1BAC00EBF303 /* CatalogСollectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CatalogСollectionPresenter.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -389,7 +385,6 @@
 				EC204CA82A9E445600FB58E9 /* CatalogDataProvider.swift */,
 				EC4B91E22AADCDE80077A4F4 /* CollectionDataProvider.swift */,
 				EC4B91E02AAC69B30077A4F4 /* UserNetworkModel.swift */,
-				EC4B91E82AAE202B0077A4F4 /* NFTNetworkModel.swift */,
 				EC204CA12A9E11B900FB58E9 /* NFTTableViewRequest.swift */,
 				EC204CA32A9E1A6900FB58E9 /* UserByIdRequest.swift */,
 				EC4B91E62AAE1FB20077A4F4 /* NFTGetRequest.swift */,
@@ -402,7 +397,6 @@
 			children = (
 				EC204CAF2AA20A1F00FB58E9 /* CatalogСollectionViewController.swift */,
 				EC8A946A2AAA1BAC00EBF303 /* CatalogСollectionPresenter.swift */,
-				EC4B91DA2AAB4EA40077A4F4 /* CollectionScreenAssembler.swift */,
 				EC204CB12AA3167E00FB58E9 /* NFTCollectionCell.swift */,
 			);
 			name = CollectionScreen;
@@ -593,8 +587,6 @@
 				3DEBDFD62A97D1A9001C7517 /* CustomButton.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
 				EC1DC7662A9CD55100C3C798 /* CatalogTableViewCell.swift in Sources */,
-				EC4B91DB2AAB4EA40077A4F4 /* CollectionScreenAssembler.swift in Sources */,
-				EC4B91E92AAE202B0077A4F4 /* NFTNetworkModel.swift in Sources */,
 				3DEBDFCE2A97CE4F001C7517 /* Strings.swift in Sources */,
 				3DEBDFDE2A97D48E001C7517 /* FavouriteNFTController.swift in Sources */,
 				EC4B91E32AADCDE80077A4F4 /* CollectionDataProvider.swift in Sources */,

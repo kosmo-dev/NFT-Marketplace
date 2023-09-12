@@ -11,7 +11,7 @@ import Foundation
 
 protocol  CollectionDataProviderProtocol: AnyObject {
     func getNFTCollectionAuthor(id: String, completion: @escaping (UserModel) -> Void)
-    func loadNFTsBy(id: String, completion: @escaping (Result<NFTNetworkModel, Error>) -> Void) 
+    func loadNFTsBy(id: String, completion: @escaping (Result<NFT, Error>) -> Void)
 }
 
 // MARK: - final class
@@ -35,8 +35,8 @@ final class CollectionDataProvider: CollectionDataProviderProtocol {
         }
     }
     
-    func loadNFTsBy(id: String, completion: @escaping (Result<NFTNetworkModel, Error>) -> Void) {
-        networkClient.send(request: NFTGetRequest(id: id), type: NFTNetworkModel.self)  { [weak self] result in
+    func loadNFTsBy(id: String, completion: @escaping (Result<NFT, Error>) -> Void) {
+        networkClient.send(request: NFTGetRequest(id: id), type: NFT.self)  { [weak self] result in
             completion(result)
         }
     }
