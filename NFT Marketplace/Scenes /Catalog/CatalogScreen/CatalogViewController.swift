@@ -149,9 +149,9 @@ extension CatalogViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let appConfig = AppConfiguration()
         let nftModel = presenter.dataSource[indexPath.row]
-        let assembly = CollectionScreenAssembler()
-        let viewController = assembly.assemblyCollectionScreen(with: nftModel)
+        let viewController = appConfig.assemblyCollectionScreen(with: nftModel)
         
         navigationController?.pushViewController(viewController, animated: true)
     }

@@ -10,8 +10,11 @@ import Foundation
 // MARK: - Protocol
 
 protocol CatalogСollectionPresenterProtocol: AnyObject {
-    func prepareDataForShow()
     var viewController: CatalogСollectionViewControllerProtocol? { get set }
+    func loadAuthorWebsite()
+    var userURL: String? { get }
+    var nftArray: [NFTNetworkModel] { get }
+    func loadNFTs()
 }
 
 // MARK: - Final Class
@@ -19,18 +22,53 @@ protocol CatalogСollectionPresenterProtocol: AnyObject {
 final class CatalogСollectionPresenter: CatalogСollectionPresenterProtocol {
     
     weak var viewController: CatalogСollectionViewControllerProtocol?
+    private var dataProvider: CollectionDataProvider
     let nftModel: NFTCollection
-    
-    init(nftModel: NFTCollection) {
+    var userURL: String?
+    var nftArray: [NFTNetworkModel] = []
+
+    init(nftModel: NFTCollection, dataProvider: CollectionDataProvider) {
         self.nftModel = nftModel
+        self.dataProvider = dataProvider
     }
     
-    func prepareDataForShow() {
+    private func prepareDataForShow(authorName: String) {
         let viewData = CatalogCollectionViewData(
             coverImageURL: nftModel.cover,
             title: nftModel.name,
-            authorLink: nftModel.author,
-            description: nftModel.description)
+            description: nftModel.description,
+            authorName: authorName)
         viewController?.renderViewData(viewData: viewData)
+    }
+    
+    func loadAuthorWebsite() {
+       let id = nftModel.author
+        dataProvider.getNFTCollectionAuthor(id: id) {  [weak self] result in
+            self?.prepareDataForShow(authorName: result.name)
+            self?.userURL = result.website
+        }
+    }
+    
+    func loadNFTs() {
+        var nftArray: [NFTNetworkModel] = []
+        let group = DispatchGroup()
+      
+        for nft in nftModel.nfts {
+            group.enter()
+            dataProvider.loadNFTsBy(id: nft) { [weak self] result in
+                switch result {
+                case .success(let data):
+                    nftArray.append(data)
+                case .failure(let error):
+                    print(error)
+                }
+                group.leave()
+            }
+        }
+        group.wait()
+        group.notify(queue: .main) {
+            self.nftArray = nftArray
+            self.viewController?.reloadCollectionView()
+        }
     }
 }

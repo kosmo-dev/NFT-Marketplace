@@ -14,11 +14,13 @@ class AppConfiguration {
     let statisticViewController: UIViewController
 
     let catalogNavigationController: UINavigationController
+    
 
-    // TODO: Заменить вью контроллеры на свои
+
+//     TODO: Заменить вью контроллеры на свои
     init() {
 
-        let dataProvider = DataProvider(networkClient: DefaultNetworkClient())
+        let dataProvider = CatalogDataProvider(networkClient: DefaultNetworkClient())
         let catalogPresenter = CatalogPresenter(dataProvider: dataProvider)
 
         catalogViewController = CatalogViewController(presenter: catalogPresenter)
@@ -27,5 +29,13 @@ class AppConfiguration {
         statisticViewController = UIViewController()
 
         catalogNavigationController = UINavigationController(rootViewController: catalogViewController)
+    }
+    
+    func assemblyCollectionScreen(with model: NFTCollection) -> UIViewController {
+        let dataProvider = CollectionDataProvider(networkClient: DefaultNetworkClient())
+        let presenter = CatalogСollectionPresenter(nftModel: model, dataProvider: dataProvider)
+        let vc = CatalogСollectionViewController(presenter: presenter)
+        vc.hidesBottomBarWhenPushed = true
+        return vc
     }
 }

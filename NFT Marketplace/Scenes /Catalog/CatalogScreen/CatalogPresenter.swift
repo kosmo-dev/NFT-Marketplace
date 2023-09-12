@@ -21,13 +21,13 @@ protocol CatalogPresenterProtocol: AnyObject {
 final class CatalogPresenter: CatalogPresenterProtocol {
 
     weak var viewController: CatalogViewControllerProtocol?
-    private var dataProvider: DataProviderProtocol
+    private var dataProvider: CatalogDataProviderProtocol
 
     var dataSource: [NFTCollection] {
         dataProvider.NFTCollections
     }
 
-    init(dataProvider: DataProviderProtocol) {
+    init(dataProvider: CatalogDataProviderProtocol) {
         self.dataProvider = dataProvider
     }
 

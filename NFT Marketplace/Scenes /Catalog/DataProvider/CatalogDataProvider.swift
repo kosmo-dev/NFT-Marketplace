@@ -1,5 +1,5 @@
 //
-//  DataProvider.swift
+//  CatalogDataProvider.swift
 //  NFT Marketplace
 //
 //  Created by Dzhami on 29.08.2023.
@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Protocol
 
-protocol DataProviderProtocol: AnyObject {
+protocol CatalogDataProviderProtocol: AnyObject {
     func fetchNFTCollection(completion: @escaping () -> Void)
     func sortNFTCollections(by: NFTCollectionsSortAttributes)
     var NFTCollections: [NFTCollection] { get }
@@ -17,7 +17,7 @@ protocol DataProviderProtocol: AnyObject {
 
 // MARK: - Final Class
 
-final class DataProvider: DataProviderProtocol {
+final class CatalogDataProvider: CatalogDataProviderProtocol {
     
     var NFTCollections: [NFTCollection] = []
     let networkClient: DefaultNetworkClient
