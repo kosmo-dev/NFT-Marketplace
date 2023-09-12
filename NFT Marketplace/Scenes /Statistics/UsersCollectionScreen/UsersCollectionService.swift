@@ -10,7 +10,7 @@ import Kingfisher
 
 protocol UsersCollectionProtocol {
     var NFTs: [NFT] { get set }
-
+    
     func currentCount() -> Int
     func fetchNFTs(completion: @escaping () -> Void)
     func loadNFTImage(imageView: UIImageView, url: String)
@@ -24,45 +24,47 @@ struct NFTRequest: NetworkRequest {
 }
 
 final class UsersCollectionService: UsersCollectionProtocol {
-
+    
     let userNFTIds: [String]
-
+    
     var NFTs: [NFT] = []
     var NFTsImages: [String: UIImage] = [:]
-
+    
     private let request = UsersRequest()
     private let networkClient = DefaultNetworkClient()
-
+    
     init(userNFTIds: [String]) {
         self.userNFTIds = userNFTIds
     }
-
+    
     func currentCount() -> Int {
         return NFTs.count
     }
-
+    
     func fetchNFTs(completion: @escaping () -> Void) {
         UIBlockingProgressHUD.show()
         var count = userNFTIds.count
         for id in userNFTIds {
-            networkClient.send(request: NFTRequest(id: id), type: NFT.self) { result in
-                switch result {
-                case .success(let nft):
-                    self.NFTs.append(nft)
-                    print("NFT Name: \(nft.name)")
-                    print("NFT Images: \(nft.images)")
-                case .failure(let error):
-                    print("Error fetching NFTs: \(error)")
-                }
-                count -= 1
-                if count == 0 {
-                    UIBlockingProgressHUD.dismiss()
-                    completion()
+            networkClient.send(request: NFTRequest(id: id), type: NFT.self) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let nft):
+                        self?.NFTs.append(nft)
+                        print("NFT Name: \(nft.name)")
+                        print("NFT Images: \(nft.images)")
+                    case .failure(let error):
+                        print("Error fetching NFTs: \(error)")
+                    }
+                    count -= 1
+                    if count == 0 {
+                        UIBlockingProgressHUD.dismiss()
+                        completion()
+                    }
                 }
             }
         }
     }
-
+    
     func loadNFTImage(imageView: UIImageView, url: String) {
         guard let NFTImageURL = URL(string: url) else { return }
         imageView.kf.setImage(with: NFTImageURL) { result in
