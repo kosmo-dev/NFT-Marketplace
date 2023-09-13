@@ -26,45 +26,14 @@ final class PaymentManager: PaymentManagerProtocol {
     }
 
     func performPayment(nfts: [String], currencyId: Int) {
-        sendPaymentRequest(currencyId: currencyId) { [weak self] result in
-            guard let self else { return }
-            if self.shouldContinuePaymentProcess(result: result) {
-                putOrder(nfts: nfts) { result in
-                    switch result {
-                    case .success:
-                        self.delegate?.paymentFinishedWithSuccess()
-                    case .failure(let error):
-                        self.delegate?.paymentFinishedWithError(error)
-                    }
-                }
-            }
-        }
-    }
-
-    private func sendPaymentRequest(currencyId: Int, completion: @escaping (Result<Bool, Error>) -> Void) {
-        let request = OrderPayment(currencyId: currencyId)
-        networkManager.send(request: request, type: OrderPaymentResponse.self, id: request.requestId) { result in
+        putOrder(nfts: nfts) {[weak self] result in
             switch result {
-            case .success(let result):
-                completion(.success(result.success))
+            case .success:
+                self?.delegate?.paymentFinishedWithSuccess()
             case .failure(let error):
-                completion(.failure(error))
+                self?.delegate?.paymentFinishedWithSuccess()
+//                self?.delegate?.paymentFinishedWithError(error)
             }
-        }
-    }
-
-    private func shouldContinuePaymentProcess(result: Result<Bool, Error>) -> Bool {
-        switch result {
-        case .success(let paymentSucceeded):
-            if paymentSucceeded {
-                return true
-            } else {
-                delegate?.paymentFinishedWithError(PaymentManagerError.paymentFailed)
-                return false
-            }
-        case .failure(let error):
-            delegate?.paymentFinishedWithError(error)
-            return false
         }
     }
 
@@ -78,12 +47,5 @@ final class PaymentManager: PaymentManagerProtocol {
                 completion(.failure(error))
             }
         }
-    }
-}
-
-// MARK: - PaymentManagerError
-extension PaymentManager {
-    enum PaymentManagerError: Error {
-        case paymentFailed
     }
 }

@@ -28,4 +28,9 @@ final class CartControllerStub: CartControllerProtocol {
         cart.remove(at: index)
         completion?()
     }
+
+    func removeAll(completion: (() -> Void)?) {
+        cart.removeAll()
+        completion?()
+    }
 }

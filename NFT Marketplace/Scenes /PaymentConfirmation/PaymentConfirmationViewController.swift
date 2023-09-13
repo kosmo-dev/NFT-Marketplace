@@ -9,7 +9,6 @@ import UIKit
 
 protocol PaymentConfirmationViewControllerProtocol: AnyObject {
     func configureElements(imageName: String, description: String, buttonText: String)
-    func dismissViewController()
 }
 
 final class PaymentConfirmationViewController: UIViewController {
@@ -89,9 +88,5 @@ extension PaymentConfirmationViewController: PaymentConfirmationViewControllerPr
         imageConfirmationView.image = UIImage(named: imageName)
         descriptionTitle.text = description
         button.setTitle(buttonText, for: .normal)
-    }
-
-    func dismissViewController() {
-        dismiss(animated: true)
     }
 }

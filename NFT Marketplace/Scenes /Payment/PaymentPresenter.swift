@@ -43,9 +43,12 @@ final class PaymentPresenter: PaymentPresenterProtocol {
             viewControllerShouldChnangeButtonAppearance()
         }
     }
+    private var paymentIsSucceeded: Bool?
 
     // MARK: - Initializers
-    init(networkManager: NetworkManagerProtocol, paymentManager: PaymentManagerProtocol, cartController: CartControllerProtocol) {
+    init(networkManager: NetworkManagerProtocol,
+         paymentManager: PaymentManagerProtocol,
+         cartController: CartControllerProtocol) {
         self.networkManager = NetworkManagerStub()
         self.paymentManager = paymentManager
         self.cartController = cartController
@@ -164,20 +167,24 @@ extension PaymentPresenter: PaymentManagerDelegate {
     func paymentFinishedWithError(_ error: Error) {
         DispatchQueue.main.async { [weak self] in
             let presenter = PaymentConfirmationPresenter(configuration: .failure)
+            presenter.delegate = self
             let confirmationViewController = PaymentConfirmationViewController(presenter: presenter)
             confirmationViewController.modalPresentationStyle = .fullScreen
             self?.viewController?.presentView(confirmationViewController)
             self?.payButtonState = .enabled
+            self?.paymentIsSucceeded = false
         }
     }
 
     func paymentFinishedWithSuccess() {
         DispatchQueue.main.async { [weak self] in
             let presenter = PaymentConfirmationPresenter(configuration: .success)
+            presenter.delegate = self
             let confirmationViewController = PaymentConfirmationViewController(presenter: presenter)
             confirmationViewController.modalPresentationStyle = .fullScreen
             self?.viewController?.presentView(confirmationViewController)
             self?.payButtonState = .enabled
+            self?.paymentIsSucceeded = true
         }
     }
 }
@@ -188,5 +195,16 @@ extension PaymentPresenter {
         case disabled
         case enabled
         case loading
+    }
+}
+
+extension PaymentPresenter: PaymentConfirmationPresenterDelegate {
+    func didTapDismissButton() {
+        viewController?.dismiss()
+        guard let paymentIsSucceeded,
+        paymentIsSucceeded else { return }
+        cartController.removeAll { [weak self] in
+            self?.viewController?.popToRootViewController(animated: true)
+        }
     }
 }

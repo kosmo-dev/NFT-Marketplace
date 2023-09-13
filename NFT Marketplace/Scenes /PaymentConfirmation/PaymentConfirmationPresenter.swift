@@ -14,8 +14,13 @@ protocol PaymentConfirmationPresenterProtocol {
     func buttonTapped()
 }
 
+protocol PaymentConfirmationPresenterDelegate: AnyObject {
+    func didTapDismissButton()
+}
+
 final class PaymentConfirmationPresenter: PaymentConfirmationPresenterProtocol {
     weak var viewController: PaymentConfirmationViewControllerProtocol?
+    weak var delegate: PaymentConfirmationPresenterDelegate?
     private var configuration: Configuration
 
     init(configuration: Configuration) {
@@ -38,12 +43,7 @@ final class PaymentConfirmationPresenter: PaymentConfirmationPresenterProtocol {
     }
 
     func buttonTapped() {
-        switch configuration {
-        case .success:
-            print("success")
-        case .failure:
-            viewController?.dismissViewController()
-        }
+        delegate?.didTapDismissButton()
     }
 }
 

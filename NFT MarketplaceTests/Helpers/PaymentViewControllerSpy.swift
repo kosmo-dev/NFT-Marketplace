@@ -28,4 +28,8 @@ final class PaymentViewControllerSpy: PaymentViewControllerProtocol {
     func presentView(_ viewController: UIViewController) {}
 
     func changeButtonState(color: UIColor, isEnabled: Bool, isLoading: Bool) {}
+
+    func dismiss() {}
+
+    func popToRootViewController(animated: Bool) {}
 }

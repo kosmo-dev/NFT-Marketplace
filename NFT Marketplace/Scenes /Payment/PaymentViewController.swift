@@ -14,6 +14,8 @@ protocol PaymentViewControllerProtocol: AnyObject {
     func removeLoadingIndicator()
     func presentView(_ viewController: UIViewController)
     func changeButtonState(color: UIColor, isEnabled: Bool, isLoading: Bool)
+    func dismiss()
+    func popToRootViewController(animated: Bool)
 }
 
 final class PaymentViewController: UIViewController {
@@ -306,5 +308,13 @@ extension PaymentViewController: PaymentViewControllerProtocol {
 
         isLoading ? payButton.setTitle("", for: .normal) : payButton.setTitle(TextStrings.PaymentViewController.payButtonTitle, for: .normal)
         isLoading ? loadingIndicator.startAnimating() : loadingIndicator.stopAnimating()
+    }
+
+    func dismiss() {
+        dismiss(animated: true)
+    }
+
+    func popToRootViewController(animated: Bool) {
+        navigationController?.popToRootViewController(animated: true)
     }
 }
