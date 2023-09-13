@@ -6,46 +6,40 @@
 //
 
 import UIKit
-import WebKit
+import SafariServices
 
 protocol UserCardDelegate: AnyObject {
-    func getUserName() -> String
-    func getUserDescription() -> String
-    func getNFT() -> String
+    var view: UserCardViewControllerProtocol? { get set }
+
     func user() -> UserElement?
+    func getUserInfo()
 }
 
 final class UserCardPresenter: UserCardDelegate {
-
+    weak var view: UserCardViewControllerProtocol?
     private let userCardService: UserCardService
 
     init(model: UserCardService) {
         self.userCardService = model
     }
 
-    func getUserName() -> String {
-        return self.userCardService.userName()
+    func getUserInfo() {
+        view?.userName.text = self.userCardService.userName()
+        view?.userDescription.text = self.userCardService.userDescription()
+        view?.userCollectionsButton.setTitle(
+            TextLabels.UserCardVC.userCollectionsButtonTitle+" (\(self.userCardService.userNFT()))",
+            for: .normal
+        )
+        view?.userAvatar.image = self.userCardService.userImage().image ?? UIImage()
     }
 
-    func getUserDescription() -> String {
-        return self.userCardService.userDescription()
-    }
-
-    func getNFT() -> String {
-        return self.userCardService.userNFT()
-    }
-
-    func getUserImage() -> UIImageView {
-        return self.userCardService.userImage()
-    }
-
-    func webSiteView() -> UIViewController? {
+    func webSiteView() -> SFSafariViewController? {
         guard let user = userCardService.user,
               let url = URL(string: user.website)
         else { return nil }
-        let userWebsiteController = UserWebsiteWebView(request: URLRequest(url: url))
-        userWebsiteController.modalPresentationStyle = .pageSheet
-        return userWebsiteController
+
+        let safariViewController = SFSafariViewController(url: url)
+        return safariViewController
     }
 
     func user() -> UserElement? {

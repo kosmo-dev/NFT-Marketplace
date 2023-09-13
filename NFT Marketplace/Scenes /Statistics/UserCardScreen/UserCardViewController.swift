@@ -7,11 +7,20 @@
 
 import UIKit
 
-final class UserCardViewController: UIViewController {
+protocol UserCardViewControllerProtocol: AnyObject {
+    var userName: UILabel { get set }
+    var userDescription: UILabel { get set }
+    var userCollectionsButton: UIButton { get set }
+    var userAvatar: UIImageView { get set }
+
+    func setupUserInfo()
+}
+
+final class UserCardViewController: UIViewController, UserCardViewControllerProtocol {
     var presenter: UserCardPresenter?
     let cart: CartControllerProtocol
 
-    private let userAvatar: UIImageView = {
+    var userAvatar: UIImageView = {
         let userAvatar = UIImageView(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
         userAvatar.clipsToBounds = true
         userAvatar.layer.cornerRadius = userAvatar.bounds.height / 2
@@ -19,7 +28,7 @@ final class UserCardViewController: UIViewController {
         return userAvatar
     }()
 
-    private let userName: UILabel = {
+    var userName: UILabel = {
         let userName = UILabel()
         userName.translatesAutoresizingMaskIntoConstraints = false
         userName.textColor = .blackDayNight
@@ -27,7 +36,7 @@ final class UserCardViewController: UIViewController {
         return userName
     }()
 
-    private let userDescription: UILabel = {
+    var userDescription: UILabel = {
         let userDescription = UILabel()
         userDescription.translatesAutoresizingMaskIntoConstraints = false
         userDescription.numberOfLines = 0
@@ -62,7 +71,7 @@ final class UserCardViewController: UIViewController {
         return userWebsiteButton
     }()
 
-    private lazy var userCollectionsButton: UIButton = {
+    lazy var userCollectionsButton: UIButton = {
         let userCollectionsButton = UIButton(type: .custom)
         userCollectionsButton.setTitleColor(UIColor.blackDayNight, for: .normal)
         userCollectionsButton.titleLabel?.textColor = .blackDayNight
@@ -93,6 +102,7 @@ final class UserCardViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .white
+        presenter?.view = self
         addSubviews()
         setupConstraints()
         setupUserInfo()
@@ -104,8 +114,9 @@ final class UserCardViewController: UIViewController {
     }
 
     @objc private func userWebsiteTapped() {
-        guard let website = self.presenter?.webSiteView() else { return }
-            self.present(website, animated: true, completion: nil)
+        if let webViewController = presenter?.webSiteView() {
+            self.present(webViewController, animated: true, completion: nil)
+        }
     }
 
     @objc private func userCollectionsTapped() {
@@ -119,6 +130,10 @@ final class UserCardViewController: UIViewController {
         usersCollectionViewController.modalPresentationStyle = .fullScreen
 
         self.present(usersCollectionViewController, animated: true, completion: nil)
+    }
+
+    func setupUserInfo() {
+        self.presenter?.getUserInfo()
     }
 
     private func setupConstraints() {
@@ -162,17 +177,5 @@ final class UserCardViewController: UIViewController {
         view.addSubview(userWebsiteButton)
         view.addSubview(userCollectionsButton)
         userCollectionsButton.addSubview(chevron)
-    }
-
-    private func setupUserInfo() {
-        DispatchQueue.main.async {
-            self.userName.text = self.presenter?.getUserName()
-            self.userDescription.text = self.presenter?.getUserDescription()
-            self.userCollectionsButton.setTitle(
-                TextLabels.UserCardVC.userCollectionsButtonTitle+" (\(self.presenter?.getNFT() ?? ""))",
-                for: .normal
-            )
-            self.userAvatar.image = self.presenter?.getUserImage().image ?? UIImage()
-        }
     }
 }

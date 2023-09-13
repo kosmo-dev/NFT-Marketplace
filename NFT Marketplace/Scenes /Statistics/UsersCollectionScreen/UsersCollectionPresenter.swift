@@ -23,7 +23,7 @@ protocol UsersCollectionPresenterProtocol: AnyObject {
 
 final class UsersCollectionPresenter: UsersCollectionPresenterProtocol {
     weak var view: UsersCollectionViewControllerProtocol?
-    
+
     private let cartController: CartControllerProtocol
     private let usersCollectionService: UsersCollectionService
 
