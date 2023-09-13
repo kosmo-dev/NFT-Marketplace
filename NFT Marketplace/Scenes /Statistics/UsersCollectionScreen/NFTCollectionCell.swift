@@ -18,7 +18,6 @@ protocol NFTCollectionCellDelegate: AnyObject {
 final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
 
     var nftModel: NFT?
-
     weak var delegate: NFTCollectionCellDelegate?
 
     lazy var nftImage: UIImageView = {
@@ -28,13 +27,11 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
         imageView.backgroundColor = .gray
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "NFT_card")
         return imageView
     }()
 
     lazy var likeButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "likeIcon"), for: .normal)
         button.imageView?.tintColor = .redUni
         button.addTarget(self, action: #selector(didTapLike), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +40,6 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
 
     lazy var cartButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "addToCart"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(didTapCart), for: .touchUpInside)
         return button
@@ -64,7 +60,6 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
     lazy var nftName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "nftName"
         label.font = UIFont.bodyBold
         return label
     }()
@@ -72,7 +67,6 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
     lazy var nftPrice: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "1 ETH"
         label.font = UIFont.systemFont(ofSize: 10, weight: .light)
         return label
     }()
