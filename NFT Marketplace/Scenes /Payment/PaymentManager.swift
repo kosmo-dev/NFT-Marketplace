@@ -28,7 +28,6 @@ final class PaymentManager: PaymentManagerProtocol {
     func performPayment(nfts: [String], currencyId: Int) {
         sendPaymentRequest(currencyId: currencyId) { [weak self] result in
             guard let self else { return }
-
             if self.shouldContinuePaymentProcess(result: result) {
                 putOrder(nfts: nfts) { result in
                     switch result {

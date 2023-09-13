@@ -46,7 +46,7 @@ final class PaymentPresenter: PaymentPresenterProtocol {
 
     // MARK: - Initializers
     init(networkManager: NetworkManagerProtocol, paymentManager: PaymentManagerProtocol, cartController: CartControllerProtocol) {
-        self.networkManager = networkManager
+        self.networkManager = NetworkManagerStub()
         self.paymentManager = paymentManager
         self.cartController = cartController
         self.paymentManager.delegate = self
@@ -163,23 +163,26 @@ extension PaymentPresenter {
 extension PaymentPresenter: PaymentManagerDelegate {
     func paymentFinishedWithError(_ error: Error) {
         DispatchQueue.main.async { [weak self] in
-            let presenter = PaymentConfirmationPresenter(configuration: .success)
+            let presenter = PaymentConfirmationPresenter(configuration: .failure)
             let confirmationViewController = PaymentConfirmationViewController(presenter: presenter)
             confirmationViewController.modalPresentationStyle = .fullScreen
             self?.viewController?.presentView(confirmationViewController)
+            self?.payButtonState = .enabled
         }
     }
 
     func paymentFinishedWithSuccess() {
         DispatchQueue.main.async { [weak self] in
-            let presenter = PaymentConfirmationPresenter(configuration: .failure)
+            let presenter = PaymentConfirmationPresenter(configuration: .success)
             let confirmationViewController = PaymentConfirmationViewController(presenter: presenter)
             confirmationViewController.modalPresentationStyle = .fullScreen
             self?.viewController?.presentView(confirmationViewController)
+            self?.payButtonState = .enabled
         }
     }
 }
 
+// MARK: - PayButtonState
 extension PaymentPresenter {
     enum PayButtonState {
         case disabled

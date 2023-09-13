@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3D1CE1B22AA0607D002B31C4 /* DeleteNFTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CE1B12AA0607D002B31C4 /* DeleteNFTView.swift */; };
+		3D3F6A9A2AB18AFD00451D13 /* NetworkManagerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3F6A992AB18AFD00451D13 /* NetworkManagerStub.swift */; };
 		3D4476052A98B65500683647 /* CartNFTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4476042A98B65500683647 /* CartNFTCell.swift */; };
 		3D4476072A98B91600683647 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4476062A98B91600683647 /* UIImage+Extension.swift */; };
 		3D54FB5E2A9FF03500859D28 /* CartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D54FB5D2A9FF03500859D28 /* CartPresenter.swift */; };
@@ -82,6 +83,7 @@
 
 /* Begin PBXFileReference section */
 		3D1CE1B12AA0607D002B31C4 /* DeleteNFTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteNFTView.swift; sourceTree = "<group>"; };
+		3D3F6A992AB18AFD00451D13 /* NetworkManagerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerStub.swift; sourceTree = "<group>"; };
 		3D4476042A98B65500683647 /* CartNFTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartNFTCell.swift; sourceTree = "<group>"; };
 		3D4476062A98B91600683647 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		3D54FB5D2A9FF03500859D28 /* CartPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPresenter.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				3DCFE4852AA33D7900E3A222 /* CurrencyCellModel.swift */,
 				3DCFE4812AA32DBC00E3A222 /* NetworkManager.swift */,
 				3D81A6A52AA5C04A008ECF46 /* PaymentManager.swift */,
+				3D3F6A992AB18AFD00451D13 /* NetworkManagerStub.swift */,
 			);
 			path = Payment;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				3D4476072A98B91600683647 /* UIImage+Extension.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
+				3D3F6A9A2AB18AFD00451D13 /* NetworkManagerStub.swift in Sources */,
 				3DCFE47C2AA25BC200E3A222 /* PaymentViewController.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,

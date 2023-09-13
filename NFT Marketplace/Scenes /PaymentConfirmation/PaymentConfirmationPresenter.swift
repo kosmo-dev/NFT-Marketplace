@@ -38,7 +38,12 @@ final class PaymentConfirmationPresenter: PaymentConfirmationPresenterProtocol {
     }
 
     func buttonTapped() {
-
+        switch configuration {
+        case .success:
+            print("success")
+        case .failure:
+            viewController?.dismissViewController()
+        }
     }
 }
 
