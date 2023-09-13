@@ -16,6 +16,7 @@ final class StatisticsViewController: UIViewController, StatisticsViewController
     let cellReuseIdentifier = "StatisticsViewController"
 
     private let presenter: StatisticsPresenterProtocol
+    private let cart: CartControllerProtocol
 
     private lazy var statisticsFilterButton: UIButton = {
         let statisticsFilterButton = UIButton(type: .custom)
@@ -45,8 +46,9 @@ final class StatisticsViewController: UIViewController, StatisticsViewController
         presenter.loadDataFromServer()
     }
 
-    init(presenter: StatisticsPresenterProtocol) {
+    init(presenter: StatisticsPresenterProtocol, cart: CartControllerProtocol) {
         self.presenter = presenter
+        self.cart = cart
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -107,7 +109,7 @@ extension StatisticsViewController: UITableViewDelegate {
 
         let model = UserCardService(user: user, userAvatar: cellImage)
         let presenter = UserCardPresenter(model: model)
-        let userCardViewController = UserCardViewController()
+        let userCardViewController = UserCardViewController(cart: cart)
         userCardViewController.presenter = presenter
         userCardViewController.modalPresentationStyle = .fullScreen
 

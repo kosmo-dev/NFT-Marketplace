@@ -15,16 +15,20 @@ protocol UsersCollectionPresenterProtocol: AnyObject {
     func nfts(at index: Int) -> NFT?
     func loadNFTImage(imageView: UIImageView, url: String)
     func liked(id: String) -> Bool?
+    func addedToCart(nft: NFT) -> Bool?
     func tapLike(_ cell: NFTCollectionCell)
+    func cartButtonTapped(cell: NFTCollectionCell)
 }
 
 final class UsersCollectionPresenter: UsersCollectionPresenterProtocol {
     weak var view: UsersCollectionViewControllerProtocol?
+    let cartController: CartControllerProtocol
 
     private let usersCollectionService: UsersCollectionService
 
-    init(model: UsersCollectionService) {
+    init(model: UsersCollectionService, cartController: CartControllerProtocol) {
         self.usersCollectionService = model
+        self.cartController = cartController
     }
 
     func userNFTcount() -> Int {
@@ -46,22 +50,38 @@ final class UsersCollectionPresenter: UsersCollectionPresenterProtocol {
         return usersCollectionService.NFTs[index]
     }
 
+    func cartButtonTapped(cell: NFTCollectionCell) {
+        guard let nft = cell.nftModel else { return }
+        if cartController.cart.contains(where: { $0.id == nft.id }) {
+            cartController.removeFromCart(nft) {
+                print("Removed from cart")
+            }
+        } else {
+            cartController.addToCart(nft) {
+                print("Added to cart")
+            }
+        }
+        view?.reloadCollectionView()
+    }
+
+    func addedToCart(nft: NFT) -> Bool? {
+        return self.cartController.cart.contains( where: { $0.id == nft.id })
+    }
+
     func liked(id: String) -> Bool? {
         return self.usersCollectionService.userProile?.likes.contains(id)
     }
 
     func tapLike(_ cell: NFTCollectionCell) {
-        // get profile
-        var userProfile = usersCollectionService.userProile
-        guard let userProfile = userProfile, let nftId = cell.nftId else { return }
-        // check that [likes] contians cell.nftId
-        // if not - add, if contains - remove from [likes]
+        let userProfile = usersCollectionService.userProile
+        guard let userProfile = userProfile, let nft = cell.nftModel else { return }
+
         var newLikes = userProfile.likes
-        if !userProfile.likes.contains(nftId) {
-            newLikes.append(nftId)
+        if !userProfile.likes.contains(nft.id) {
+            newLikes.append(nft.id)
         } else {
             newLikes = newLikes.filter {
-                $0 != nftId
+                $0 != nft.id
             }
         }
         let newProfile = Profile(
@@ -70,8 +90,6 @@ final class UsersCollectionPresenter: UsersCollectionPresenterProtocol {
             website: userProfile.website,
             likes: newLikes
         )
-        print("New like array: \(newProfile)")
-        // put profile
         usersCollectionService.putProfile(
             profile: newProfile
         ) {

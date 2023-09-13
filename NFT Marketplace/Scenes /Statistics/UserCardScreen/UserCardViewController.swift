@@ -9,6 +9,7 @@ import UIKit
 
 final class UserCardViewController: UIViewController {
     var presenter: UserCardPresenter?
+    let cart: CartControllerProtocol
 
     private let userAvatar: UIImageView = {
         let userAvatar = UIImageView(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
@@ -79,6 +80,15 @@ final class UserCardViewController: UIViewController {
         return chevron
     }()
 
+    init(cart: CartControllerProtocol) {
+        self.cart = cart
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -102,7 +112,7 @@ final class UserCardViewController: UIViewController {
         guard let user = presenter?.user() else { return }
 
         let model = UsersCollectionService(user: user)
-        let presenter = UsersCollectionPresenter(model: model)
+        let presenter = UsersCollectionPresenter(model: model, cartController: cart)
 
         let usersCollectionViewController = UsersCollectionViewController()
         usersCollectionViewController.presenter = presenter

@@ -111,17 +111,21 @@ extension UsersCollectionViewController: UICollectionViewDataSource {
 
         DispatchQueue.main.async {
             cell.delegate = self
-            cell.nftId = nft.id
+            cell.nftModel = nft
             cell.nftName.text = nft.name
             cell.nftPrice.text = "\(nft.price) ETH"
             cell.nftImage.image = UIImage()
             cell.starRatingView.configureRating(nft.rating)
             if self.presenter?.liked(id: nft.id) ?? false {
-                print("Draw red heart")
                 cell.likeButton.setImage(UIImage(named: "redLike"), for: .normal)
             } else {
-                print("Draw white heart")
                 cell.likeButton.setImage(UIImage(named: "likeIcon"), for: .normal)
+            }
+
+            if self.presenter?.addedToCart(nft: nft) ?? false {
+                cell.cartButton.setImage(UIImage(named: "deleteFromCart"), for: .normal)
+            } else {
+                cell.cartButton.setImage(UIImage(named: "addToCart"), for: .normal)
             }
 
             if let firstImage = nft.images.first {
@@ -165,12 +169,13 @@ extension UsersCollectionViewController: UICollectionViewDelegate {
 
 }
 
+// MARK: - NFTCollectionCellDelegate
 extension UsersCollectionViewController: NFTCollectionCellDelegate {
     func likeButtonDidTapped(cell: NFTCollectionCell) {
         self.presenter?.tapLike(cell)
     }
 
     func addToCardButtonDidTapped(cell: NFTCollectionCell) {
-        // noop
+        self.presenter?.cartButtonTapped(cell: cell)
     }
 }

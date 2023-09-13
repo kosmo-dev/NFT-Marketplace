@@ -17,9 +17,9 @@ protocol NFTCollectionCellDelegate: AnyObject {
 
 final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
 
-    weak var delegate: NFTCollectionCellDelegate?
+    var nftModel: NFT?
 
-    var nftId: String?
+    weak var delegate: NFTCollectionCellDelegate?
 
     lazy var nftImage: UIImageView = {
         let imageView = UIImageView()
@@ -41,7 +41,7 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
         return button
     }()
 
-    private lazy var cartButton: UIButton = {
+    lazy var cartButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "addToCart"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -136,7 +136,6 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
     // MARK: - @objc func
 
     @objc func didTapLike() {
-        print(self.nftId)
         delegate?.likeButtonDidTapped(cell: self)
     }
 
