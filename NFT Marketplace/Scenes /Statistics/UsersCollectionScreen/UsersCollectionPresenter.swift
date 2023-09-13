@@ -18,6 +18,7 @@ protocol UsersCollectionPresenterProtocol: AnyObject {
     func addedToCart(nft: NFT) -> Bool?
     func tapLike(_ cell: NFTCollectionCell)
     func cartButtonTapped(cell: NFTCollectionCell)
+    func updateCell(at index: Int)
 }
 
 final class UsersCollectionPresenter: UsersCollectionPresenterProtocol {
@@ -51,6 +52,8 @@ final class UsersCollectionPresenter: UsersCollectionPresenterProtocol {
     }
 
     func cartButtonTapped(cell: NFTCollectionCell) {
+        let indexPath = IndexPath(row: cell.likeButton.tag, section: 0)
+
         guard let nft = cell.nftModel else { return }
         if cartController.cart.contains(where: { $0.id == nft.id }) {
             cartController.removeFromCart(nft) {
@@ -61,7 +64,7 @@ final class UsersCollectionPresenter: UsersCollectionPresenterProtocol {
                 print("Added to cart")
             }
         }
-        view?.reloadCollectionView()
+        self.view?.updateCell(at: indexPath.row)
     }
 
     func addedToCart(nft: NFT) -> Bool? {
@@ -73,6 +76,8 @@ final class UsersCollectionPresenter: UsersCollectionPresenterProtocol {
     }
 
     func tapLike(_ cell: NFTCollectionCell) {
+        let indexPath = IndexPath(row: cell.likeButton.tag, section: 0)
+
         let userProfile = usersCollectionService.userProile
         guard let userProfile = userProfile, let nft = cell.nftModel else { return }
 
@@ -93,7 +98,11 @@ final class UsersCollectionPresenter: UsersCollectionPresenterProtocol {
         usersCollectionService.putProfile(
             profile: newProfile
         ) {
-            self.view?.reloadCollectionView()
+            self.view?.updateCell(at: indexPath.row)
         }
+    }
+
+    func updateCell(at index: Int) {
+        view?.updateCell(at: index)
     }
 }

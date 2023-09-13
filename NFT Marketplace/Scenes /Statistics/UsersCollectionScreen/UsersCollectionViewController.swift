@@ -9,6 +9,7 @@ import UIKit
 
 protocol UsersCollectionViewControllerProtocol: AnyObject {
     func reloadCollectionView()
+    func updateCell(at index: Int)
 }
 
 final class UsersCollectionViewController: UIViewController, UsersCollectionViewControllerProtocol {
@@ -62,6 +63,15 @@ final class UsersCollectionViewController: UIViewController, UsersCollectionView
         }
     }
 
+    func updateCell(at index: Int) {
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(item: index, section: 0)
+            if let cell = self.NFTCollection.cellForItem(at: indexPath) as? NFTCollectionCell {
+                self.configureCell(cell, at: indexPath)
+            }
+        }
+    }
+
     @objc private func backwardTapped() {
         dismiss(animated: true)
     }
@@ -87,27 +97,9 @@ final class UsersCollectionViewController: UIViewController, UsersCollectionView
         view.addSubview(backwardButton)
         view.addSubview(NFTCollection)
     }
-}
 
-// MARK: - UICollectionViewDataSource
-extension UsersCollectionViewController: UICollectionViewDataSource {
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter?.userNFTcount() ?? 0
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "NFTCollectionCell",
-            for: indexPath
-        ) as? NFTCollectionCell else {
-            return UICollectionViewCell()
-        }
-
-        guard let nft = presenter?.nfts(at: indexPath.row) else { return UICollectionViewCell() }
+    private func configureCell(_ cell: NFTCollectionCell, at indexPath: IndexPath) {
+        guard let nft = presenter?.nfts(at: indexPath.row) else { return }
 
         DispatchQueue.main.async {
             cell.delegate = self
@@ -132,6 +124,30 @@ extension UsersCollectionViewController: UICollectionViewDataSource {
                 self.presenter?.loadNFTImage(imageView: cell.nftImage, url: firstImage)
             }
         }
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+extension UsersCollectionViewController: UICollectionViewDataSource {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return presenter?.userNFTcount() ?? 0
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "NFTCollectionCell",
+            for: indexPath
+        ) as? NFTCollectionCell else {
+            return UICollectionViewCell()
+        }
+
+        configureCell(cell, at: indexPath)
+        cell.likeButton.tag = indexPath.row
+
         return cell
     }
 }

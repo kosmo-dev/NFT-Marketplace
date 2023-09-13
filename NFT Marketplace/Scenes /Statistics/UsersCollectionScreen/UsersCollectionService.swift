@@ -10,7 +10,7 @@ import Kingfisher
 
 protocol UsersCollectionProtocol {
     var NFTs: [NFT] { get set }
-    
+
     func currentCount() -> Int
     func fetchNFTs(completion: @escaping () -> Void)
     func loadNFTImage(imageView: UIImageView, url: String)
@@ -37,24 +37,24 @@ final class UsersCollectionService: UsersCollectionProtocol {
     var NFTs: [NFT] = []
     var userProile: Profile?
     let user: UserElement
-    
+
     private var NFTsImages: [String: UIImage] = [:]
     private let request = UsersRequest()
     private let networkClient = DefaultNetworkClient()
-    
+
     init(user: UserElement) {
         self.user = user
     }
-    
+
     func currentCount() -> Int {
         return NFTs.count
     }
-    
+
     func fetchNFTs(completion: @escaping () -> Void) {
         DispatchQueue.main.async {
             UIBlockingProgressHUD.show()
         }
-        
+
         var count = user.nfts.count
         networkClient.send(request: ProfileRequest(), type: Profile.self) { [weak self] result in
             guard let self = self else { return }
@@ -86,7 +86,7 @@ final class UsersCollectionService: UsersCollectionProtocol {
             }
         }
     }
-    
+
     func loadNFTImage(imageView: UIImageView, url: String) {
         guard let NFTImageURL = URL(string: url) else { return }
         imageView.kf.setImage(with: NFTImageURL) { result in
@@ -98,7 +98,7 @@ final class UsersCollectionService: UsersCollectionProtocol {
             }
         }
     }
-    
+
     func putProfile(profile: Profile, completion: @escaping () -> Void) {
         self.networkClient.send(request: UpdateProfileRequest(dto: profile)) {result in
             switch result {
