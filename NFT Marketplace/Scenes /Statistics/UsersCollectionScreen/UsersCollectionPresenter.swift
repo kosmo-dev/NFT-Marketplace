@@ -37,9 +37,11 @@ final class UsersCollectionPresenter: UsersCollectionPresenterProtocol {
     }
 
     func loadNFTFromServer() {
-        usersCollectionService.fetchNFTs { [weak self] in
-            guard let self = self else { return }
-            self.view?.reloadCollectionView()
+        if usersCollectionService.user.nfts.count > 0 {
+            usersCollectionService.fetchNFTs { [weak self] in
+                guard let self = self else { return }
+                self.view?.reloadCollectionView()
+            }
         }
     }
 
