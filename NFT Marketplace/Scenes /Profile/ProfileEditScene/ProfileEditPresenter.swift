@@ -43,7 +43,6 @@ final class ProfileEditPresenter: ProfileEditPresenterProtocol {
                 case .failure(let error):
                     self?.view?.displayError(error)
                     self?.view?.hideLoadingState()
-
                 }
             }
         }

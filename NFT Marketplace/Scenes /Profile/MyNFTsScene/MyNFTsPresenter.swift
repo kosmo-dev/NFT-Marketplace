@@ -35,4 +35,8 @@ final class MyNFTsPresenter {
         })
     }
 
+    func updateLikesArray(likes: [String]?) {
+
+    }
+
 }

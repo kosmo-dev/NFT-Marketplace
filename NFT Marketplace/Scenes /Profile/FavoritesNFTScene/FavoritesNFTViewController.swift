@@ -7,14 +7,58 @@
 
 import UIKit
 
+protocol FavoritesNFTView: AnyObject {
+    func updateNFTs(_ nfts: [NFTModel])
+    func showError(_ error: Error)
+}
+
 final class FavoritesNFTViewController: UIViewController {
+
+    // MARK: - Private Methods
+    private var collectionViewLayout: UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+
+        let totalHorizontalPadding: CGFloat = 16 * 2 + 7
+        let itemWidth: CGFloat = (view.frame.width - totalHorizontalPadding) / 2
+        layout.itemSize = CGSize(width: itemWidth, height: 80)
+
+        layout.minimumLineSpacing = 20
+        layout.minimumInteritemSpacing = 7
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        return layout
+    }
+
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        collectionView.backgroundColor = .whiteDayNight
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(FavoritesNFTCVCell.self, forCellWithReuseIdentifier: "FavoriteNFTCell")
+        return collectionView
+    }()
+
+    private var presenter: FavoritesNFTPresenter?
+    private var likedNFTs: [NFTModel] = []
+    private var likedNFTIds: [String]
+
+    init(likedNFTIds: [String]) {
+        self.likedNFTIds = likedNFTIds
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .whiteDayNight
-        
+
         setupNavigationBar()
-        
+        setupPresenter()
+        setupCollectionView()
+
     }
 
     private func setupNavigationBar() {
@@ -30,10 +74,78 @@ final class FavoritesNFTViewController: UIViewController {
         ]
     }
 
+    private func setupCollectionView() {
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+
     @objc func backButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
-    
-    
+
+    private func setupPresenter() {
+        let profileService = ProfileService()
+        presenter = FavoritesNFTPresenter(likedNFTIds: likedNFTIds, profileService: profileService)
+        presenter?.view = self
+        presenter?.viewDidLoad()
+    }
+}
+
+extension FavoritesNFTViewController: FavoritesNFTCVCellDelegate {
+    func didTapLikeButton(in cell: FavoritesNFTCVCell) {
+        print("didTapLikeButton вызван")
+        guard let indexPath = collectionView.indexPath(for: cell) else { return }
+        let nft = likedNFTs[indexPath.row]
+        presenter?.toggleLikeStatus(for: nft)
+        collectionView.deleteItems(at: [indexPath])
+//        if let index = likedNFTIds.firstIndex(of: nft.id) {
+//            likedNFTIds.remove(at: index)
+//            likedNFTs.remove(at: indexPath.row)
+//            collectionView.deleteItems(at: [indexPath])
+//        } else {
+//            likedNFTIds.append(nft.id)
+//            cell.setLiked(true)
+//        }
+    }
+}
+
+extension FavoritesNFTViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+
+    // MARK: - UICollectionViewDataSource methods
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return likedNFTs.count
+//        return presenter.countOfFavorites()
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavoriteNFTCell",
+                                                      for: indexPath) as? FavoritesNFTCVCell
+        let nft = likedNFTs[indexPath.row]
+        cell?.configure(with: nft)
+        cell?.delegate = self
+        cell?.setLiked(likedNFTIds.contains(nft.id))
+        return cell ?? UICollectionViewCell()
+    }
+}
+
+extension FavoritesNFTViewController: FavoritesNFTView {
+    func updateNFTs(_ nfts: [NFTModel]) {
+        self.likedNFTs = nfts
+        DispatchQueue.main.async {
+            print("Обновление NFTs с \(nfts.count) элементами.")
+            self.collectionView.reloadData()
+        }
+    }
+
+    func showError(_ error: Error) {
+        return
+    }
 
 }

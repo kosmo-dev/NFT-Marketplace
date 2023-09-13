@@ -13,9 +13,6 @@ protocol ProfileViewProtocol: AnyObject {
     func updateUI(with profile: UserProfile)
     func displayError(_ error: Error)
     func navigateToEditProfileScreen()
-//    func navigateToMyNFTsScreen()
-//    func navigateToFavoritesScreen()
-//    func navigateToAboutDeveloperScreen()
 }
 
 final class ProfileViewController: UIViewController {
@@ -35,11 +32,16 @@ final class ProfileViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter?.viewDidLoad()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .whiteDayNight
 
-        presenter?.viewDidLoad()
+//        presenter?.viewDidLoad()
         (self.presenter as? ProfilePresenter)?.delegate = self
         setupNavigationBar()
         setupViews()
@@ -117,17 +119,6 @@ extension ProfileViewController: ProfileViewProtocol {
         present(editProfileVC, animated: true, completion: nil)
     }
 
-//    func navigateToMyNFTsScreen() {
-//        print("gdf")
-//        let myNFTsVC = MyNFTsViewController()
-//        self.navigationController?.pushViewController(myNFTsVC, animated: true)
-//    }
-
-    func navigateToFavoritesScreen() {
-        let favoritesNFTVC = FavoritesNFTViewController()
-        self.navigationController?.pushViewController(favoritesNFTVC, animated: true)
-    }
-
     func navigateToAboutDeveloperScreen() {
         let aboutDeveloperVC = AboutDeveloperViewController()
         self.navigationController?.pushViewController(aboutDeveloperVC, animated: true)
@@ -162,7 +153,7 @@ extension ProfileViewController: ProfileButtonsStackViewDelegate {
     }
 
     func didTapFavoritesNFTButton() {
-        navigateToFavoritesScreen()
+        presenter?.didTapFavorites()
     }
 
     func didTapAboutDeveloperButton() {
@@ -176,4 +167,10 @@ extension ProfileViewController: ProfilePresenterDelegate {
         let myNFTsVC = MyNFTsViewController(nftIds: ids)
         self.navigationController?.pushViewController(myNFTsVC, animated: true)
     }
+
+    func shouldNavigateTofavoriteNFTsScreen(with likedIds: [String]) {
+        let favoriteNFTsVC = FavoritesNFTViewController(likedNFTIds: likedIds)
+        self.navigationController?.pushViewController(favoriteNFTsVC, animated: true)
+    }
+
 }

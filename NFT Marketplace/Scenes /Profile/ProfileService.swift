@@ -19,7 +19,7 @@ protocol NFTFetchingProtocol {
     func fetchNFTs(completion: @escaping (Result<[NFTModel], Error>) -> Void)
 }
 
-protocol ProfileServiceProtocol: ProfileFetchingProtocol, ProfileUpdatingProtocol {}
+protocol ProfileServiceProtocol: ProfileFetchingProtocol, ProfileUpdatingProtocol, NFTFetchingProtocol {}
 
 struct ProfileService {
     private let networkClient: NetworkClient
