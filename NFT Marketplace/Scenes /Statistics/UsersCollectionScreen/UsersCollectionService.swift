@@ -38,7 +38,6 @@ final class UsersCollectionService: UsersCollectionProtocol {
     var userProile: Profile?
     let user: UserElement
 
-    private var NFTsImages: [String: UIImage] = [:]
     private let request = UsersRequest()
     private let networkClient = DefaultNetworkClient()
 

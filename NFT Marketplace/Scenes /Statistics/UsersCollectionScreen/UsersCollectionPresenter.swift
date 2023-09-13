@@ -23,8 +23,8 @@ protocol UsersCollectionPresenterProtocol: AnyObject {
 
 final class UsersCollectionPresenter: UsersCollectionPresenterProtocol {
     weak var view: UsersCollectionViewControllerProtocol?
-    let cartController: CartControllerProtocol
-
+    
+    private let cartController: CartControllerProtocol
     private let usersCollectionService: UsersCollectionService
 
     init(model: UsersCollectionService, cartController: CartControllerProtocol) {
