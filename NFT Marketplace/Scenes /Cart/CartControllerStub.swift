@@ -26,11 +26,13 @@ final class CartControllerStub: CartControllerProtocol {
     func removeFromCart(_ id: String, completion: (() -> Void)?) {
         guard let index = cart.firstIndex(where: { $0.id == id }) else { return }
         cart.remove(at: index)
+        delegate?.cartCountDidChanged(cart.count)
         completion?()
     }
 
     func removeAll(completion: (() -> Void)?) {
         cart.removeAll()
+        delegate?.cartCountDidChanged(cart.count)
         completion?()
     }
 }

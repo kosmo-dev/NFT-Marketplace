@@ -19,6 +19,7 @@ final class AppConfiguration {
     init() {
         let cartController = CartControllerStub()
         let cartPresenter = CartPresenter(cartController: cartController)
+        cartController.delegate = cartPresenter
         profileViewController = UIViewController()
         catalogViewController = UIViewController()
         cartViewController = CartViewController(presenter: cartPresenter)

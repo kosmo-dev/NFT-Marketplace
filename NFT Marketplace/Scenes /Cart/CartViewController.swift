@@ -13,6 +13,7 @@ protocol CartViewControllerProtocol: AnyObject {
     func didDeleteNFT(for indexPath: IndexPath)
     func displayEmptyCart()
     func displayLoadedCart()
+    func updateTabBarItem(newValue: String?)
 }
 
 final class CartViewController: UIViewController {
@@ -241,6 +242,10 @@ extension CartViewController: CartViewControllerProtocol {
         tableView.isHidden = false
         payBackroundView.isHidden = false
         emptyPlaceholderLabel.isHidden = true
+    }
+
+    func updateTabBarItem(newValue: String?) {
+        tabBarItem.badgeValue = newValue
     }
 }
 

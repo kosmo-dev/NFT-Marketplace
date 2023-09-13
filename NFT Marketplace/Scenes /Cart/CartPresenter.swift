@@ -123,3 +123,11 @@ extension CartPresenter {
         case loaded
     }
 }
+
+// MARK: - CartControllerDelegate
+extension CartPresenter: CartControllerDelegate {
+    func cartCountDidChanged(_ newCount: Int) {
+        let badgeValue = newCount > 0 ? String(newCount) : nil
+        viewController?.updateTabBarItem(newValue: badgeValue)
+    }
+}
