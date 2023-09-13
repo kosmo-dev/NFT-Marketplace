@@ -10,7 +10,7 @@ import Kingfisher
 
 protocol UsersCollectionProtocol {
     var NFTs: [NFT] { get set }
-    
+
     func currentCount() -> Int
     func fetchNFTs(completion: @escaping () -> Void)
     func loadNFTImage(imageView: UIImageView, url: String)
@@ -23,48 +23,66 @@ struct NFTRequest: NetworkRequest {
     }
 }
 
+struct ProfileRequest: NetworkRequest {
+    var endpoint = URL(string: "https://64e794e8b0fd9648b7902516.mockapi.io/api/v1/profile/1")
+}
+
+struct UpdateProfileRequest: NetworkRequest {
+    var endpoint = URL(string: "https://64e794e8b0fd9648b7902516.mockapi.io/api/v1/profile/1")
+    var httpMethod: HttpMethod = HttpMethod.put
+    var dto: Encodable?
+}
+
 final class UsersCollectionService: UsersCollectionProtocol {
-    
-    let userNFTIds: [String]
-    
     var NFTs: [NFT] = []
-    var NFTsImages: [String: UIImage] = [:]
-    
+    var userProile: Profile?
+    let user: UserElement
+
+    private var NFTsImages: [String: UIImage] = [:]
     private let request = UsersRequest()
     private let networkClient = DefaultNetworkClient()
-    
-    init(userNFTIds: [String]) {
-        self.userNFTIds = userNFTIds
+
+    init(user: UserElement) {
+        self.user = user
     }
-    
+
     func currentCount() -> Int {
         return NFTs.count
     }
-    
+
     func fetchNFTs(completion: @escaping () -> Void) {
         UIBlockingProgressHUD.show()
-        var count = userNFTIds.count
-        for id in userNFTIds {
-            networkClient.send(request: NFTRequest(id: id), type: NFT.self) { [weak self] result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let nft):
-                        self?.NFTs.append(nft)
-                        print("NFT Name: \(nft.name)")
-                        print("NFT Images: \(nft.images)")
-                    case .failure(let error):
-                        print("Error fetching NFTs: \(error)")
-                    }
-                    count -= 1
-                    if count == 0 {
-                        UIBlockingProgressHUD.dismiss()
-                        completion()
+        var count = user.nfts.count
+        networkClient.send(request: ProfileRequest(), type: Profile.self) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                print("Error fetching profile: \(error)")
+            case .success(let profile):
+                print("Got user profile: \(profile)")
+                self.userProile = profile
+                for id in self.user.nfts {
+                    self.networkClient.send(request: NFTRequest(id: id), type: NFT.self) { result in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .success(let nft):
+                                self.NFTs.append(nft)
+                            case .failure(let error):
+                                print("Error fetching NFTs: \(error)")
+                            }
+                            count -= 1
+                            if count == 0 {
+                                UIBlockingProgressHUD.dismiss()
+                                completion()
+                            }
+                        }
                     }
                 }
+
             }
         }
     }
-    
+
     func loadNFTImage(imageView: UIImageView, url: String) {
         guard let NFTImageURL = URL(string: url) else { return }
         imageView.kf.setImage(with: NFTImageURL) { result in
@@ -73,6 +91,19 @@ final class UsersCollectionService: UsersCollectionProtocol {
                 print("Image loaded for \(url)")
             case .failure(let error):
                 print(error)
+            }
+        }
+    }
+
+    func putProfile(profile: Profile, completion: @escaping () -> Void) {
+        self.networkClient.send(request: UpdateProfileRequest(dto: profile)) {result in
+            switch result {
+            case .success(let response):
+                print(String(decoding: response, as: UTF8.self))
+                self.userProile = profile
+                completion()
+            case .failure(let error):
+                print("Error udpating user: \(error)")
             }
         }
     }

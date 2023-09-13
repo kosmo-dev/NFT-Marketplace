@@ -41,6 +41,8 @@
 		6431B6762AAC8B9400B0DAAF /* UsersCollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6431B6752AAC8B9400B0DAAF /* UsersCollectionPresenter.swift */; };
 		6431B6782AAC8BA000B0DAAF /* UsersCollectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6431B6772AAC8BA000B0DAAF /* UsersCollectionService.swift */; };
 		6431B67A2AAF61DA00B0DAAF /* NFTCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6431B6792AAF61DA00B0DAAF /* NFTCollectionCell.swift */; };
+		6431B67C2AB1E71F00B0DAAF /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6431B67B2AB1E71F00B0DAAF /* Profile.swift */; };
+		6431B67E2AB2088F00B0DAAF /* UpdateProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6431B67D2AB2088F00B0DAAF /* UpdateProfileModel.swift */; };
 		645E62E62AA1338500AD871D /* UserCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645E62E52AA1338500AD871D /* UserCardViewController.swift */; };
 		645E62E82AA1340600AD871D /* UserCardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645E62E72AA1340600AD871D /* UserCardPresenter.swift */; };
 		645E62EA2AA1342B00AD871D /* UserCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645E62E92AA1342B00AD871D /* UserCardService.swift */; };
@@ -108,6 +110,8 @@
 		6431B6752AAC8B9400B0DAAF /* UsersCollectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersCollectionPresenter.swift; sourceTree = "<group>"; };
 		6431B6772AAC8BA000B0DAAF /* UsersCollectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersCollectionService.swift; sourceTree = "<group>"; };
 		6431B6792AAF61DA00B0DAAF /* NFTCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFTCollectionCell.swift; sourceTree = "<group>"; };
+		6431B67B2AB1E71F00B0DAAF /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		6431B67D2AB2088F00B0DAAF /* UpdateProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProfileModel.swift; sourceTree = "<group>"; };
 		645E62E52AA1338500AD871D /* UserCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardViewController.swift; sourceTree = "<group>"; };
 		645E62E72AA1340600AD871D /* UserCardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardPresenter.swift; sourceTree = "<group>"; };
 		645E62E92AA1342B00AD871D /* UserCardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardService.swift; sourceTree = "<group>"; };
@@ -321,6 +325,8 @@
 			children = (
 				3DEBDFE12A97D4C9001C7517 /* NFT.swift */,
 				64E185442A9E1BB0004ACD0A /* Users.swift */,
+				6431B67B2AB1E71F00B0DAAF /* Profile.swift */,
+				6431B67D2AB2088F00B0DAAF /* UpdateProfileModel.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -580,6 +586,7 @@
 				3DEBDFE02A97D4A5001C7517 /* FavouriteNFTControllerProtocol.swift in Sources */,
 				645E62E82AA1340600AD871D /* UserCardPresenter.swift in Sources */,
 				920BE3772A98A43A009B2F43 /* UIColor + Extension.swift in Sources */,
+				6431B67C2AB1E71F00B0DAAF /* Profile.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				64E1852F2A9BF95D004ACD0A /* StatisticsCell.swift in Sources */,
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
@@ -587,6 +594,7 @@
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
+				6431B67E2AB2088F00B0DAAF /* UpdateProfileModel.swift in Sources */,
 				64E185452A9E1BB0004ACD0A /* Users.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				645E62EA2AA1342B00AD871D /* UserCardService.swift in Sources */,

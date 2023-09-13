@@ -12,6 +12,7 @@ protocol UserCardDelegate: AnyObject {
     func getUserName() -> String
     func getUserDescription() -> String
     func getNFT() -> String
+    func user() -> UserElement?
 }
 
 final class UserCardPresenter: UserCardDelegate {
@@ -47,8 +48,7 @@ final class UserCardPresenter: UserCardDelegate {
         return userWebsiteController
     }
 
-    func userNFTIds() -> [String] {
-        let nftIds = userCardService.user?.nfts
-        return nftIds ?? []
+    func user() -> UserElement? {
+        return userCardService.user
     }
 }

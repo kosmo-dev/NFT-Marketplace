@@ -99,9 +99,9 @@ final class UserCardViewController: UIViewController {
     }
 
     @objc private func userCollectionsTapped() {
-        guard let userNFTIds = presenter?.userNFTIds() else { return }
+        guard let user = presenter?.user() else { return }
 
-        let model = UsersCollectionService(userNFTIds: userNFTIds)
+        let model = UsersCollectionService(user: user)
         let presenter = UsersCollectionPresenter(model: model)
 
         let usersCollectionViewController = UsersCollectionViewController()

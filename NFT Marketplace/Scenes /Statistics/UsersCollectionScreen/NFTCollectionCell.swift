@@ -19,6 +19,8 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
 
     weak var delegate: NFTCollectionCellDelegate?
 
+    var nftId: String?
+
     lazy var nftImage: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
@@ -30,7 +32,7 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
         return imageView
     }()
 
-    private lazy var likeButton: UIButton = {
+    lazy var likeButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "likeIcon"), for: .normal)
         button.imageView?.tintColor = .redUni
@@ -134,6 +136,7 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
     // MARK: - @objc func
 
     @objc func didTapLike() {
+        print(self.nftId)
         delegate?.likeButtonDidTapped(cell: self)
     }
 
