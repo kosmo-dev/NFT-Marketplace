@@ -22,7 +22,7 @@ struct OrderPayment: NetworkRequest {
 
 struct OrderPut: NetworkRequest {
     let requestId = "OrderPutRequest"
-    let nfts: [String]
+    let nfts: [String: [String]]
     var endpoint: URL? = URL(string: "https://64e794e8b0fd9648b7902516.mockapi.io/api/v1/orders/1")
     var dto: Encodable? {
         nfts

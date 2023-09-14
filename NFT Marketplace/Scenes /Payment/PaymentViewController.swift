@@ -170,12 +170,16 @@ final class PaymentViewController: UIViewController {
 
                 payDescription.topAnchor.constraint(equalTo: payView.topAnchor, constant: Const.defaultOffset),
                 payDescription.leadingAnchor.constraint(equalTo: payView.leadingAnchor, constant: Const.defaultOffset),
-                payDescription.trailingAnchor.constraint(equalTo: payView.trailingAnchor, constant: -Const.defaultOffset),
+                payDescription.trailingAnchor.constraint(
+                    equalTo: payView.trailingAnchor, constant: -Const.defaultOffset),
 
-                userAgreementButton.topAnchor.constraint(equalTo: payDescription.bottomAnchor, constant: Const.defaultOffset / 4),
-                userAgreementButton.leadingAnchor.constraint(equalTo: payView.leadingAnchor, constant: Const.defaultOffset),
+                userAgreementButton.topAnchor.constraint(
+                    equalTo: payDescription.bottomAnchor, constant: Const.defaultOffset / 4),
+                userAgreementButton.leadingAnchor.constraint(
+                    equalTo: payView.leadingAnchor, constant: Const.defaultOffset),
 
-                payButton.topAnchor.constraint(equalTo: userAgreementButton.bottomAnchor, constant: Const.defaultOffset),
+                payButton.topAnchor.constraint(
+                    equalTo: userAgreementButton.bottomAnchor, constant: Const.defaultOffset),
                 payButton.leadingAnchor.constraint(equalTo: payView.leadingAnchor, constant: Const.defaultOffset),
                 payButton.trailingAnchor.constraint(equalTo: payView.trailingAnchor, constant: -Const.defaultOffset),
                 payButton.bottomAnchor.constraint(equalTo: payView.bottomAnchor, constant: -Const.bottomOffset),
@@ -231,7 +235,8 @@ final class PaymentViewController: UIViewController {
             heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(Const.cellEstimatedHeight))
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1), heightDimension: .estimated(Const.cellEstimatedHeight))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
         group.interItemSpacing = .fixed(spacing)
 
@@ -306,7 +311,8 @@ extension PaymentViewController: PaymentViewControllerProtocol {
         payButton.backgroundColor = color
         payButton.isEnabled = isEnabled
 
-        isLoading ? payButton.setTitle("", for: .normal) : payButton.setTitle(TextStrings.PaymentViewController.payButtonTitle, for: .normal)
+        isLoading ?
+        payButton.setTitle("", for: .normal): payButton.setTitle(TextStrings.PaymentViewController.payButtonTitle, for: .normal)
         isLoading ? loadingIndicator.startAnimating() : loadingIndicator.stopAnimating()
     }
 

@@ -31,14 +31,13 @@ final class PaymentManager: PaymentManagerProtocol {
             case .success:
                 self?.delegate?.paymentFinishedWithSuccess()
             case .failure(let error):
-                self?.delegate?.paymentFinishedWithSuccess()
-//                self?.delegate?.paymentFinishedWithError(error)
+                self?.delegate?.paymentFinishedWithError(error)
             }
         }
     }
 
     private func putOrder(nfts: [String], completion: @escaping (Result<Bool, Error>) -> Void) {
-        let request = OrderPut(nfts: nfts)
+        let request = OrderPut(nfts: ["nfts": nfts])
         networkManager.send(request: request, type: OrderResponse.self, id: request.requestId) { result in
             switch result {
             case .success:

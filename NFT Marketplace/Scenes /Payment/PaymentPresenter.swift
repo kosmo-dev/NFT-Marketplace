@@ -49,7 +49,7 @@ final class PaymentPresenter: PaymentPresenterProtocol {
     init(networkManager: NetworkManagerProtocol,
          paymentManager: PaymentManagerProtocol,
          cartController: CartControllerProtocol) {
-        self.networkManager = NetworkManagerStub()
+        self.networkManager = networkManager
         self.paymentManager = paymentManager
         self.cartController = cartController
         self.paymentManager.delegate = self

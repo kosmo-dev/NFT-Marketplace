@@ -25,6 +25,11 @@ struct TextStrings {
         static let deleteButton = "Удалить"
         static let returnButton = "Вернуться"
         static let emptyCartLabel = "Корзина пуста"
+        static let alertTitle = "Cортировка"
+        static let alertMessage = "Выберите сортировку"
+        static let sortByName = "По названию"
+        static let sortByRating = "По рейтингу"
+        static let sortByPrice = "По цене"
     }
 
     struct PaymentViewController {

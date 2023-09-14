@@ -14,6 +14,8 @@ protocol CartViewControllerProtocol: AnyObject {
     func displayEmptyCart()
     func displayLoadedCart()
     func updateTabBarItem(newValue: String?)
+    func showAlertController(alerts: [AlertModel])
+    func reloadTableView()
 }
 
 final class CartViewController: UIViewController {
@@ -84,10 +86,10 @@ final class CartViewController: UIViewController {
         return emptyPlaceholderLabel
     }()
 
-    private let sortNavigationButton = UIBarButtonItem(
+    private lazy var sortNavigationButton = UIBarButtonItem(
         image: UIImage(named: "SortButton"),
         style: .plain,
-        target: nil,
+        target: self,
         action: #selector(sortButtonTapped)
     )
 
@@ -174,21 +176,19 @@ final class CartViewController: UIViewController {
     }
 
     @objc private func sortButtonTapped() {
+        presenter.sortButtonTapped()
     }
 }
 
 // MARK: - UITableViewDataSource
 extension CartViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.nfts.count
+        presenter.cellsModels.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: CartNFTCell = tableView.dequeueReusableCell()
-        let nft = presenter.nfts[indexPath.row]
-        let priceString = presenter.numberFormatter.string(from: NSNumber(value: nft.price)) ?? ""
-        let cellModel = CartCellModel(
-            id: nft.id, imageURL: nft.images[0], title: nft.name, price: "\(priceString) ETH", rating: nft.rating)
+        let cellModel = presenter.cellsModels[indexPath.row]
         cell.configureCell(cellModel)
         cell.delegate = self
         return cell
@@ -209,12 +209,14 @@ extension CartViewController: UITableViewDelegate {
         let deleteAction = UIContextualAction(
             style: .destructive,
             title: TextStrings.CartViewController.deleteButton) { [weak self] _, _, completionHandler in
-            guard let self else { return }
+                guard let self else { return }
 
-            let nft = presenter.nfts[indexPath.row]
-            deleteNFTButtonDidTapped(id: nft.id, imageURL: nft.images[0], returnHandler: completionHandler)
-        }
-
+                let cellModel = presenter.cellsModels[indexPath.row]
+                deleteNFTButtonDidTapped(
+                    id: cellModel.id,
+                    imageURL: cellModel.imageURL,
+                    returnHandler: completionHandler)
+            }
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
         return configuration
     }
@@ -236,16 +238,40 @@ extension CartViewController: CartViewControllerProtocol {
         tableView.isHidden = true
         payBackroundView.isHidden = true
         emptyPlaceholderLabel.isHidden = false
+        if #available(iOS 16.0, *) {
+            sortNavigationButton.isHidden = true
+        }
     }
 
     func displayLoadedCart() {
         tableView.isHidden = false
         payBackroundView.isHidden = false
         emptyPlaceholderLabel.isHidden = true
+        if #available(iOS 16.0, *) {
+            sortNavigationButton.isHidden = false
+        }
     }
 
     func updateTabBarItem(newValue: String?) {
         tabBarItem.badgeValue = newValue
+    }
+
+    func showAlertController(alerts: [AlertModel]) {
+        let alertController = UIAlertController(title: TextStrings.CartViewController.alertTitle, message: nil, preferredStyle: .actionSheet)
+
+        for alert in alerts {
+            let action = UIAlertAction(title: alert.title, style: alert.style) { _ in
+                if let completion = alert.completion {
+                    completion()
+                }
+            }
+            alertController.addAction(action)
+        }
+        present(alertController, animated: true)
+    }
+
+    func reloadTableView() {
+        tableView.reloadData()
     }
 }
 

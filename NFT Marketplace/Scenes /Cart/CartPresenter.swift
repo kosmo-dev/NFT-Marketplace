@@ -10,28 +10,26 @@ import UIKit
 protocol CartPresenterProtocol {
     var viewController: CartViewControllerProtocol? { get set }
     var navigationController: UINavigationController? { get set }
-    var nfts: [NFT] { get }
-    var numberFormatter: NumberFormatter { get }
+    var cellsModels: [CartCellModel] { get }
 
     func viewWillAppear()
     func deleteNFT()
     func didSelectCellToDelete(id: String)
     func toPaymentButtonTapped()
+    func sortButtonTapped()
 }
 
 final class CartPresenter: CartPresenterProtocol {
     // MARK: - Public Properties
-    var nfts: [NFT] {
-        return cartController.cart
-    }
     weak var viewController: CartViewControllerProtocol?
     weak var navigationController: UINavigationController?
+    var cellsModels: [CartCellModel] = []
 
     // MARK: - Private Properties
     private let cartController: CartControllerProtocol
 
     private var choosedNFTId: String?
-    private var choosedIndex: Int?
+//    private var choosedIndex: Int?
 
     private var currentState: CartViewState = .empty {
         didSet {
@@ -39,12 +37,16 @@ final class CartPresenter: CartPresenterProtocol {
         }
     }
 
-    let numberFormatter: NumberFormatter = {
+    private let numberFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         numberFormatter.locale = Locale(identifier: "ru_RU")
         return numberFormatter
     }()
+
+    private var nfts: [NFT] {
+        return cartController.cart
+    }
 
     // MARK: - Initializers
     init(cartController: CartControllerProtocol) {
@@ -63,29 +65,47 @@ final class CartPresenter: CartPresenterProtocol {
         guard let choosedNFTId else { return }
         cartController.removeFromCart(choosedNFTId) { [weak self] in
             guard let self,
-                  let index = self.choosedIndex else { return }
+                  let index = cellsModels.firstIndex(where: { $0.id == choosedNFTId })
+            else { return }
+            checkViewState()
             self.viewController?.didDeleteNFT(for: IndexPath(row: index, section: 0))
             viewController?.updatePayView(count: nfts.count, price: calculateTotalPrice())
-            self.choosedIndex = nil
             self.choosedNFTId = nil
-            checkViewState()
         }
     }
 
     func didSelectCellToDelete(id: String) {
         choosedNFTId = id
-        choosedIndex = nfts.firstIndex(where: { $0.id == id })
+//        choosedIndex = nfts.firstIndex(where: { $0.id == id })
     }
 
     func toPaymentButtonTapped() {
         let networkClient = DefaultNetworkClient()
         let networkManager = NetworkManager(networkClient: networkClient)
         let paymentManager = PaymentManager(networkManager: networkManager)
-        let presenter = PaymentPresenter(networkManager: networkManager, paymentManager: paymentManager, cartController: cartController)
+        let presenter = PaymentPresenter(
+            networkManager: networkManager,
+            paymentManager: paymentManager,
+            cartController: cartController)
         let viewController = PaymentViewController(presenter: presenter)
         let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         navigationController?.pushViewController(viewController, animated: true)
+    }
+
+    func sortButtonTapped() {
+        let alerts = [
+            AlertModel(title: TextStrings.CartViewController.sortByPrice, style: .default, completion: { [weak self] in
+                self?.sortByPrice()
+            }),
+            AlertModel(title: TextStrings.CartViewController.sortByRating, style: .default, completion: { [weak self] in
+                self?.sortByRating()
+            }),
+            AlertModel(title: TextStrings.CartViewController.sortByName, style: .default, completion: { [weak self] in
+                self?.sortByNames()
+            })
+        ]
+        viewController?.showAlertController(alerts: alerts)
     }
 
     // MARK: - Private Methods
@@ -99,6 +119,7 @@ final class CartPresenter: CartPresenterProtocol {
     }
 
     private func viewControllerShouldChangeView() {
+        createCellsModels()
         switch currentState {
         case .empty:
             viewController?.displayEmptyCart()
@@ -113,6 +134,31 @@ final class CartPresenter: CartPresenterProtocol {
         } else {
             currentState = .loaded
         }
+    }
+
+    private func createCellsModels() {
+        cellsModels.removeAll()
+        for nft in nfts {
+            let priceString = numberFormatter.string(from: NSNumber(value: nft.price)) ?? ""
+            let cellModel = CartCellModel(
+                id: nft.id, imageURL: nft.images[0], title: nft.name, price: "\(priceString) ETH", rating: nft.rating)
+            cellsModels.append(cellModel)
+        }
+    }
+
+    private func sortByNames() {
+        cellsModels.sort { $0.title < $1.title }
+        viewController?.reloadTableView()
+    }
+
+    private func sortByRating() {
+        cellsModels.sort { $0.rating > $1.rating }
+        viewController?.reloadTableView()
+    }
+
+    private func sortByPrice() {
+        cellsModels.sort { $0.price < $1.price }
+        viewController?.reloadTableView()
     }
 }
 

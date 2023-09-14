@@ -15,7 +15,8 @@ final class PaymentPresenterTests: XCTestCase {
         let networkManager = NetworkManagerStub()
         let paymentManager = PaymentManagerStub()
         let cartController = CartControllerStub()
-        let presenter = PaymentPresenter(networkManager: networkManager, paymentManager: paymentManager, cartController: cartController)
+        let presenter = PaymentPresenter(
+            networkManager: networkManager, paymentManager: paymentManager, cartController: cartController)
         let viewController = PaymentViewControllerSpy()
         presenter.viewController = viewController
 
@@ -31,7 +32,8 @@ final class PaymentPresenterTests: XCTestCase {
         let networkManager = NetworkManagerStub()
         let paymentManager = PaymentManagerStub()
         let cartController = CartControllerStub()
-        let presenter = PaymentPresenter(networkManager: networkManager, paymentManager: paymentManager, cartController: cartController)
+        let presenter = PaymentPresenter(
+            networkManager: networkManager, paymentManager: paymentManager, cartController: cartController)
         let viewController = PaymentViewControllerSpy()
         presenter.viewController = viewController
         let expectation = self.expectation(description: "wait for async operation")
