@@ -15,6 +15,8 @@ protocol CatalogСollectionPresenterProtocol: AnyObject {
     var nftArray: [NFT] { get }
     func loadNFTs()
     func loadAuthorWebsite()
+    func handleLikeButtonPressed(model: NFT)
+    func handleCartButtonPressed(model: NFT)
 }
 
 // MARK: - Final Class
@@ -23,13 +25,17 @@ final class CatalogСollectionPresenter: CatalogСollectionPresenterProtocol {
     
     weak var viewController: CatalogСollectionViewControllerProtocol?
     private var dataProvider: CollectionDataProvider
+    
     let nftModel: NFTCollection
     var userURL: String?
     var nftArray: [NFT] = []
-
-    init(nftModel: NFTCollection, dataProvider: CollectionDataProvider) {
+    var profileModel: [ProfileModel] = []
+    let cartController: CartControllerProtocol
+    
+    init(nftModel: NFTCollection, dataProvider: CollectionDataProvider, cartController: CartControllerProtocol) {
         self.nftModel = nftModel
         self.dataProvider = dataProvider
+        self.cartController = cartController
     }
     
     private func prepareDataForShow(authorName: String) {
@@ -42,17 +48,42 @@ final class CatalogСollectionPresenter: CatalogСollectionPresenterProtocol {
     }
     
     func loadAuthorWebsite() {
-       let id = nftModel.author
+        let id = nftModel.author
         dataProvider.getNFTCollectionAuthor(id: id) {  [weak self] result in
             self?.prepareDataForShow(authorName: result.name)
             self?.userURL = result.website
         }
     }
     
+    func handleCartButtonPressed(model: NFT) {
+        let isAddedToCart = cartController.cart.contains(where: { $0.id == model.id })
+        if isAddedToCart {
+            cartController.removeFromCart(model) {
+                print("Removed from cart")}
+        } else {
+            cartController.addToCart(model) {
+                print("Added to cart")
+            }
+        }
+    }
+    
+    func handleLikeButtonPressed(model: NFT) {
+        dataProvider.getUserProfile { [weak self] profileModel in
+            let isLiked = profileModel.likes.contains { $0 == model.id }
+            var updatedProfileModel = profileModel
+            if isLiked {
+                updatedProfileModel.likes.removeAll { $0 == model.id }
+            } else {
+                updatedProfileModel.likes.append(model.id)
+            }
+            self?.dataProvider.updateUserProfile(with: updatedProfileModel)
+        }
+    }
+    
     func loadNFTs() {
         var nftArray: [NFT] = []
         let group = DispatchGroup()
-      
+        
         for nft in nftModel.nfts {
             group.enter()
             dataProvider.loadNFTsBy(id: nft) { [weak self] result in

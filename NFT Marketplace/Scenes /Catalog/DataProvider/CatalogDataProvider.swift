@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ProgressHUD
 
 // MARK: - Protocol
 
@@ -27,6 +28,7 @@ final class CatalogDataProvider: CatalogDataProviderProtocol {
     }
     
     func fetchNFTCollection(completion: @escaping () -> Void) {
+        ProgressHUD.show()
         networkClient.send(request: NFTTableViewRequest(), type: [NFTCollection].self) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -36,6 +38,7 @@ final class CatalogDataProvider: CatalogDataProviderProtocol {
             case .failure(let error):
                 print(error)
             }
+            ProgressHUD.dismiss()
         }
     }
     

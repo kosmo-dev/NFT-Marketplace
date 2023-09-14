@@ -19,7 +19,7 @@ protocol CatalogСollectionViewControllerProtocol: AnyObject {
 // MARK: - Final Class
 
 final class CatalogСollectionViewController: UIViewController {
-    
+
     private var presenter: CatalogСollectionPresenterProtocol
     private var collectionViewHeightConstraint = NSLayoutConstraint()
     
@@ -214,13 +214,9 @@ extension CatalogСollectionViewController: UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: NFTCollectionCell = collectionView.dequeueReusableCell(indexPath: indexPath)
         let data = presenter.nftArray[indexPath.row]
-        
-        if let imageURLString = data.images.first, let imageURL = URL(string: imageURLString.encodeUrl) {
-            cell.nftName.text = data.name
-            cell.nftPrice.text = String(data.price)
-            cell.starRatingView.configureRating(data.rating)
-            cell.nftImage.kf.setImage(with: imageURL)
-        }
+        cell.nftModel = data
+        cell.delegate = self
+        cell.configureCellWithModel()
         return cell
     }
     
@@ -239,14 +235,14 @@ extension CatalogСollectionViewController: UICollectionViewDataSource, UICollec
 
 // MARK: - NFTCollectionCellDelegate
 
-extension CatalogViewController: NFTCollectionCellDelegate {
-    
-    func likeButtonDidTapped(cell: NFTCollectionCell) {
-        
+extension CatalogСollectionViewController: NFTCollectionCellDelegate {
+    func likeButtonDidTapped(nftModel: NFT) {
+        presenter.handleLikeButtonPressed(model: nftModel)
     }
     
-    func addToCardButtonDidTapped(cell: NFTCollectionCell) {
-        
+    
+    func addToCardButtonDidTapped(nftModel: NFT) {
+        presenter.handleCartButtonPressed(model: nftModel)
     }
 }
 

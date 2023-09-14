@@ -13,12 +13,12 @@ class AppConfiguration {
     let cartViewController: UIViewController
     let statisticViewController: UIViewController
     let catalogNavigationController: UINavigationController
-    
+    let cartController: CartControllerProtocol
 
 
 //     TODO: Заменить вью контроллеры на свои
     init() {
-
+        cartController = CartController()
         let dataProvider = CatalogDataProvider(networkClient: DefaultNetworkClient())
         let catalogPresenter = CatalogPresenter(dataProvider: dataProvider)
 
@@ -32,7 +32,8 @@ class AppConfiguration {
     
     func assemblyCollectionScreen(with model: NFTCollection) -> UIViewController {
         let dataProvider = CollectionDataProvider(networkClient: DefaultNetworkClient())
-        let presenter = CatalogСollectionPresenter(nftModel: model, dataProvider: dataProvider)
+        let cartController = CartController()
+        let presenter = CatalogСollectionPresenter(nftModel: model, dataProvider: dataProvider, cartController: cartController)
         let vc = CatalogСollectionViewController(presenter: presenter)
         vc.hidesBottomBarWhenPushed = true
         return vc
