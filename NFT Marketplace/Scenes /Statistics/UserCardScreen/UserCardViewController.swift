@@ -56,7 +56,7 @@ final class UserCardViewController: UIViewController, UserCardViewControllerProt
         userWebsiteButton.setTitle(TextLabels.UserCardVC.userWebsiteButtonTitle, for: .normal)
         userWebsiteButton.setTitleColor(UIColor.blackDayNight, for: .normal)
         userWebsiteButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        userWebsiteButton.backgroundColor = .white
+        userWebsiteButton.backgroundColor = .whiteDayNight
         userWebsiteButton.layer.borderWidth = 1
 
         let borderColor = UIColor.blackDayNight
@@ -97,7 +97,7 @@ final class UserCardViewController: UIViewController, UserCardViewControllerProt
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = .whiteDayNight
         presenter.view = self
         addSubviews()
         setupConstraints()

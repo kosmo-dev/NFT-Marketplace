@@ -54,7 +54,7 @@ final class UsersCollectionViewController: UIViewController, UsersCollectionView
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = .whiteDayNight
         addSubviews()
         setupConstraints()
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backwardButton)

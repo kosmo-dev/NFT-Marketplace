@@ -36,7 +36,7 @@ final class StatisticsViewController: UIViewController, StatisticsViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = .whiteDayNight
         addSubviews()
         setupConstraints()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: statisticsFilterButton)
@@ -86,7 +86,7 @@ final class StatisticsViewController: UIViewController, StatisticsViewController
     }
 
     private func setupTableView() {
-        statisticsTableView.backgroundColor = .white
+        statisticsTableView.backgroundColor = .whiteDayNight
         statisticsTableView.delegate = self
         statisticsTableView.dataSource = self
         statisticsTableView.register(StatisticsCell.self)
@@ -126,7 +126,7 @@ extension StatisticsViewController: UITableViewDataSource {
         let cell: StatisticsCell = tableView.dequeueReusableCell()
 
         let selectedView = UIView()
-        selectedView.backgroundColor = .white
+        selectedView.backgroundColor = .whiteDayNight
         selectedView.layer.cornerRadius = 12
         cell.selectedBackgroundView = selectedView
 
