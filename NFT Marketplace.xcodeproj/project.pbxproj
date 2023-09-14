@@ -44,6 +44,7 @@
 		6431B67C2AB1E71F00B0DAAF /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6431B67B2AB1E71F00B0DAAF /* Profile.swift */; };
 		6431B67E2AB2088F00B0DAAF /* UpdateProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6431B67D2AB2088F00B0DAAF /* UpdateProfileModel.swift */; };
 		6431B6802AB21BD600B0DAAF /* CartControllerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6431B67F2AB21BD600B0DAAF /* CartControllerStub.swift */; };
+		6431B6822AB281BC00B0DAAF /* UserWebsiteWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6431B6812AB281BC00B0DAAF /* UserWebsiteWebView.swift */; };
 		645E62E62AA1338500AD871D /* UserCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645E62E52AA1338500AD871D /* UserCardViewController.swift */; };
 		645E62E82AA1340600AD871D /* UserCardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645E62E72AA1340600AD871D /* UserCardPresenter.swift */; };
 		645E62EA2AA1342B00AD871D /* UserCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645E62E92AA1342B00AD871D /* UserCardService.swift */; };
@@ -113,6 +114,7 @@
 		6431B67B2AB1E71F00B0DAAF /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		6431B67D2AB2088F00B0DAAF /* UpdateProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProfileModel.swift; sourceTree = "<group>"; };
 		6431B67F2AB21BD600B0DAAF /* CartControllerStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CartControllerStub.swift; path = ../../../../../../Downloads/CartControllerStub.swift; sourceTree = "<group>"; };
+		6431B6812AB281BC00B0DAAF /* UserWebsiteWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWebsiteWebView.swift; sourceTree = "<group>"; };
 		645E62E52AA1338500AD871D /* UserCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardViewController.swift; sourceTree = "<group>"; };
 		645E62E72AA1340600AD871D /* UserCardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardPresenter.swift; sourceTree = "<group>"; };
 		645E62E92AA1342B00AD871D /* UserCardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardService.swift; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 				645E62E52AA1338500AD871D /* UserCardViewController.swift */,
 				645E62E72AA1340600AD871D /* UserCardPresenter.swift */,
 				645E62E92AA1342B00AD871D /* UserCardService.swift */,
+				6431B6812AB281BC00B0DAAF /* UserWebsiteWebView.swift */,
 			);
 			path = UserCardScreen;
 			sourceTree = "<group>";
@@ -598,6 +601,7 @@
 				64E185452A9E1BB0004ACD0A /* Users.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				645E62EA2AA1342B00AD871D /* UserCardService.swift in Sources */,
+				6431B6822AB281BC00B0DAAF /* UserWebsiteWebView.swift in Sources */,
 				3DEBDFD02A97CE8E001C7517 /* CartViewController.swift in Sources */,
 				6431B6742AAC8B6D00B0DAAF /* UsersCollectionViewController.swift in Sources */,
 				3DEBDFDC2A97D474001C7517 /* CartControllerProtocol.swift in Sources */,

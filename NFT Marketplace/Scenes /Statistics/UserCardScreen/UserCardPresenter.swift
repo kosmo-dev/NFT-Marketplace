@@ -6,11 +6,11 @@
 //
 
 import UIKit
-import SafariServices
+import WebKit
 
 protocol UserCardDelegate: AnyObject {
     var view: UserCardViewControllerProtocol? { get set }
-
+    
     func user() -> UserElement?
     func getUserInfo()
 }
@@ -18,11 +18,11 @@ protocol UserCardDelegate: AnyObject {
 final class UserCardPresenter: UserCardDelegate {
     weak var view: UserCardViewControllerProtocol?
     private let userCardService: UserCardService
-
+    
     init(model: UserCardService) {
         self.userCardService = model
     }
-
+    
     func getUserInfo() {
         view?.userName.text = self.userCardService.userName()
         view?.userDescription.text = self.userCardService.userDescription()
@@ -32,17 +32,20 @@ final class UserCardPresenter: UserCardDelegate {
         )
         view?.userAvatar.image = self.userCardService.userImage().image ?? UIImage()
     }
-
-    func webSiteView() -> SFSafariViewController? {
+    
+    func user() -> UserElement? {
+        return userCardService.user
+    }
+    
+    func webSiteView() -> UIViewController? {
         guard let user = userCardService.user,
               let url = URL(string: user.website)
         else { return nil }
-
-        let safariViewController = SFSafariViewController(url: url)
-        return safariViewController
-    }
-
-    func user() -> UserElement? {
-        return userCardService.user
+        
+        let userWebsiteController = UserWebsiteWebView(request: URLRequest(url: url))
+        let navigationController = UINavigationController(rootViewController: userWebsiteController)
+        navigationController.navigationBar.tintColor = .blackDayNight
+        
+        return navigationController
     }
 }

@@ -114,9 +114,9 @@ final class UserCardViewController: UIViewController, UserCardViewControllerProt
     }
 
     @objc private func userWebsiteTapped() {
-        if let webViewController = presenter?.webSiteView() {
-            self.present(webViewController, animated: true, completion: nil)
-        }
+        guard let website = self.presenter?.webSiteView() else { return }
+        website.modalPresentationStyle = .fullScreen
+        self.present(website, animated: true, completion: nil)
     }
 
     @objc private func userCollectionsTapped() {
@@ -127,7 +127,6 @@ final class UserCardViewController: UIViewController, UserCardViewControllerProt
 
         let usersCollectionViewController = UsersCollectionViewController()
         usersCollectionViewController.presenter = presenter
-        usersCollectionViewController.modalPresentationStyle = .fullScreen
 
         self.present(usersCollectionViewController, animated: true, completion: nil)
     }
