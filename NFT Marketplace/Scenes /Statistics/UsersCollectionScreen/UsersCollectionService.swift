@@ -74,10 +74,8 @@ final class UsersCollectionService: UsersCollectionProtocol {
                             }
                             count -= 1
                             if count == 0 {
-                                DispatchQueue.main.async {
-                                    UIBlockingProgressHUD.dismiss()
-                                    completion()
-                                }
+                                UIBlockingProgressHUD.dismiss()
+                                completion()
                             }
                         }
                     }

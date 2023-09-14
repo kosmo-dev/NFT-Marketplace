@@ -109,8 +109,7 @@ extension StatisticsViewController: UITableViewDelegate {
 
         let model = UserCardService(user: user, userAvatar: cellImage)
         let presenter = UserCardPresenter(model: model)
-        let userCardViewController = UserCardViewController(cart: cart)
-        userCardViewController.presenter = presenter
+        let userCardViewController = UserCardViewController(presenter: presenter, cart: cart)
         userCardViewController.modalPresentationStyle = .fullScreen
 
         self.present(userCardViewController, animated: true, completion: nil)
