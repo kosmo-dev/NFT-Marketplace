@@ -56,25 +56,11 @@ class ProfilePresenter: ProfilePresenterProtocol {
         let nftIds = getNFTIdsFromCurrentUser()
         let likedNFTIds = getLikedNFTIds()
         delegate?.shouldNavigateToMyNFTsScreen(with: nftIds, and: likedNFTIds)
-//        if !nftIds.isEmpty {
-//            print("Переход")
-//            delegate?.shouldNavigateToMyNFTsScreen(with: nftIds)
-//        } else {
-//            print("ошибка")
-//            return
-//        }
     }
 
     func didTapFavorites() {
         let likedNFTIds = getLikedNFTIds()
         delegate?.shouldNavigateTofavoriteNFTsScreen(with: likedNFTIds)
-//        if !likedNFTIds.isEmpty {
-//            print("Переход")
-//            delegate?.shouldNavigateTofavoriteNFTsScreen(with: likedNFTIds)
-//        } else {
-//            print("Ошибка")
-//            return
-//        }
     }
 
     func didTapAboutDeveloper() {
