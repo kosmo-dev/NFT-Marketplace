@@ -28,4 +28,7 @@ struct TextLabels {
         static let userCollectionsButtonTitle = "Коллекция NFT"
     }
 
+    struct UsersCollectionVC {
+        static let headerTitle = "Коллекция NFT"
+    }
 }

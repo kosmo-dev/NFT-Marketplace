@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 protocol StatisticsPresenterProtocol: AnyObject {
-    var statisticsViewControllerProtocol: StatisticsViewControllerProtocol? { get set }
+    var view: StatisticsViewControllerProtocol? { get set }
 
     func loadDataFromServer()
     func loadProfileImage(imageView: UIImageView, url: String)
@@ -21,7 +21,7 @@ protocol StatisticsPresenterProtocol: AnyObject {
 }
 
 final class StatisticsPresenter: StatisticsPresenterProtocol {
-    weak var statisticsViewControllerProtocol: StatisticsViewControllerProtocol?
+    weak var view: StatisticsViewControllerProtocol?
     private var userDataService: UserDataProtocol
 
     init(userDataService: UserDataProtocol) {
@@ -31,7 +31,7 @@ final class StatisticsPresenter: StatisticsPresenterProtocol {
     func loadDataFromServer() {
         userDataService.fetchUsers { [weak self] in
             guard let self = self else { return }
-            self.statisticsViewControllerProtocol?.reloadTableView()
+            self.view?.reloadTableView()
         }
     }
 
@@ -56,13 +56,13 @@ final class StatisticsPresenter: StatisticsPresenterProtocol {
 
         let sortByNameAction = UIAlertAction(title: TextLabels.StatisticsVC.sortByNameTitle, style: .default) { _ in
             self.sortByName()
-            self.statisticsViewControllerProtocol?.reloadTableView()
+            self.view?.reloadTableView()
         }
         alertController.addAction(sortByNameAction)
 
         let sortByRatingAction = UIAlertAction(title: TextLabels.StatisticsVC.sortByRatingTitle, style: .default) { _ in
             self.sortByRating()
-            self.statisticsViewControllerProtocol?.reloadTableView()
+            self.view?.reloadTableView()
         }
         alertController.addAction(sortByRatingAction)
 

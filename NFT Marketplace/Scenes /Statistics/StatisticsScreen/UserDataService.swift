@@ -16,16 +16,15 @@ protocol UserDataProtocol {
     func loadProfileImage(imageView: UIImageView, url: String)
 }
 
-struct NFTRequest: NetworkRequest {
+struct UsersRequest: NetworkRequest {
     var endpoint: URL? = URL(string: "https://64e794e8b0fd9648b7902516.mockapi.io/api/v1/users")
 }
 
 final class UserDataService: UserDataProtocol {
 
     var users: [UserElement] = []
-    var usersImages: [String: UIImage] = [:]
-    var page = 20
-    private let request = NFTRequest()
+
+    private let request = UsersRequest()
     private let networkClient = DefaultNetworkClient()
     var sortDirection: SortDirection? {
         get {

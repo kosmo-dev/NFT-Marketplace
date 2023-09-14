@@ -7,10 +7,15 @@
 
 import UIKit
 
-final class UserCardViewController: UIViewController {
-    var presenter: UserCardPresenter?
+protocol UserCardViewControllerProtocol: AnyObject {
+    func update(with viewModel: UserViewModel)
+}
 
-    private let userAvatar: UIImageView = {
+final class UserCardViewController: UIViewController, UserCardViewControllerProtocol {
+    private let presenter: UserCardPresenter
+    private let cart: CartControllerProtocol
+
+    private var userAvatar: UIImageView = {
         let userAvatar = UIImageView(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
         userAvatar.clipsToBounds = true
         userAvatar.layer.cornerRadius = userAvatar.bounds.height / 2
@@ -18,7 +23,7 @@ final class UserCardViewController: UIViewController {
         return userAvatar
     }()
 
-    private let userName: UILabel = {
+    private var userNameLabel: UILabel = {
         let userName = UILabel()
         userName.translatesAutoresizingMaskIntoConstraints = false
         userName.textColor = .blackDayNight
@@ -26,7 +31,7 @@ final class UserCardViewController: UIViewController {
         return userName
     }()
 
-    private let userDescription: UILabel = {
+    private var userDescriptionLabel: UILabel = {
         let userDescription = UILabel()
         userDescription.translatesAutoresizingMaskIntoConstraints = false
         userDescription.numberOfLines = 0
@@ -51,7 +56,7 @@ final class UserCardViewController: UIViewController {
         userWebsiteButton.setTitle(TextLabels.UserCardVC.userWebsiteButtonTitle, for: .normal)
         userWebsiteButton.setTitleColor(UIColor.blackDayNight, for: .normal)
         userWebsiteButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        userWebsiteButton.backgroundColor = .white
+        userWebsiteButton.backgroundColor = .whiteDayNight
         userWebsiteButton.layer.borderWidth = 1
 
         let borderColor = UIColor.blackDayNight
@@ -79,13 +84,25 @@ final class UserCardViewController: UIViewController {
         return chevron
     }()
 
+    init(presenter: UserCardPresenter, cart: CartControllerProtocol) {
+        self.presenter = presenter
+        self.cart = cart
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = .whiteDayNight
+        presenter.view = self
         addSubviews()
         setupConstraints()
-        setupUserInfo()
+        presenter.viewDidLoad()
+        checkCollectionCount()
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backwardButton)
     }
 
@@ -94,12 +111,31 @@ final class UserCardViewController: UIViewController {
     }
 
     @objc private func userWebsiteTapped() {
-        guard let website = self.presenter?.webSiteView() else { return }
-            self.present(website, animated: true, completion: nil)
+        guard let website = self.presenter.webSiteView() else { return }
+        website.modalPresentationStyle = .fullScreen
+        self.present(website, animated: true, completion: nil)
     }
 
     @objc private func userCollectionsTapped() {
-        // todo: переход на страницу с коллекциями пользователя UsersCollectoinViewController()
+        guard let user = presenter.user() else { return }
+
+        let model = UsersCollectionService(user: user)
+        let presenter = UsersCollectionPresenter(model: model, cartController: cart)
+
+        let usersCollectionViewController = UsersCollectionViewController(presenter: presenter)
+        usersCollectionViewController.modalPresentationStyle = .fullScreen
+
+        if user.nfts.count > 0 {
+            self.present(usersCollectionViewController, animated: true, completion: nil)
+        }
+    }
+
+    func update(with viewModel: UserViewModel) {
+        userNameLabel.text = viewModel.userName
+        userDescriptionLabel.text = viewModel.userDescription
+        userCollectionsButton.setTitle(viewModel.userCollectionsButtonText, for: .normal)
+        userAvatar.image = viewModel.userAvatar
+
     }
 
     private func setupConstraints() {
@@ -113,14 +149,14 @@ final class UserCardViewController: UIViewController {
             userAvatar.heightAnchor.constraint(equalToConstant: 70),
             userAvatar.widthAnchor.constraint(equalToConstant: 70),
 
-            userName.leadingAnchor.constraint(equalTo: userAvatar.trailingAnchor, constant: 16),
-            userName.centerYAnchor.constraint(equalTo: userAvatar.centerYAnchor),
+            userNameLabel.leadingAnchor.constraint(equalTo: userAvatar.trailingAnchor, constant: 16),
+            userNameLabel.centerYAnchor.constraint(equalTo: userAvatar.centerYAnchor),
 
-            userDescription.topAnchor.constraint(equalTo: userAvatar.bottomAnchor, constant: 20),
-            userDescription.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            userDescription.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
+            userDescriptionLabel.topAnchor.constraint(equalTo: userAvatar.bottomAnchor, constant: 20),
+            userDescriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            userDescriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
 
-            userWebsiteButton.topAnchor.constraint(equalTo: userDescription.bottomAnchor, constant: 28),
+            userWebsiteButton.topAnchor.constraint(equalTo: userDescriptionLabel.bottomAnchor, constant: 28),
             userWebsiteButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             userWebsiteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             userWebsiteButton.heightAnchor.constraint(equalToConstant: 40),
@@ -137,23 +173,17 @@ final class UserCardViewController: UIViewController {
 
     private func addSubviews() {
         view.addSubview(userAvatar)
-        view.addSubview(userName)
-        view.addSubview(userDescription)
+        view.addSubview(userNameLabel)
+        view.addSubview(userDescriptionLabel)
         view.addSubview(backwardButton)
         view.addSubview(userWebsiteButton)
         view.addSubview(userCollectionsButton)
         userCollectionsButton.addSubview(chevron)
     }
 
-    private func setupUserInfo() {
-        DispatchQueue.main.async {
-            self.userName.text = self.presenter?.getUserName()
-            self.userDescription.text = self.presenter?.getUserDescription()
-            self.userCollectionsButton.setTitle(
-                TextLabels.UserCardVC.userCollectionsButtonTitle+" (\(self.presenter?.getNFT() ?? ""))",
-                for: .normal
-            )
-            self.userAvatar.image = self.presenter?.getUserImage().image ?? UIImage()
+    private func checkCollectionCount() {
+        if presenter.user()?.nfts.count == 0 {
+            chevron.isHidden = true
         }
     }
 }

@@ -9,41 +9,52 @@ import UIKit
 import WebKit
 
 protocol UserCardDelegate: AnyObject {
-    func getUserName() -> String
-    func getUserDescription() -> String
-    func getNFT() -> String
+    var view: UserCardViewControllerProtocol? { get set }
+
+    func user() -> UserElement?
+    func viewDidLoad()
 }
 
 final class UserCardPresenter: UserCardDelegate {
-
+    weak var view: UserCardViewControllerProtocol?
     private let userCardService: UserCardService
 
     init(model: UserCardService) {
         self.userCardService = model
     }
 
-    func getUserName() -> String {
-        return self.userCardService.userName()
+    func viewDidLoad() {
+        view?.update(with: makeViewModel())
     }
 
-    func getUserDescription() -> String {
-        return self.userCardService.userDescription()
-    }
-
-    func getNFT() -> String {
-        return self.userCardService.userNFT()
-    }
-
-    func getUserImage() -> UIImageView {
-        return self.userCardService.userImage()
+    func user() -> UserElement? {
+        return userCardService.user
     }
 
     func webSiteView() -> UIViewController? {
         guard let user = userCardService.user,
               let url = URL(string: user.website)
         else { return nil }
+
         let userWebsiteController = UserWebsiteWebView(request: URLRequest(url: url))
-        userWebsiteController.modalPresentationStyle = .pageSheet
-        return userWebsiteController
+        let navigationController = UINavigationController(rootViewController: userWebsiteController)
+        navigationController.navigationBar.tintColor = .blackDayNight
+
+        return navigationController
+    }
+
+    private func makeViewModel() -> UserViewModel {
+        let name = self.userCardService.userName()
+        let description = self.userCardService.userDescription()
+        let buttonText = TextLabels.UserCardVC.userCollectionsButtonTitle + " (\(self.userCardService.userNFT()))"
+        let image = self.userCardService.userImage().image ?? UIImage()
+
+        let userViewModel = UserViewModel(
+            userName: name,
+            userDescription: description,
+            userCollectionsButtonText: buttonText,
+            userAvatar: image)
+
+        return userViewModel
     }
 }

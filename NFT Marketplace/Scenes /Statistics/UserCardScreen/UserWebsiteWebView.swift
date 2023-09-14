@@ -8,10 +8,10 @@
 import UIKit
 import WebKit
 
-final class UserWebsiteWebView: UIViewController, WKNavigationDelegate {
+final class UserWebsiteWebView: UIViewController {
 
     private var request: URLRequest?
-    let webView = WKWebView()
+    private let webView = WKWebView()
 
     init(request: URLRequest?) {
         super.init(nibName: nil, bundle: nil)
@@ -25,8 +25,32 @@ final class UserWebsiteWebView: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let request = request else { return }
-        view = webView
-        webView.navigationDelegate = self
+
+        view.backgroundColor = .whiteDayNight
         webView.load(request)
+
+        view.addSubview(webView)
+        setupConstraints()
+
+        let backButton = UIBarButtonItem(
+            image: UIImage(named: "Backward"),
+            style: .plain,
+            target: self,
+            action: #selector(backButtonTapped)
+        )
+
+        navigationItem.leftBarButtonItem = backButton
+    }
+
+    @objc private func backButtonTapped() {
+        self.dismiss(animated: true, completion: nil)
+    }
+
+    private func setupConstraints() {
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        webView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        webView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        webView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }

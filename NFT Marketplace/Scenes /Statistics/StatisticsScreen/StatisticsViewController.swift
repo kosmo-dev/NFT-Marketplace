@@ -16,6 +16,7 @@ final class StatisticsViewController: UIViewController, StatisticsViewController
     let cellReuseIdentifier = "StatisticsViewController"
 
     private let presenter: StatisticsPresenterProtocol
+    private let cart: CartControllerProtocol
 
     private lazy var statisticsFilterButton: UIButton = {
         let statisticsFilterButton = UIButton(type: .custom)
@@ -35,18 +36,19 @@ final class StatisticsViewController: UIViewController, StatisticsViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = .whiteDayNight
         addSubviews()
         setupConstraints()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: statisticsFilterButton)
         setupTableView()
 
-        presenter.statisticsViewControllerProtocol = self
+        presenter.view = self
         presenter.loadDataFromServer()
     }
 
-    init(presenter: StatisticsPresenterProtocol) {
+    init(presenter: StatisticsPresenterProtocol, cart: CartControllerProtocol) {
         self.presenter = presenter
+        self.cart = cart
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -84,7 +86,7 @@ final class StatisticsViewController: UIViewController, StatisticsViewController
     }
 
     private func setupTableView() {
-        statisticsTableView.backgroundColor = .white
+        statisticsTableView.backgroundColor = .whiteDayNight
         statisticsTableView.delegate = self
         statisticsTableView.dataSource = self
         statisticsTableView.register(StatisticsCell.self)
@@ -107,8 +109,7 @@ extension StatisticsViewController: UITableViewDelegate {
 
         let model = UserCardService(user: user, userAvatar: cellImage)
         let presenter = UserCardPresenter(model: model)
-        let userCardViewController = UserCardViewController()
-        userCardViewController.presenter = presenter
+        let userCardViewController = UserCardViewController(presenter: presenter, cart: cart)
         userCardViewController.modalPresentationStyle = .fullScreen
 
         self.present(userCardViewController, animated: true, completion: nil)
@@ -125,7 +126,7 @@ extension StatisticsViewController: UITableViewDataSource {
         let cell: StatisticsCell = tableView.dequeueReusableCell()
 
         let selectedView = UIView()
-        selectedView.backgroundColor = .white
+        selectedView.backgroundColor = .whiteDayNight
         selectedView.layer.cornerRadius = 12
         cell.selectedBackgroundView = selectedView
 
