@@ -102,6 +102,7 @@ final class UserCardViewController: UIViewController, UserCardViewControllerProt
         addSubviews()
         setupConstraints()
         presenter.viewDidLoad()
+        checkCollectionCount()
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backwardButton)
     }
 
@@ -124,7 +125,9 @@ final class UserCardViewController: UIViewController, UserCardViewControllerProt
         let usersCollectionViewController = UsersCollectionViewController(presenter: presenter)
         usersCollectionViewController.modalPresentationStyle = .fullScreen
 
-        self.present(usersCollectionViewController, animated: true, completion: nil)
+        if user.nfts.count > 0 {
+            self.present(usersCollectionViewController, animated: true, completion: nil)
+        }
     }
 
     func update(with viewModel: UserViewModel) {
@@ -176,5 +179,11 @@ final class UserCardViewController: UIViewController, UserCardViewControllerProt
         view.addSubview(userWebsiteButton)
         view.addSubview(userCollectionsButton)
         userCollectionsButton.addSubview(chevron)
+    }
+
+    private func checkCollectionCount() {
+        if presenter.user()?.nfts.count == 0 {
+            chevron.isHidden = true
+        }
     }
 }
