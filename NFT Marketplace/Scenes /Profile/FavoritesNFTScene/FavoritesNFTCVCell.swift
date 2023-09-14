@@ -40,6 +40,7 @@ final class FavoritesNFTCVCell: UICollectionViewCell {
 
     private lazy var priceLabel: UILabel = {
        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
 
@@ -81,8 +82,6 @@ final class FavoritesNFTCVCell: UICollectionViewCell {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
-//        imageView.addSubview(likeButton)
-
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.topAnchor.constraint(equalTo: topAnchor),
@@ -93,6 +92,8 @@ final class FavoritesNFTCVCell: UICollectionViewCell {
             stackView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 12),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            ratingView.widthAnchor.constraint(equalToConstant: 68),
+            ratingView.heightAnchor.constraint(equalToConstant: 12),
 
             likeButton.topAnchor.constraint(equalTo: imageView.topAnchor, constant: -5),
             likeButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 5),

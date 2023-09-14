@@ -29,6 +29,8 @@ final class NFTTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 12
+        imageView.clipsToBounds = true
         imageView.image = UIImage(named: "profilePlaceholder")
         return imageView
     }()
@@ -36,7 +38,6 @@ final class NFTTableViewCell: UITableViewCell {
     private lazy var likeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-//        button.setImage(UIImage(named: "noLikeImage"), for: .normal)
         button.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -44,28 +45,39 @@ final class NFTTableViewCell: UITableViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Название"
+        label.text = "Ошибка"
+        label.font = UIFont.boldSystemFont(ofSize: 17)
         return label
     }()
 
     private lazy var authorLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Имя"
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.text = "Ошибка"
         return label
     }()
 
     private lazy var priceTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Цена"
+        label.font = UIFont.systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+
+    private lazy var numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.decimalSeparator = ","
+        return formatter
     }()
 
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "111.00"
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.text = "Ошибка"
         return label
     }()
 
@@ -127,6 +139,8 @@ final class NFTTableViewCell: UITableViewCell {
 
             leftStack.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             leftStack.leadingAnchor.constraint(equalTo: nftImageView.trailingAnchor, constant: 20),
+            starRatingView.widthAnchor.constraint(equalToConstant: 68),
+            starRatingView.heightAnchor.constraint(equalToConstant: 12),
 
             rightStack.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             rightStack.leadingAnchor.constraint(equalTo: leftStack.trailingAnchor, constant: 39)
@@ -145,8 +159,13 @@ final class NFTTableViewCell: UITableViewCell {
 
         titleLabel.text = nft.name
         starRatingView.configureRating(nft.rating)
-        authorLabel.text = nft.author
-        priceLabel.text = "\(nft.price)" + " " + "ETH"
+        authorLabel.text = "От" + " " + nft.author
+
+        if let formatterPrice = numberFormatter.string(from: NSNumber(value: nft.price)) {
+            priceLabel.text = formatterPrice + " " + "ETH"
+        } else {
+            priceLabel.text = "\(nft.price)" + " " + "ETH"
+        }
 
         if let imageURL = nft.images.first, let url = URL(string: imageURL) {
             nftImageView.kf.setImage(with: url)
