@@ -12,12 +12,17 @@ class AppConfiguration {
     let catalogViewController: UIViewController
     let cartViewController: UIViewController
     let statisticViewController: UIViewController
+    let cartService: CartControllerProtocol
 
-    // TODO: Заменить вью контроллеры на свои
+    // todo: Заменить вью контроллеры на свои
     init() {
+        cartService = CartControllerStub()
         profileViewController = UIViewController()
         catalogViewController = UIViewController()
         cartViewController = CartViewController()
-        statisticViewController = UIViewController()
+        statisticViewController = StatisticsViewController(
+            presenter: StatisticsPresenter(userDataService: UserDataService()),
+            cart: cartService
+        )
     }
 }

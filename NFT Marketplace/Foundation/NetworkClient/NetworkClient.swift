@@ -101,6 +101,7 @@ struct DefaultNetworkClient: NetworkClient {
 
     private func parse<T: Decodable>(data: Data, type _: T.Type, onResponse: @escaping (Result<T, Error>) -> Void) {
         do {
+            print(String(decoding: data, as: UTF8.self))
             let response = try decoder.decode(T.self, from: data)
             onResponse(.success(response))
         } catch {

@@ -61,7 +61,7 @@ final class CustomButton: UIButton {
             backgroundColor = .whiteDayNight
             setTitleColor(.blackDayNight, for: .normal)
             titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-            layer.borderColor = UIColor.blackDayNight?.cgColor
+            layer.borderColor = UIColor.blackDayNight.cgColor
             layer.borderWidth = 1
         }
     }
