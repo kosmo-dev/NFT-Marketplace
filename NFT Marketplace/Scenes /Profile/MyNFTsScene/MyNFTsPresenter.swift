@@ -8,6 +8,13 @@
 import Foundation
 
 final class MyNFTsPresenter {
+
+    enum SortType {
+        case price
+        case name
+        case rating
+    }
+
     weak var view: MyNFTsViewProtocol?
     private let profileService: ProfileServiceProtocol
 
@@ -47,6 +54,22 @@ final class MyNFTsPresenter {
         view?.updateWith(nfts: nftModels)
     }
 
+    func isLiked(nftId: String) -> Bool {
+        return likedNFTIds.contains(nftId)
+    }
+
+    func sortNFTs(by type: SortType) {
+        switch type {
+        case .price:
+            nftModels.sort(by: {$0.price < $1.price})
+        case .name:
+            nftModels.sort(by: {$0.name < $1.name})
+        case .rating:
+            nftModels.sort(by: {$0.rating < $1.rating})
+        }
+        view?.updateWith(nfts: nftModels)
+    }
+
     private func updateLikesArrayOnServer() {
         let uploadModel = UploadProfileModel(name: nil,
                                              description: nil,
@@ -59,7 +82,6 @@ final class MyNFTsPresenter {
             case.failure(let error):
                 print("\(error.localizedDescription)")
             }
-
         }
     }
 

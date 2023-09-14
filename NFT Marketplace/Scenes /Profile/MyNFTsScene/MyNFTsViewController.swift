@@ -83,8 +83,27 @@ final class MyNFTsViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
-    @objc func filterButtonTapped() {}
+    @objc func filterButtonTapped() {
+        let alertController = UIAlertController(title: nil, message: "Сортировка", preferredStyle: .actionSheet)
 
+        let sortByPriceAction = UIAlertAction(title: "По цене", style: .default) { _ in
+            self.presenter?.sortNFTs(by: .price)
+        }
+
+        let sortByRatingAction = UIAlertAction(title: "По Рейтингу", style: .default) { _ in
+            self.presenter?.sortNFTs(by: .rating)
+        }
+        let sortByNameAction = UIAlertAction(title: "По названию", style: .default) { _ in
+            self.presenter?.sortNFTs(by: .name)
+        }
+        let cancelAction = UIAlertAction(title: "Закрыть", style: .cancel, handler: nil)
+
+        [sortByPriceAction, sortByRatingAction, sortByNameAction, cancelAction].forEach {
+            alertController.addAction($0)
+        }
+
+        present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension MyNFTsViewController: MyNFTsViewProtocol {
@@ -113,33 +132,32 @@ extension MyNFTsViewController: NFTTableViewCellDelegate {
     func didToogleLike(forNFTWithId id: String) {
         print("Toggled like for NFT with id: \(id)")
         presenter?.toogleLike(forNFTWithId: id)
-        if let index = presenter?.nftModels.firstIndex(where: {$0.id == id}) {
-            let indexPath = IndexPath(row: index, section: 0)
-            if let cell = tableView.cellForRow(at: indexPath) as? NFTTableViewCell {
-                let isLiked = likedNFTIds.contains(id)
-                cell.configurateLikeButton(isLiked: isLiked)
-            }
-            tableView.reloadRows(at: [indexPath], with: .automatic)
-        }
 
+        if let index = self.presenter?.nftModels.firstIndex(where: { $0.id == id }) {
+            let indexPath = IndexPath(row: index, section: 0)
+
+            // Обновляем только конкретную ячейку, а не всю таблицу
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
     }
 }
 
 extension MyNFTsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return nftModels.count
+        return presenter?.nftModels.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: "NFTTableViewCell",
             for: indexPath) as? NFTTableViewCell
-        let nft = nftModels[indexPath.row]
-        cell?.delegate = self
-        cell?.configure(with: nft)
+        let nft = presenter?.nftModels[indexPath.row]
 
-        let isLiked = likedNFTIds.contains(nft.id)
+        cell?.delegate = self
+        cell?.configure(with: nft!)
+
+        let isLiked = presenter?.isLiked(nftId: nft!.id) ?? false
         cell?.configurateLikeButton(isLiked: isLiked)
         return cell ?? UITableViewCell()
     }
