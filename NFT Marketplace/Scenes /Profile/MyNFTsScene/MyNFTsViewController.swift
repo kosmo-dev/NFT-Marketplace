@@ -19,9 +19,11 @@ final class MyNFTsViewController: UIViewController {
     private var presenter: MyNFTsPresenter?
     private var nftModels: [NFTModel] = []
     private var nftIds: [String]
+    private var likedNFTIds: [String]
 
-    init(nftIds: [String]) {
+    init(nftIds: [String], likedNFTIds: [String]) {
         self.nftIds = nftIds
+        self.likedNFTIds = likedNFTIds
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -36,6 +38,7 @@ final class MyNFTsViewController: UIViewController {
         setupPresenter()
         setupNavigationBar()
         setupTableView()
+        print("NFT - \(nftIds.count) (\(nftIds)), Лайки - \(likedNFTIds.count)(\(likedNFTIds))")
 
     }
 
@@ -88,7 +91,7 @@ extension MyNFTsViewController: MyNFTsViewProtocol {
 
     func setupPresenter() {
         let profileService = ProfileService()
-        presenter = MyNFTsPresenter(nftIds: self.nftIds, profileService: profileService)
+        presenter = MyNFTsPresenter(nftIds: self.nftIds, likedNFTIds: self.likedNFTIds, profileService: profileService)
         presenter?.view = self
         presenter?.viewDidLoad()
     }
@@ -106,6 +109,22 @@ extension MyNFTsViewController: MyNFTsViewProtocol {
 
 }
 
+extension MyNFTsViewController: NFTTableViewCellDelegate {
+    func didToogleLike(forNFTWithId id: String) {
+        print("Toggled like for NFT with id: \(id)")
+        presenter?.toogleLike(forNFTWithId: id)
+        if let index = presenter?.nftModels.firstIndex(where: {$0.id == id}) {
+            let indexPath = IndexPath(row: index, section: 0)
+            if let cell = tableView.cellForRow(at: indexPath) as? NFTTableViewCell {
+                let isLiked = likedNFTIds.contains(id)
+                cell.configurateLikeButton(isLiked: isLiked)
+            }
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+
+    }
+}
+
 extension MyNFTsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -117,12 +136,15 @@ extension MyNFTsViewController: UITableViewDelegate, UITableViewDataSource {
             withIdentifier: "NFTTableViewCell",
             for: indexPath) as? NFTTableViewCell
         let nft = nftModels[indexPath.row]
+        cell?.delegate = self
         cell?.configure(with: nft)
+
+        let isLiked = likedNFTIds.contains(nft.id)
+        cell?.configurateLikeButton(isLiked: isLiked)
         return cell ?? UITableViewCell()
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
     }
-
 }

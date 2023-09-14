@@ -8,7 +8,13 @@
 import UIKit
 import Kingfisher
 
+protocol NFTTableViewCellDelegate: AnyObject {
+    func  didToogleLike(forNFTWithId id: String)
+}
+
 final class NFTTableViewCell: UITableViewCell {
+
+    weak var delegate: NFTTableViewCellDelegate?
 
     // MARK: - Private Properties
     private lazy var containerView: UIView = {
@@ -30,7 +36,8 @@ final class NFTTableViewCell: UITableViewCell {
     private lazy var likeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "noLikeImage"), for: .normal)
+//        button.setImage(UIImage(named: "noLikeImage"), for: .normal)
+        button.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -69,6 +76,9 @@ final class NFTTableViewCell: UITableViewCell {
         return view
     }()
 
+    private var NFTId: String?
+
+    // MARK: - Initilizers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -123,7 +133,16 @@ final class NFTTableViewCell: UITableViewCell {
         ])
     }
 
+    @objc private func likeButtonTapped() {
+        if let id = NFTId {
+            print("Нажата кнопка Лайка")
+            delegate?.didToogleLike(forNFTWithId: id)
+        }
+    }
+
     func configure(with nft: NFTModel) {
+        self.NFTId = nft.id
+
         titleLabel.text = nft.name
         starRatingView.configureRating(nft.rating)
         authorLabel.text = nft.author
@@ -133,6 +152,15 @@ final class NFTTableViewCell: UITableViewCell {
             nftImageView.kf.setImage(with: url)
         } else {
             nftImageView.image = UIImage(named: "profilePlaceholder")
+        }
+
+    }
+
+    func configurateLikeButton(isLiked: Bool) {
+        if isLiked {
+            likeButton.setImage(UIImage(named: "likeImage"), for: .normal)
+        } else {
+            likeButton.setImage(UIImage(named: "noLikeImage"), for: .normal)
         }
     }
 }

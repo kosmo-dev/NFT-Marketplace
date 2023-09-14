@@ -21,12 +21,14 @@ final class FavoritesNFTCVCell: UICollectionViewCell {
        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(named: "profilePlaceholder")
+        imageView.layer.cornerRadius = 12
+        imageView.clipsToBounds = true
         return imageView
     }()
 
     private lazy var nameLabel: UILabel = {
        let nameLabel = UILabel()
-
+        nameLabel.font = UIFont.boldSystemFont(ofSize: 17)
         return nameLabel
     }()
 

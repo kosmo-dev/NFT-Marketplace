@@ -17,7 +17,7 @@ protocol ProfilePresenterProtocol: AnyObject {
 }
 
 protocol ProfilePresenterDelegate: AnyObject {
-    func shouldNavigateToMyNFTsScreen(with ids: [String])
+    func shouldNavigateToMyNFTsScreen(with ids: [String], and likedIds: [String])
     func shouldNavigateTofavoriteNFTsScreen(with likedIds: [String])
 }
 
@@ -54,24 +54,27 @@ class ProfilePresenter: ProfilePresenterProtocol {
 
     func didTapMyNFTs() {
         let nftIds = getNFTIdsFromCurrentUser()
-        if !nftIds.isEmpty {
-            print("Переход")
-            delegate?.shouldNavigateToMyNFTsScreen(with: nftIds)
-        } else {
-            print("ошибка")
-            return
-        }
+        let likedNFTIds = getLikedNFTIds()
+        delegate?.shouldNavigateToMyNFTsScreen(with: nftIds, and: likedNFTIds)
+//        if !nftIds.isEmpty {
+//            print("Переход")
+//            delegate?.shouldNavigateToMyNFTsScreen(with: nftIds)
+//        } else {
+//            print("ошибка")
+//            return
+//        }
     }
 
     func didTapFavorites() {
         let likedNFTIds = getLikedNFTIds()
-        if !likedNFTIds.isEmpty {
-            print("Переход")
-            delegate?.shouldNavigateTofavoriteNFTsScreen(with: likedNFTIds)
-        } else {
-            print("Ошибка")
-            return
-        }
+        delegate?.shouldNavigateTofavoriteNFTsScreen(with: likedNFTIds)
+//        if !likedNFTIds.isEmpty {
+//            print("Переход")
+//            delegate?.shouldNavigateTofavoriteNFTsScreen(with: likedNFTIds)
+//        } else {
+//            print("Ошибка")
+//            return
+//        }
     }
 
     func didTapAboutDeveloper() {
