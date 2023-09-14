@@ -17,6 +17,7 @@ protocol CartPresenterProtocol {
     func didSelectCellToDelete(id: String)
     func toPaymentButtonTapped()
     func sortButtonTapped()
+    func refreshTableViewCalled()
 }
 
 final class CartPresenter: CartPresenterProtocol {
@@ -29,7 +30,6 @@ final class CartPresenter: CartPresenterProtocol {
     private let cartController: CartControllerProtocol
 
     private var choosedNFTId: String?
-//    private var choosedIndex: Int?
 
     private var currentState: CartViewState = .empty {
         didSet {
@@ -76,7 +76,6 @@ final class CartPresenter: CartPresenterProtocol {
 
     func didSelectCellToDelete(id: String) {
         choosedNFTId = id
-//        choosedIndex = nfts.firstIndex(where: { $0.id == id })
     }
 
     func toPaymentButtonTapped() {
@@ -106,6 +105,11 @@ final class CartPresenter: CartPresenterProtocol {
             })
         ]
         viewController?.showAlertController(alerts: alerts)
+    }
+
+    func refreshTableViewCalled() {
+        self.checkViewState()
+        self.viewController?.reloadTableView()
     }
 
     // MARK: - Private Methods

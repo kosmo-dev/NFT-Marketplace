@@ -95,6 +95,12 @@ final class CartViewController: UIViewController {
 
     private var presenter: CartPresenterProtocol
 
+    private let refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(nil, action: #selector(refreshControlCalled), for: .valueChanged)
+        return refreshControl
+    }()
+
     // MARK: - Initializers
     init(presenter: CartPresenterProtocol) {
         self.presenter = presenter
@@ -132,6 +138,8 @@ final class CartViewController: UIViewController {
         sortNavigationButton.tintColor = .blackDayNight
         navigationController?.navigationBar.tintColor = .blackDayNight
         navigationItem.rightBarButtonItem = sortNavigationButton
+
+        tableView.refreshControl = refreshControl
 
         if #available(iOS 15, *) {
             let appearance = UINavigationBarAppearance()
@@ -177,6 +185,10 @@ final class CartViewController: UIViewController {
 
     @objc private func sortButtonTapped() {
         presenter.sortButtonTapped()
+    }
+
+    @objc private func refreshControlCalled() {
+        presenter.refreshTableViewCalled()
     }
 }
 
@@ -241,6 +253,8 @@ extension CartViewController: CartViewControllerProtocol {
         if #available(iOS 16.0, *) {
             sortNavigationButton.isHidden = true
         }
+        tableView.refreshControl?.endRefreshing()
+        tableView.reloadData()
     }
 
     func displayLoadedCart() {
@@ -250,6 +264,7 @@ extension CartViewController: CartViewControllerProtocol {
         if #available(iOS 16.0, *) {
             sortNavigationButton.isHidden = false
         }
+        tableView.refreshControl?.endRefreshing()
     }
 
     func updateTabBarItem(newValue: String?) {
