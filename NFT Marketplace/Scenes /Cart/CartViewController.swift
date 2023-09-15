@@ -272,7 +272,10 @@ extension CartViewController: CartViewControllerProtocol {
     }
 
     func showAlertController(alerts: [AlertModel]) {
-        let alertController = UIAlertController(title: TextStrings.CartViewController.alertTitle, message: nil, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(
+            title: TextStrings.CartViewController.alertTitle,
+            message: nil,
+            preferredStyle: .actionSheet)
 
         for alert in alerts {
             let action = UIAlertAction(title: alert.title, style: alert.style) { _ in

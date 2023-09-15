@@ -311,8 +311,7 @@ extension PaymentViewController: PaymentViewControllerProtocol {
         payButton.backgroundColor = color
         payButton.isEnabled = isEnabled
 
-        isLoading ?
-        payButton.setTitle("", for: .normal): payButton.setTitle(TextStrings.PaymentViewController.payButtonTitle, for: .normal)
+        isLoading ? payButton.setTitle("", for: .normal) : payButton.setTitle(TextStrings.PaymentViewController.payButtonTitle, for: .normal)
         isLoading ? loadingIndicator.startAnimating() : loadingIndicator.stopAnimating()
     }
 
