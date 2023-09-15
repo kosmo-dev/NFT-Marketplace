@@ -16,6 +16,7 @@ protocol CartViewControllerProtocol: AnyObject {
     func updateTabBarItem(newValue: String?)
     func showAlertController(alerts: [AlertModel])
     func reloadTableView()
+    func switchToCatalogVC()
 }
 
 final class CartViewController: UIViewController {
@@ -290,6 +291,10 @@ extension CartViewController: CartViewControllerProtocol {
 
     func reloadTableView() {
         tableView.reloadData()
+    }
+
+    func switchToCatalogVC() {
+        tabBarController?.selectedIndex = 1
     }
 }
 

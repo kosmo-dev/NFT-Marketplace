@@ -52,6 +52,8 @@ final class CartPresenter: CartPresenterProtocol {
 
     private var currentCartSortState = CartSortState.name.rawValue
 
+    private var paymentFlowStarted = false
+
     // MARK: - Initializers
     init(cartController: CartControllerProtocol) {
         self.cartController = cartController
@@ -68,6 +70,7 @@ final class CartPresenter: CartPresenterProtocol {
         }
         createCellsModels()
         applySorting()
+        checkNeedSwitchToCatalogVC()
     }
 
     func deleteNFT() {
@@ -100,6 +103,7 @@ final class CartPresenter: CartPresenterProtocol {
         let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         navigationController?.pushViewController(viewController, animated: true)
+        paymentFlowStarted = true
     }
 
     func sortButtonTapped() {
@@ -195,6 +199,13 @@ final class CartPresenter: CartPresenterProtocol {
         DispatchQueue.global(qos: .utility).async { [weak self] in
             guard let self else { return }
             self.savingManager.save(value: self.currentCartSortState, for: Constants.cartSortStateKey)
+        }
+    }
+
+    private func checkNeedSwitchToCatalogVC() {
+        if paymentFlowStarted && cartController.cart.isEmpty == true {
+            paymentFlowStarted = false
+            viewController?.switchToCatalogVC()
         }
     }
 }
