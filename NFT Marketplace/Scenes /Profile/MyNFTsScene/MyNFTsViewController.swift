@@ -48,7 +48,7 @@ final class MyNFTsViewController: UIViewController {
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(backButtonTapped))
-        navigationItem.title = "Мои NFT"
+        navigationItem.title = TextLabels.MyNFTsVC.navigationTitle
 
         let filterButton = UIBarButtonItem(image: UIImage(named: "filterIcon"),
                                            style: .plain,
@@ -85,21 +85,21 @@ final class MyNFTsViewController: UIViewController {
     }
 
     @objc func filterButtonTapped() {
-        let alertController = UIAlertController(title: nil, message: "Сортировка", preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: nil, message: TextLabels.MyNFTsVC.alertTitleLabel, preferredStyle: .actionSheet)
 
-        let sortByPriceAction = UIAlertAction(title: "По цене",
+        let sortByPriceAction = UIAlertAction(title: TextLabels.MyNFTsVC.alertPriceLabel,
                                               style: .default) { _ in
             self.presenter?.sortNFTs(by: .price)
         }
-        let sortByRatingAction = UIAlertAction(title: "По Рейтингу",
+        let sortByRatingAction = UIAlertAction(title: TextLabels.MyNFTsVC.alertRatingLabel,
                                                style: .default) { _ in
             self.presenter?.sortNFTs(by: .rating)
         }
-        let sortByNameAction = UIAlertAction(title: "По названию",
+        let sortByNameAction = UIAlertAction(title: TextLabels.MyNFTsVC.alertNameLabel,
                                              style: .default) { _ in
             self.presenter?.sortNFTs(by: .name)
         }
-        let cancelAction = UIAlertAction(title: "Закрыть",
+        let cancelAction = UIAlertAction(title: TextLabels.MyNFTsVC.alertCloseLabel,
                                          style: .cancel, handler: nil)
 
         [sortByPriceAction, sortByRatingAction, sortByNameAction, cancelAction].forEach {

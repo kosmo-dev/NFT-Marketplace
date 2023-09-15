@@ -60,7 +60,7 @@ final class NFTTableViewCell: UITableViewCell {
 
     private lazy var priceTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Цена"
+        label.text = TextLabels.MyNFTsVC.cellNFTPriceLabel
         label.font = UIFont.systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
