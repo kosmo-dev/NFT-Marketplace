@@ -48,6 +48,10 @@ final class CartPresenter: CartPresenterProtocol {
         return cartController.cart
     }
 
+    private let savingManager = SavingManager()
+
+    private var currentCartSortState = CartSortState.name.rawValue
+
     // MARK: - Initializers
     init(cartController: CartControllerProtocol) {
         self.cartController = cartController
@@ -59,6 +63,11 @@ final class CartPresenter: CartPresenterProtocol {
         let totalPrice = calculateTotalPrice()
         viewController?.updatePayView(count: count, price: totalPrice)
         checkViewState()
+        if let savedSortState = savingManager.getString(for: Constants.cartSortStateKey) {
+            currentCartSortState = savedSortState
+        }
+        createCellsModels()
+        applySorting()
     }
 
     func deleteNFT() {
@@ -68,6 +77,7 @@ final class CartPresenter: CartPresenterProtocol {
                   let index = cellsModels.firstIndex(where: { $0.id == choosedNFTId })
             else { return }
             checkViewState()
+            cellsModels.remove(at: index)
             self.viewController?.didDeleteNFT(for: IndexPath(row: index, section: 0))
             viewController?.updatePayView(count: nfts.count, price: calculateTotalPrice())
             self.choosedNFTId = nil
@@ -123,7 +133,6 @@ final class CartPresenter: CartPresenterProtocol {
     }
 
     private func viewControllerShouldChangeView() {
-        createCellsModels()
         switch currentState {
         case .empty:
             viewController?.displayEmptyCart()
@@ -150,19 +159,43 @@ final class CartPresenter: CartPresenterProtocol {
         }
     }
 
+    private func applySorting() {
+        switch currentCartSortState {
+        case CartSortState.name.rawValue:
+            sortByNames()
+        case CartSortState.rating.rawValue:
+            sortByRating()
+        case CartSortState.price.rawValue:
+            sortByPrice()
+        default:
+            return
+        }
+    }
+
     private func sortByNames() {
         cellsModels.sort { $0.title < $1.title }
-        viewController?.reloadTableView()
+        currentCartSortState = CartSortState.name.rawValue
+        didFinishSortCellsModels()
     }
 
     private func sortByRating() {
         cellsModels.sort { $0.rating > $1.rating }
-        viewController?.reloadTableView()
+        currentCartSortState = CartSortState.rating.rawValue
+        didFinishSortCellsModels()
     }
 
     private func sortByPrice() {
         cellsModels.sort { $0.price < $1.price }
+        currentCartSortState = CartSortState.price.rawValue
+        didFinishSortCellsModels()
+    }
+
+    private func didFinishSortCellsModels() {
         viewController?.reloadTableView()
+        DispatchQueue.global(qos: .utility).async { [weak self] in
+            guard let self else { return }
+            self.savingManager.save(value: self.currentCartSortState, for: Constants.cartSortStateKey)
+        }
     }
 }
 
@@ -179,5 +212,21 @@ extension CartPresenter: CartControllerDelegate {
     func cartCountDidChanged(_ newCount: Int) {
         let badgeValue = newCount > 0 ? String(newCount) : nil
         viewController?.updateTabBarItem(newValue: badgeValue)
+    }
+}
+
+// MARK: - CartSortState
+extension CartPresenter {
+    enum CartSortState: String {
+        case name
+        case rating
+        case price
+    }
+}
+
+// MARK: - Constants
+extension CartPresenter {
+    enum Constants {
+        static let cartSortStateKey = "cartSortStateKey"
     }
 }
