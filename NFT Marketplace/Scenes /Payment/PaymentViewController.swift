@@ -159,10 +159,7 @@ final class PaymentViewController: UIViewController {
             payViewIsAddedToWindow = true
             [payDescription, userAgreementButton, payButton].forEach { payView.addSubview($0) }
 
-            payButton.addSubview(loadingIndicator)
-
-            NSLayoutConstraint.activate([
-            ])
+            let safeAreaHeight = window.safeAreaInsets.bottom
 
             NSLayoutConstraint.activate([
                 payView.leadingAnchor.constraint(equalTo: window.leadingAnchor),
@@ -178,13 +175,11 @@ final class PaymentViewController: UIViewController {
                 userAgreementButton.leadingAnchor.constraint(
                     equalTo: payView.leadingAnchor, constant: Const.defaultOffset),
 
-                payButton.topAnchor.constraint(
-                    equalTo: userAgreementButton.bottomAnchor, constant: Const.defaultOffset),
-                payButton.leadingAnchor.constraint(equalTo: payView.leadingAnchor, constant: Const.defaultOffset),
-                payButton.trailingAnchor.constraint(equalTo: payView.trailingAnchor, constant: -Const.defaultOffset),
-                payButton.bottomAnchor.constraint(equalTo: payView.bottomAnchor, constant: -Const.bottomOffset),
-                payButton.heightAnchor.constraint(equalToConstant: Const.buttonHeight),
-
+                payButton.topAnchor.constraint(equalTo: userAgreementButton.bottomAnchor, constant: Constants.defaultOffset),
+                payButton.leadingAnchor.constraint(equalTo: payView.leadingAnchor, constant: Constants.defaultOffset),
+                payButton.trailingAnchor.constraint(equalTo: payView.trailingAnchor, constant: -Constants.defaultOffset),
+                payButton.bottomAnchor.constraint(equalTo: payView.bottomAnchor, constant: -(Constants.bottomOffset+safeAreaHeight)),
+                payButton.heightAnchor.constraint(equalToConstant: Constants.buttonHeight)
                 loadingIndicator.centerXAnchor.constraint(equalTo: payButton.centerXAnchor),
                 loadingIndicator.centerYAnchor.constraint(equalTo: payButton.centerYAnchor)
             ])
@@ -229,7 +224,7 @@ final class PaymentViewController: UIViewController {
     }
 
     private func makeCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-        let spacing: CGFloat = 7
+        let spacing = Constants.collectionViewSpacing
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
             heightDimension: .fractionalHeight(1))
@@ -260,9 +255,10 @@ extension PaymentViewController {
     private enum Const {
         static let defaultOffset: CGFloat = 16
         static let buttonHeight: CGFloat = 60
-        static let bottomOffset: CGFloat = 50
+        static let bottomOffset: CGFloat = 16
         static let topOffset: CGFloat = 20
         static let cellEstimatedHeight: CGFloat = 46
+        static let collectionViewSpacing: CGFloat = 7
     }
 }
 

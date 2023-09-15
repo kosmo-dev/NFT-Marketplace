@@ -70,7 +70,7 @@ final class PaymentPresenter: PaymentPresenterProtocol {
     }
 
     func userAgreementButtonTapped() {
-        guard let url = URL(string: "https://yandex.ru/legal/practicum_termsofuse/") else { return }
+        guard let url = URL(string: Constants.termsOfUseURL) else { return }
         let safariViewController = SFSafariViewController(url: url)
         viewController?.presentView(safariViewController)
     }
@@ -85,11 +85,11 @@ final class PaymentPresenter: PaymentPresenterProtocol {
     // MARK: - Private Methods
     private func fetchCurrencies() {
         let request = CurrenciesRequest()
-        networkManager.send(request: request, type: [Currency].self, id: request.requestId) { result in
+        networkManager.send(request: request, type: [Currency].self, id: request.requestId) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success(let currencies):
-                DispatchQueue.main.async { [weak self] in
-                    guard let self else { return }
+                DispatchQueue.main.async {
                     self.currencies = currencies
                     self.makeCurrenciesCellModel()
                     self.checkState()
@@ -102,11 +102,7 @@ final class PaymentPresenter: PaymentPresenterProtocol {
     }
 
     private func checkState() {
-        if currencies.isEmpty {
-            currentState = .loading
-        } else {
-            currentState = .loaded
-        }
+        currentState = currencies.isEmpty ? .loading : .loaded
     }
 
     private func viewControllerShouldChangeView() {
@@ -123,7 +119,7 @@ final class PaymentPresenter: PaymentPresenterProtocol {
     private func makeCurrenciesCellModel() {
         currenciesCellModel.removeAll()
         for (index, currency) in currencies.enumerated() {
-            let isSelected = index == seletedItemIndexPath?.row ? true : false
+            let isSelected = index == seletedItemIndexPath?.row
             let model = CurrencyCellModel(
                 imageURL: currency.image,
                 title: currency.title,
@@ -162,6 +158,9 @@ extension PaymentPresenter {
     }
 }
 
+extension PaymentPresenter {
+    private enum Constants {
+        static let termsOfUseURL = "https://yandex.ru/legal/practicum_termsofuse/"
 // MARK: - PaymentManagerDelegate
 extension PaymentPresenter: PaymentManagerDelegate {
     func paymentFinishedWithError(_ error: Error) {
