@@ -100,7 +100,9 @@ final class MyNFTsViewController: UIViewController {
     }
 
     @objc func filterButtonTapped() {
-        let alertController = UIAlertController(title: nil, message: TextLabels.MyNFTsVC.alertTitleLabel, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: nil,
+                                                message: TextLabels.MyNFTsVC.alertTitleLabel,
+                                                preferredStyle: .actionSheet)
 
         let sortByPriceAction = UIAlertAction(title: TextLabels.MyNFTsVC.alertPriceLabel,
                                               style: .default) { _ in
@@ -136,12 +138,12 @@ extension MyNFTsViewController: MyNFTsViewProtocol {
 
     func updateWith(nfts: [NFTModel]) {
         self.nftModels = nfts
-        if nftModels.isEmpty {
-            placeholderLabel.isHidden = false
-        } else {
-            placeholderLabel.isHidden = true
-        }
         DispatchQueue.main.async {
+            if self.nftModels.isEmpty {
+                self.placeholderLabel.isHidden = false
+            } else {
+                self.placeholderLabel.isHidden = true
+            }
             self.tableView.reloadData()
         }
     }
