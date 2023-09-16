@@ -15,17 +15,28 @@ protocol FavoritesNFTView: AnyObject {
 final class FavoritesNFTViewController: UIViewController {
 
     // MARK: - Private Methods
+
+    private struct LayoutConstants {
+        static let horizontalPadding: CGFloat = 16
+        static let numberOfColumns: CGFloat = 2
+        static let interItemSpacing: CGFloat = 7
+        static let lineSpacing: CGFloat = 20
+    }
+
     private var collectionViewLayout: UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
 
-        let totalHorizontalPadding: CGFloat = 16 * 2 + 7
-        let itemWidth: CGFloat = (view.frame.width - totalHorizontalPadding) / 2
+        let totalHorizontalPadding: CGFloat = LayoutConstants.horizontalPadding * LayoutConstants.numberOfColumns + LayoutConstants.interItemSpacing
+        let itemWidth: CGFloat = (view.frame.width - totalHorizontalPadding) / LayoutConstants.numberOfColumns
         layout.itemSize = CGSize(width: itemWidth, height: 80)
 
-        layout.minimumLineSpacing = 20
-        layout.minimumInteritemSpacing = 7
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        layout.minimumLineSpacing = LayoutConstants.lineSpacing
+        layout.minimumInteritemSpacing = LayoutConstants.interItemSpacing
+        layout.sectionInset = UIEdgeInsets(top: 0,
+                                           left: LayoutConstants.horizontalPadding,
+                                           bottom: 0,
+                                           right: LayoutConstants.horizontalPadding)
         return layout
     }
 

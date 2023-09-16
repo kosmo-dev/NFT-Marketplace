@@ -36,11 +36,6 @@ class ProfilePresenter: ProfilePresenterProtocol {
     }
 
     func viewDidLoad() {
-        guard currentUserProfile == nil else {
-            self.view?.updateUI(with: currentUserProfile!)
-            return
-        }
-
         profileService.fetchUserProfile { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
