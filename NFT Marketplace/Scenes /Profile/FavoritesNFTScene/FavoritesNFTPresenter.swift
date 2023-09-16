@@ -13,7 +13,7 @@ final class FavoritesNFTPresenter {
     private let profileService: ProfileServiceProtocol
 
     private var likedNFTIds: [String]
-    private var likedNFTs: [NFTModel] = []
+    var likedNFTs: [NFTModel] = []
 
     init(likedNFTIds: [String], profileService: ProfileServiceProtocol) {
         self.likedNFTIds = likedNFTIds

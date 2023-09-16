@@ -38,6 +38,18 @@ final class FavoritesNFTViewController: UIViewController {
         return collectionView
     }()
 
+    private lazy var placeholderLabel: UILabel = {
+        let label = UILabel()
+        label.text = "У Вас еще нет избранных NFT"
+        label.numberOfLines = 0
+        label.textColor = .blackDayNight
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.textAlignment = .center
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
     private var presenter: FavoritesNFTPresenter?
     private var likedNFTs: [NFTModel] = []
     private var likedNFTIds: [String]
@@ -77,12 +89,15 @@ final class FavoritesNFTViewController: UIViewController {
     private func setupCollectionView() {
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(placeholderLabel)
 
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            placeholderLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            placeholderLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 
@@ -105,14 +120,6 @@ extension FavoritesNFTViewController: FavoritesNFTCVCellDelegate {
         let nft = likedNFTs[indexPath.row]
         presenter?.toggleLikeStatus(for: nft)
         collectionView.deleteItems(at: [indexPath])
-//        if let index = likedNFTIds.firstIndex(of: nft.id) {
-//            likedNFTIds.remove(at: index)
-//            likedNFTs.remove(at: indexPath.row)
-//            collectionView.deleteItems(at: [indexPath])
-//        } else {
-//            likedNFTIds.append(nft.id)
-//            cell.setLiked(true)
-//        }
     }
 }
 
@@ -120,11 +127,11 @@ extension FavoritesNFTViewController: UICollectionViewDataSource, UICollectionVi
 
     // MARK: - UICollectionViewDataSource methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return likedNFTs.count
-//        return presenter.countOfFavorites()
+        return presenter?.likedNFTs.count ?? 0
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavoriteNFTCell",
                                                       for: indexPath) as? FavoritesNFTCVCell
         let nft = likedNFTs[indexPath.row]
@@ -138,6 +145,11 @@ extension FavoritesNFTViewController: UICollectionViewDataSource, UICollectionVi
 extension FavoritesNFTViewController: FavoritesNFTView {
     func updateNFTs(_ nfts: [NFTModel]) {
         self.likedNFTs = nfts
+        if likedNFTs.isEmpty {
+            placeholderLabel.isHidden = false
+        } else {
+            placeholderLabel.isHidden = true
+        }
         DispatchQueue.main.async {
             print("Обновление NFTs с \(nfts.count) элементами.")
             self.collectionView.reloadData()

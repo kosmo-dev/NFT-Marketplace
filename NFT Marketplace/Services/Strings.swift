@@ -53,7 +53,7 @@ struct TextLabels {
         static let alertNameLabel = "По названию"
         static let alertCloseLabel = "Закрыть"
     }
-    
+
     struct FavoritesNFTsVC {
         static let navigationTitle: String = "Избранные NFT"
     }

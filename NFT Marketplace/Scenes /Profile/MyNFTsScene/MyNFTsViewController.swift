@@ -15,8 +15,18 @@ protocol MyNFTsViewProtocol: AnyObject {
 final class MyNFTsViewController: UIViewController {
 
     // MARK: - Private Properties
-    
-    
+
+    private var placeholderLabel: UILabel = {
+       let label = UILabel()
+        label.text = "У Вас еще нет NFT"
+        label.textColor = .blackDayNight
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.textAlignment = .center
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
     private var tableView: UITableView!
     private var presenter: MyNFTsPresenter?
     private var nftModels: [NFTModel] = []
@@ -73,12 +83,15 @@ final class MyNFTsViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(NFTTableViewCell.self, forCellReuseIdentifier: "NFTTableViewCell")
         view.addSubview(tableView)
+        view.addSubview(placeholderLabel)
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            placeholderLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            placeholderLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 
@@ -123,6 +136,11 @@ extension MyNFTsViewController: MyNFTsViewProtocol {
 
     func updateWith(nfts: [NFTModel]) {
         self.nftModels = nfts
+        if nftModels.isEmpty {
+            placeholderLabel.isHidden = false
+        } else {
+            placeholderLabel.isHidden = true
+        }
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
