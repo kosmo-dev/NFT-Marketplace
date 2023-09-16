@@ -32,8 +32,8 @@ final class ProfileViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         presenter?.viewDidLoad()
     }
 
@@ -128,6 +128,7 @@ extension ProfileViewController: ProfileViewProtocol {
 extension ProfileViewController: ProfileEditPresenterDelegate {
     func profileDidUpdate(_ profile: UserProfile) {
         self.updateUI(with: profile)
+        self.presenter?.updateCurrentUserProfile(with: profile)
     }
 }
 

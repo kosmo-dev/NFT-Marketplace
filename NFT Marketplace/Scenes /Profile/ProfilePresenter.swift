@@ -13,6 +13,7 @@ protocol ProfilePresenterProtocol: AnyObject {
     func didTapMyNFTs()
     func didTapFavorites()
     func didTapAboutDeveloper()
+    func updateCurrentUserProfile(with profile: UserProfile)
     var currentUserProfile: UserProfile? { get }
 }
 
@@ -35,6 +36,11 @@ class ProfilePresenter: ProfilePresenterProtocol {
     }
 
     func viewDidLoad() {
+        guard currentUserProfile == nil else {
+            self.view?.updateUI(with: currentUserProfile!)
+            return
+        }
+
         profileService.fetchUserProfile { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
@@ -46,6 +52,11 @@ class ProfilePresenter: ProfilePresenterProtocol {
                 }
             }
         }
+    }
+
+    func updateCurrentUserProfile(with profile: UserProfile) {
+        currentUserProfile = profile
+        view?.updateUI(with: profile)
     }
 
     func didTapEditProfile() {

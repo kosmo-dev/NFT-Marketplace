@@ -57,4 +57,8 @@ struct TextLabels {
     struct FavoritesNFTsVC {
         static let navigationTitle: String = "Избранные NFT"
     }
+
+    struct AboutDevelopersVC {
+        static let navigationTitle: String = "Команда разработчиков"
+    }
 }
