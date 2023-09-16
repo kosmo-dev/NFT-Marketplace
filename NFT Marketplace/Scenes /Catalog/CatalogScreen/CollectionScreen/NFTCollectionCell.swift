@@ -55,7 +55,6 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
     
     private lazy var starRatingView: StarRatingView = {
         let view = StarRatingView()
-        //        view.configureRating(4)
         return view
     }()
     

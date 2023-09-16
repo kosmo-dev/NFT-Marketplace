@@ -196,7 +196,7 @@ final class CatalogСollectionViewController: UIViewController {
         guard let url = URL(string: presenter.userURL ?? "")  else { return }
         let safaryVC = SFSafariViewController(url: url)
         setupNavigationBackButton()
-        navigationController?.pushViewController(safaryVC, animated: true)
+        navigationController?.present(safaryVC, animated: true)
         navigationItem.backBarButtonItem =  UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 }
