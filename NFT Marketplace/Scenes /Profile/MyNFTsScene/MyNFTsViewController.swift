@@ -15,6 +15,8 @@ protocol MyNFTsViewProtocol: AnyObject {
 final class MyNFTsViewController: UIViewController {
 
     // MARK: - Private Properties
+    
+    
     private var tableView: UITableView!
     private var presenter: MyNFTsPresenter?
     private var nftModels: [NFTModel] = []
