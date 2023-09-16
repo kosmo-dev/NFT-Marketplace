@@ -145,12 +145,13 @@ extension FavoritesNFTViewController: UICollectionViewDataSource, UICollectionVi
 extension FavoritesNFTViewController: FavoritesNFTView {
     func updateNFTs(_ nfts: [NFTModel]) {
         self.likedNFTs = nfts
-        if likedNFTs.isEmpty {
-            placeholderLabel.isHidden = false
-        } else {
-            placeholderLabel.isHidden = true
-        }
+
         DispatchQueue.main.async {
+            if self.likedNFTs.isEmpty {
+                self.placeholderLabel.isHidden = false
+            } else {
+                self.placeholderLabel.isHidden = true
+            }
             print("Обновление NFTs с \(nfts.count) элементами.")
             self.collectionView.reloadData()
         }
