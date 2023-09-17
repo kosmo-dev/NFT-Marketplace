@@ -37,6 +37,7 @@ final class MyNFTsPresenter {
             switch result {
             case .success(let nfts):
                 self?.nftModels = nfts.filter {self?.nftIds.contains($0.id) ?? false}
+                self?.nftModels.sort(by: { $0.rating > $1.rating })
                 self?.view?.updateWith(nfts: self?.nftModels ?? [])
             case .failure(let error):
                 self?.view?.showError(error)
