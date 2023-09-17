@@ -98,4 +98,8 @@ iOSInjectionProject/
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
+NFT Marketplace.xcodeproj/
+NFT\ Marketplace.xcodeproj/
+NFT Marketplace.xcodeproj
+NFT\ Marketplace.xcodeproj
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode
