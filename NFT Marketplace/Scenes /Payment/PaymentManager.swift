@@ -18,8 +18,8 @@ protocol PaymentManagerDelegate: AnyObject {
 }
 
 final class PaymentManager: PaymentManagerProtocol {
-    var networkManager: NetworkManagerProtocol
     weak var delegate: PaymentManagerDelegate?
+    private let networkManager: NetworkManagerProtocol
 
     init(networkManager: NetworkManagerProtocol) {
         self.networkManager = networkManager

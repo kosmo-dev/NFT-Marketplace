@@ -13,6 +13,7 @@ protocol CartPresenterProtocol {
     var cellsModels: [CartCellModel] { get }
 
     func viewWillAppear()
+    func viewDidLoad()
     func deleteNFT()
     func didSelectCellToDelete(id: String)
     func toPaymentButtonTapped()
@@ -116,7 +117,8 @@ final class CartPresenter: CartPresenterProtocol {
             }),
             AlertModel(title: TextStrings.CartViewController.sortByName, style: .default, completion: { [weak self] in
                 self?.sortByNames()
-            })
+            }),
+            AlertModel(title: TextStrings.CartViewController.closeSorting, style: .cancel, completion: nil)
         ]
         viewController?.showAlertController(alerts: alerts)
     }
@@ -124,6 +126,11 @@ final class CartPresenter: CartPresenterProtocol {
     func refreshTableViewCalled() {
         self.checkViewState()
         self.viewController?.reloadTableView()
+    }
+
+    func viewDidLoad() {
+        let newCount = cartController.cart.count
+        cartCountDidChanged(newCount)
     }
 
     // MARK: - Private Methods
@@ -158,7 +165,7 @@ final class CartPresenter: CartPresenterProtocol {
         for nft in nfts {
             let priceString = numberFormatter.string(from: NSNumber(value: nft.price)) ?? ""
             let cellModel = CartCellModel(
-                id: nft.id, imageURL: nft.images[0], title: nft.name, price: "\(priceString) ETH", rating: nft.rating)
+                id: nft.id, imageURL: nft.images.first ?? "", title: nft.name, price: "\(priceString) ETH", rating: nft.rating)
             cellsModels.append(cellModel)
         }
     }
@@ -203,7 +210,7 @@ final class CartPresenter: CartPresenterProtocol {
     }
 
     private func checkNeedSwitchToCatalogVC() {
-        if paymentFlowStarted && cartController.cart.isEmpty == true {
+        if paymentFlowStarted && cartController.cart.isEmpty {
             paymentFlowStarted = false
             viewController?.switchToCatalogVC()
         }

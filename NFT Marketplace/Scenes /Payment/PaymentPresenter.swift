@@ -158,9 +158,13 @@ extension PaymentPresenter {
     }
 }
 
+// MARK: - Constants
 extension PaymentPresenter {
     private enum Constants {
         static let termsOfUseURL = "https://yandex.ru/legal/practicum_termsofuse/"
+    }
+}
+
 // MARK: - PaymentManagerDelegate
 extension PaymentPresenter: PaymentManagerDelegate {
     func paymentFinishedWithError(_ error: Error) {

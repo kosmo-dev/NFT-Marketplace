@@ -122,6 +122,7 @@ final class CartViewController: UIViewController {
         tableView.delegate = self
         presenter.viewController = self
         deleteNFTView.delegate = self
+        presenter.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {

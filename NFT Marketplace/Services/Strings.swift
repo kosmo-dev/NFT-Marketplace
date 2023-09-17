@@ -30,6 +30,7 @@ struct TextStrings {
         static let sortByName = "По названию"
         static let sortByRating = "По рейтингу"
         static let sortByPrice = "По цене"
+        static let closeSorting = "Закрыть"
     }
 
     struct PaymentViewController {

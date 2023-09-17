@@ -64,16 +64,21 @@ final class PaymentConfirmationViewController: UIViewController {
         NSLayoutConstraint.activate([
             imageConfirmationView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageConfirmationView.widthAnchor.constraint(equalTo: imageConfirmationView.heightAnchor),
-            imageConfirmationView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 150),
+            imageConfirmationView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.imageTopOffset),
 
-            descriptionTitle.topAnchor.constraint(equalTo: imageConfirmationView.bottomAnchor, constant: 20),
-            descriptionTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
-            descriptionTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -36),
+            descriptionTitle.topAnchor.constraint(
+                equalTo: imageConfirmationView.bottomAnchor, constant: Constants.titleTopOffset),
+            descriptionTitle.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor, constant: Constants.descriptionOffset),
+            descriptionTitle.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor, constant: -Constants.descriptionOffset),
 
-            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            button.heightAnchor.constraint(equalToConstant: 60)
+            button.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constants.buttonOffset),
+            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.buttonOffset),
+            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.buttonOffset),
+            button.heightAnchor.constraint(equalToConstant: Constants.buttonHeight)
         ])
     }
 
@@ -88,5 +93,16 @@ extension PaymentConfirmationViewController: PaymentConfirmationViewControllerPr
         imageConfirmationView.image = UIImage(named: imageName)
         descriptionTitle.text = description
         button.setTitle(buttonText, for: .normal)
+    }
+}
+
+// MARK: - Constants
+extension PaymentConfirmationViewController {
+    enum Constants {
+        static let buttonOffset: CGFloat = 16
+        static let imageTopOffset: CGFloat = 150
+        static let descriptionOffset: CGFloat = 36
+        static let titleTopOffset: CGFloat = 20
+        static let buttonHeight: CGFloat = 60
     }
 }
