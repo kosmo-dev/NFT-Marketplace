@@ -13,7 +13,7 @@ class AppConfiguration {
     let cartViewController: UIViewController
     let statisticViewController: UIViewController
     let catalogNavigationController: UINavigationController
-    let cartController: CartControllerProtocol
+    let cartService: CartControllerProtocol
 
 
 //     TODO: Заменить вью контроллеры на свои
@@ -25,7 +25,10 @@ class AppConfiguration {
         catalogViewController = CatalogViewController(presenter: catalogPresenter)
         cartViewController = CartViewController()
         profileViewController = UIViewController()
-        statisticViewController = UIViewController()
+        statisticViewController = StatisticsViewController(
+            presenter: StatisticsPresenter(userDataService: UserDataService()),
+            cart: cartService)
+
 
         catalogNavigationController = UINavigationController(rootViewController: catalogViewController)
     }
