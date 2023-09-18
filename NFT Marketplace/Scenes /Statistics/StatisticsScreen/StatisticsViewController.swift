@@ -20,7 +20,7 @@ final class StatisticsViewController: UIViewController, StatisticsViewController
 
     private lazy var statisticsFilterButton: UIButton = {
         let statisticsFilterButton = UIButton(type: .custom)
-        statisticsFilterButton.setImage(UIImage(named: "StatisticsFilter")?.withTintColor(.blackDayNight), for: .normal)
+        statisticsFilterButton.setImage(UIImage(named: "sort")?.withTintColor(.blackDayNight), for: .normal)
         statisticsFilterButton.translatesAutoresizingMaskIntoConstraints = false
         statisticsFilterButton.addTarget(self, action: #selector(statisticsFilterTapped), for: .touchUpInside)
         return statisticsFilterButton

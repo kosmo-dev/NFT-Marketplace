@@ -12,17 +12,33 @@ class AppConfiguration {
     let catalogViewController: UIViewController
     let cartViewController: UIViewController
     let statisticViewController: UIViewController
+    let catalogNavigationController: UINavigationController
     let cartService: CartControllerProtocol
 
-    // todo: Заменить вью контроллеры на свои
+
+//     TODO: Заменить вью контроллеры на свои
     init() {
         cartService = CartControllerStub()
-        profileViewController = UIViewController()
-        catalogViewController = UIViewController()
+        let dataProvider = CatalogDataProvider(networkClient: DefaultNetworkClient())
+        let catalogPresenter = CatalogPresenter(dataProvider: dataProvider)
+
+        catalogViewController = CatalogViewController(presenter: catalogPresenter)
         cartViewController = CartViewController()
+        profileViewController = UIViewController()
         statisticViewController = StatisticsViewController(
             presenter: StatisticsPresenter(userDataService: UserDataService()),
-            cart: cartService
-        )
+            cart: cartService)
+
+
+        catalogNavigationController = UINavigationController(rootViewController: catalogViewController)
+    }
+    
+    func assemblyCollectionScreen(with model: NFTCollection) -> UIViewController {
+        let dataProvider = CollectionDataProvider(networkClient: DefaultNetworkClient())
+        let cartController = CartController()
+        let presenter = CatalogСollectionPresenter(nftModel: model, dataProvider: dataProvider, cartController: cartController)
+        let vc = CatalogСollectionViewController(presenter: presenter)
+        vc.hidesBottomBarWhenPushed = true
+        return vc
     }
 }

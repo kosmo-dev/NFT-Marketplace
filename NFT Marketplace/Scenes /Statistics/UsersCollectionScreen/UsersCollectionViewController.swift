@@ -27,7 +27,7 @@ final class UsersCollectionViewController: UIViewController, UsersCollectionView
 
     private lazy var backwardButton: UIButton = {
         let backwardButton = UIButton(type: .custom)
-        backwardButton.setImage(UIImage(named: "Backward"), for: .normal)
+        backwardButton.setImage(UIImage(named: "backward"), for: .normal)
         backwardButton.translatesAutoresizingMaskIntoConstraints = false
         backwardButton.addTarget(self, action: #selector(backwardTapped), for: .touchUpInside)
         return backwardButton
@@ -38,6 +38,7 @@ final class UsersCollectionViewController: UIViewController, UsersCollectionView
         let NFTCollection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         NFTCollection.register(NFTCollectionCell.self, forCellWithReuseIdentifier: "NFTCollectionCell")
         NFTCollection.allowsMultipleSelection = false
+        NFTCollection.showsVerticalScrollIndicator = false
         NFTCollection.translatesAutoresizingMaskIntoConstraints = false
         return NFTCollection
     }()
@@ -88,7 +89,7 @@ final class UsersCollectionViewController: UIViewController, UsersCollectionView
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             backwardButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 11),
-            backwardButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 9),
+            backwardButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             backwardButton.heightAnchor.constraint(equalToConstant: 24),
 
             header.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -119,13 +120,13 @@ final class UsersCollectionViewController: UIViewController, UsersCollectionView
             cell.starRatingView.configureRating(nft.rating)
 
             if self.presenter.liked(id: nft.id) ?? false {
-                cell.likeButton.setImage(UIImage(named: "redLike"), for: .normal)
-            } else {
                 cell.likeButton.setImage(UIImage(named: "likeIcon"), for: .normal)
+            } else {
+                cell.likeButton.setImage(UIImage(named: "noLike"), for: .normal)
             }
 
             if self.presenter.addedToCart(nft: nft) ?? false {
-                cell.cartButton.setImage(UIImage(named: "deleteFromCart"), for: .normal)
+                cell.cartButton.setImage(UIImage(named: "removeFromCart"), for: .normal)
             } else {
                 cell.cartButton.setImage(UIImage(named: "addToCart"), for: .normal)
             }

@@ -44,7 +44,7 @@ final class UserCardViewController: UIViewController, UserCardViewControllerProt
 
     private lazy var backwardButton: UIButton = {
         let backwardButton = UIButton(type: .custom)
-        backwardButton.setImage(UIImage(named: "Backward"), for: .normal)
+        backwardButton.setImage(UIImage(named: "backward"), for: .normal)
         backwardButton.translatesAutoresizingMaskIntoConstraints = false
         backwardButton.addTarget(self, action: #selector(backwardTapped), for: .touchUpInside)
         return backwardButton
@@ -141,7 +141,7 @@ final class UserCardViewController: UIViewController, UserCardViewControllerProt
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             backwardButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 11),
-            backwardButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 9),
+            backwardButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             backwardButton.heightAnchor.constraint(equalToConstant: 24),
 
             userAvatar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 62),

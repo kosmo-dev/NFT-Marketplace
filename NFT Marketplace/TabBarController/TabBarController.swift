@@ -45,7 +45,7 @@ class TabBarController: UITabBarController {
 
         self.viewControllers = [
             appConfiguration.profileViewController,
-            appConfiguration.catalogViewController,
+            appConfiguration.catalogNavigationController,
             appConfiguration.cartViewController,
             appConfiguration.statisticViewController
         ]

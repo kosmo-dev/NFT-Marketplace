@@ -31,4 +31,15 @@ struct TextLabels {
     struct UsersCollectionVC {
         static let headerTitle = "Коллекция NFT"
     }
+
+ struct CatalogVC {
+        static let sorting = "Cортировка"
+        static let sortByName = "По названию"
+        static let sortByNFTCount = "По количеству NFT"
+        static let close = "Закрыть"
+    }
+
+    struct CollectionVC {
+        static let aboutAuthor = "Автор коллекции:"
+    }
 }
