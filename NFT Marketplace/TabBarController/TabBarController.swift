@@ -7,8 +7,7 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
-
+final class TabBarController: UITabBarController {
     let appConfiguration: AppConfiguration
 
     init(appConfiguration: AppConfiguration) {
@@ -46,7 +45,7 @@ class TabBarController: UITabBarController {
         self.viewControllers = [
             appConfiguration.profileViewController,
             appConfiguration.catalogNavigationController,
-            appConfiguration.cartViewController,
+            appConfiguration.cartNavigationController,
             appConfiguration.statisticViewController
         ]
 
@@ -54,11 +53,13 @@ class TabBarController: UITabBarController {
         view.tintColor = .blueUni
         tabBar.backgroundColor = .whiteDayNight
         tabBar.unselectedItemTintColor = .blackDayNight
+        tabBar.tintColor = .blackDayNight
 
         if #available(iOS 15.0, *) {
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
             appearance.backgroundColor = .whiteDayNight
+            appearance.shadowColor = nil
             appearance.stackedLayoutAppearance.normal.iconColor = .blackDayNight
             appearance.stackedLayoutAppearance.selected.iconColor = .blueUni
             tabBar.standardAppearance = appearance

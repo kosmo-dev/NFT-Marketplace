@@ -30,7 +30,7 @@ final class CollectionDataProvider: CollectionDataProviderProtocol {
     
     func getNFTCollectionAuthor(id: String, completion: @escaping (UserModel) -> Void) {
         ProgressHUD.show()
-        networkClient.send(request: UserByIdRequest(id: id), type: UserNetworkModel.self)  { [weak self] result in
+        networkClient.send(request: UserByIdRequest(id: id), type: UserNetworkModel.self)  { result in
             switch result {
             case .success(let data):
                 completion(UserModel(with: data))
@@ -43,14 +43,14 @@ final class CollectionDataProvider: CollectionDataProviderProtocol {
     
     func loadNFTsBy(id: String, completion: @escaping (Result<NFT, Error>) -> Void) {
         ProgressHUD.show()
-        networkClient.send(request: NFTGetRequest(id: id), type: NFT.self)  { [weak self] result in
+        networkClient.send(request: NFTGetRequest(id: id), type: NFT.self)  { result in
             completion(result)
         }
         ProgressHUD.dismiss()
     }
     
     func updateUserProfile (with profile: ProfileModel) {
-        networkClient.send(request: ProfileUpdateRequest(dto: profile)) {  [weak self] result in
+        networkClient.send(request: ProfileUpdateRequest(dto: profile)) { result in
             switch result {
             case .success(let data):
                print(data)
@@ -61,7 +61,7 @@ final class CollectionDataProvider: CollectionDataProviderProtocol {
     }
     
     func getUserProfile(completion: @escaping (ProfileModel) -> Void) {
-        networkClient.send(request: ProfileGetRequest(), type: ProfileModel.self) { [weak self] result in
+        networkClient.send(request: ProfileGetRequest(), type: ProfileModel.self) { result in
             switch result {
             case .success(let data):
                 completion(data)
