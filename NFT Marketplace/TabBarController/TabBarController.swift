@@ -7,7 +7,6 @@
 
 import UIKit
 
-final class TabBarController: UITabBarController {
 
     let appConfiguration: AppConfiguration
 
@@ -23,12 +22,12 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         appConfiguration.profileViewController.tabBarItem = UITabBarItem(
-            title: TextStrings.TabBarController.profileTabBarTitle,
+            title: TextLabels.TabBarController.profileTabBarTitle,
             image: UIImage(systemName: "person.crop.circle.fill"),
             selectedImage: nil
         )
         appConfiguration.catalogViewController.tabBarItem = UITabBarItem(
-            title: TextStrings.TabBarController.catalogTabBarTitle,
+            title: TextLabels.TabBarController.catalogTabBarTitle,
             image: UIImage(systemName: "rectangle.stack.fill"),
             selectedImage: nil
         )
@@ -38,14 +37,14 @@ final class TabBarController: UITabBarController {
             selectedImage: nil
         )
         appConfiguration.statisticViewController.tabBarItem = UITabBarItem(
-            title: TextStrings.TabBarController.statisticTabBarTitle,
+            title: TextLabels.TabBarController.statisticTabBarTitle,
             image: UIImage(systemName: "flag.2.crossed.fill"),
             selectedImage: nil
         )
 
         self.viewControllers = [
             appConfiguration.profileViewController,
-            appConfiguration.catalogViewController,
+            appConfiguration.catalogNavigationController,
             appConfiguration.cartNavigationController,
             appConfiguration.statisticViewController
         ]
