@@ -47,8 +47,11 @@ final class CatalogViewController: UIViewController, CatalogViewControllerProtoc
         return tableView
     }()
 
-    init(presenter: CatalogPresenterProtocol) {
+    private let cartService: CartControllerProtocol
+
+    init(presenter: CatalogPresenterProtocol, cartService: CartControllerProtocol) {
         self.presenter = presenter
+        self.cartService = cartService
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -149,9 +152,11 @@ extension CatalogViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let appConfig = AppConfiguration()
         let nftModel = presenter.dataSource[indexPath.row]
-        let viewController = appConfig.assemblyCollectionScreen(with: nftModel)
+        let dataProvider = CollectionDataProvider(networkClient: DefaultNetworkClient())
+        let presenter = CatalogСollectionPresenter(nftModel: nftModel, dataProvider: dataProvider, cartController: cartService)
+        let viewController = CatalogСollectionViewController(presenter: presenter)
+        viewController.hidesBottomBarWhenPushed = true
         
         navigationController?.pushViewController(viewController, animated: true)
     }

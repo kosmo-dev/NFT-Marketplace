@@ -31,7 +31,7 @@ final class DeleteNFTView: UIView {
         title.textColor = .blackDayNight
         title.numberOfLines = 2
         title.textAlignment = .center
-        title.text = TextStrings.CartViewController.deleteFromCartTitle
+        title.text = TextLabels.CartViewController.deleteFromCartTitle
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
@@ -39,7 +39,7 @@ final class DeleteNFTView: UIView {
     private let deleteButton: CustomButton = {
         let deleteButton = CustomButton(
             type: .filled,
-            title: TextStrings.CartViewController.deleteButton,
+            title: TextLabels.CartViewController.deleteButton,
             action: #selector(deleteButtonTapped))
         deleteButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         deleteButton.layer.cornerRadius = 12
@@ -51,7 +51,7 @@ final class DeleteNFTView: UIView {
     private let returnButton: CustomButton = {
         let returnButton = CustomButton(
             type: .filled,
-            title: TextStrings.CartViewController.returnButton,
+            title: TextLabels.CartViewController.returnButton,
             action: #selector(returnButtonTapped))
         returnButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         returnButton.layer.cornerRadius = 12

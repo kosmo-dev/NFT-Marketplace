@@ -59,7 +59,7 @@ final class CartViewController: UIViewController {
     private let toPaymentButton: CustomButton = {
         let toPaymentButton = CustomButton(
             type: .filled,
-            title: TextStrings.CartViewController.toPaymentButton,
+            title: TextLabels.CartViewController.toPaymentButton,
             action: #selector(toPaymentButtonTapped)
         )
         toPaymentButton.translatesAutoresizingMaskIntoConstraints = false
@@ -82,7 +82,7 @@ final class CartViewController: UIViewController {
         let emptyPlaceholderLabel = UILabel()
         emptyPlaceholderLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         emptyPlaceholderLabel.textColor = .blackDayNight
-        emptyPlaceholderLabel.text = TextStrings.CartViewController.emptyCartLabel
+        emptyPlaceholderLabel.text = TextLabels.CartViewController.emptyCartLabel
         emptyPlaceholderLabel.translatesAutoresizingMaskIntoConstraints = false
         return emptyPlaceholderLabel
     }()
@@ -222,7 +222,7 @@ extension CartViewController: UITableViewDelegate {
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(
             style: .destructive,
-            title: TextStrings.CartViewController.deleteButton) { [weak self] _, _, completionHandler in
+            title: TextLabels.CartViewController.deleteButton) { [weak self] _, _, completionHandler in
                 guard let self else { return }
 
                 let cellModel = presenter.cellsModels[indexPath.row]
@@ -275,7 +275,7 @@ extension CartViewController: CartViewControllerProtocol {
 
     func showAlertController(alerts: [AlertModel]) {
         let alertController = UIAlertController(
-            title: TextStrings.CartViewController.alertTitle,
+            title: TextLabels.CartViewController.alertTitle,
             message: nil,
             preferredStyle: .actionSheet)
 

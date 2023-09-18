@@ -58,7 +58,7 @@ final class CatalogСollectionPresenter: CatalogСollectionPresenterProtocol {
     func handleCartButtonPressed(model: NFT) {
         let isAddedToCart = cartController.cart.contains(where: { $0.id == model.id })
         if isAddedToCart {
-            cartController.removeFromCart(model) {
+            cartController.removeFromCart(model.id) {
                 print("Removed from cart")}
         } else {
             cartController.addToCart(model) {
@@ -86,7 +86,7 @@ final class CatalogСollectionPresenter: CatalogСollectionPresenterProtocol {
         
         for nft in nftModel.nfts {
             group.enter()
-            dataProvider.loadNFTsBy(id: nft) { [weak self] result in
+            dataProvider.loadNFTsBy(id: nft) { result in
                 switch result {
                 case .success(let data):
                     nftArray.append(data)

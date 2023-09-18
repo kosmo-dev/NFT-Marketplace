@@ -58,7 +58,7 @@ final class UsersCollectionPresenter: UsersCollectionPresenterProtocol {
 
         guard let nft = cell.nftModel else { return }
         if cartController.cart.contains(where: { $0.id == nft.id }) {
-            cartController.removeFromCart(nft) {
+            cartController.removeFromCart(nft.id) {
                 print("Removed from cart")
             }
         } else {

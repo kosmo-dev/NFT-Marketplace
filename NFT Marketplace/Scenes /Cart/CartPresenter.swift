@@ -109,16 +109,16 @@ final class CartPresenter: CartPresenterProtocol {
 
     func sortButtonTapped() {
         let alerts = [
-            AlertModel(title: TextStrings.CartViewController.sortByPrice, style: .default, completion: { [weak self] in
+            AlertModel(title: TextLabels.CartViewController.sortByPrice, style: .default, completion: { [weak self] in
                 self?.sortByPrice()
             }),
-            AlertModel(title: TextStrings.CartViewController.sortByRating, style: .default, completion: { [weak self] in
+            AlertModel(title: TextLabels.CartViewController.sortByRating, style: .default, completion: { [weak self] in
                 self?.sortByRating()
             }),
-            AlertModel(title: TextStrings.CartViewController.sortByName, style: .default, completion: { [weak self] in
+            AlertModel(title: TextLabels.CartViewController.sortByName, style: .default, completion: { [weak self] in
                 self?.sortByNames()
             }),
-            AlertModel(title: TextStrings.CartViewController.closeSorting, style: .cancel, completion: nil)
+            AlertModel(title: TextLabels.CartViewController.closeSorting, style: .cancel, completion: nil)
         ]
         viewController?.showAlertController(alerts: alerts)
     }

@@ -39,7 +39,7 @@ final class PaymentViewController: UIViewController {
     private let payButton: CustomButton = {
         let payButton = CustomButton(
             type: .filled,
-            title: TextStrings.PaymentViewController.payButtonTitle,
+            title: TextLabels.PaymentViewController.payButtonTitle,
             action: #selector(payButtonTapped))
         payButton.translatesAutoresizingMaskIntoConstraints = false
         return payButton
@@ -49,14 +49,14 @@ final class PaymentViewController: UIViewController {
         let payDescription = UILabel()
         payDescription.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         payDescription.textColor = .blackDayNight
-        payDescription.text = TextStrings.PaymentViewController.payDescription
+        payDescription.text = TextLabels.PaymentViewController.payDescription
         payDescription.translatesAutoresizingMaskIntoConstraints = false
         return payDescription
     }()
 
     private let userAgreementButton: UIButton = {
         let userAgreementButton = UIButton()
-        userAgreementButton.setTitle(TextStrings.PaymentViewController.userAgreementTitle, for: .normal)
+        userAgreementButton.setTitle(TextLabels.PaymentViewController.userAgreementTitle, for: .normal)
         userAgreementButton.setTitleColor(.blueUni, for: .normal)
         userAgreementButton.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         userAgreementButton.isUserInteractionEnabled = true
@@ -138,7 +138,7 @@ final class PaymentViewController: UIViewController {
     }
 
     private func configureNavigationBar() {
-        navigationItem.title = TextStrings.PaymentViewController.navigationTitle
+        navigationItem.title = TextLabels.PaymentViewController.navigationTitle
         navigationController?.navigationBar.tintColor = .blackDayNight
 
         if #available(iOS 15, *) {
@@ -319,7 +319,7 @@ extension PaymentViewController: PaymentViewControllerProtocol {
         payButton.backgroundColor = color
         payButton.isEnabled = isEnabled
 
-        isLoading ? payButton.setTitle("", for: .normal) : payButton.setTitle(TextStrings.PaymentViewController.payButtonTitle, for: .normal)
+        isLoading ? payButton.setTitle("", for: .normal) : payButton.setTitle(TextLabels.PaymentViewController.payButtonTitle, for: .normal)
         isLoading ? loadingIndicator.startAnimating() : loadingIndicator.stopAnimating()
     }
 

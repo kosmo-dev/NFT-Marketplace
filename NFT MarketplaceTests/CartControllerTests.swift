@@ -10,7 +10,7 @@ import XCTest
 
 final class CartControllerTests: XCTestCase {
 
-    let cartController = CartController()
+    let cartController = CartService()
     let nft1 = NFT(name: "nft1", images: [], rating: 0, description: "", price: 5, author: "", id: "1", createdAt: "")
     let nft2 = NFT(name: "nft2", images: [], rating: 0, description: "", price: 5, author: "", id: "2", createdAt: "")
     let nft3 = NFT(name: "nft3", images: [], rating: 0, description: "", price: 5, author: "", id: "3", createdAt: "")

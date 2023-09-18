@@ -32,13 +32,13 @@ final class PaymentConfirmationPresenter: PaymentConfirmationPresenterProtocol {
         case .success:
             viewController?.configureElements(
                 imageName: "PaymentSuccededImage",
-                description: TextStrings.PaymentConfirmationViewController.paymentConfirmed,
-                buttonText: TextStrings.PaymentConfirmationViewController.returnButton)
+                description: TextLabels.PaymentConfirmationViewController.paymentConfirmed,
+                buttonText: TextLabels.PaymentConfirmationViewController.returnButton)
         case .failure:
             viewController?.configureElements(
                 imageName: "PaymentFailedImage",
-                description: TextStrings.PaymentConfirmationViewController.paymentFailed,
-                buttonText: TextStrings.PaymentConfirmationViewController.tryAgainButton)
+                description: TextLabels.PaymentConfirmationViewController.paymentFailed,
+                buttonText: TextLabels.PaymentConfirmationViewController.tryAgainButton)
         }
     }
 

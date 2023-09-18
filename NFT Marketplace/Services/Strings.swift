@@ -32,19 +32,6 @@ struct TextLabels {
         static let headerTitle = "Коллекция NFT"
     }
 
- struct CatalogVC {
-        static let sorting = "Cортировка"
-        static let sortByName = "По названию"
-        static let sortByNFTCount = "По количеству NFT"
-        static let close = "Закрыть"
-    }
-
-    struct CollectionVC {
-        static let aboutAuthor = "Автор коллекции:"
-    struct CartNFTCell {
-        static let priceDescription = "Цена"
-    }
-
     struct CartViewController {
         static let toPaymentButton = "К оплате"
         static let deleteFromCartTitle = "Вы уверены, что хотите удалить объект из корзины?"
@@ -59,6 +46,10 @@ struct TextLabels {
         static let closeSorting = "Закрыть"
     }
 
+    struct CartNFTCell {
+        static let priceDescription = "Цена"
+    }
+
     struct PaymentViewController {
         static let navigationTitle = "Выберите способ оплаты"
         static let payButtonTitle = "Оплатить"
@@ -71,5 +62,16 @@ struct TextLabels {
         static let paymentFailed = "Упс! Что-то пошло не так :( Попробуйте еще раз!"
         static let returnButton = "Вернуться в каталог"
         static let tryAgainButton = "Попробовать еще раз"
+    }
+
+    struct CatalogVC {
+        static let sorting = "Cортировка"
+        static let sortByName = "По названию"
+        static let sortByNFTCount = "По количеству NFT"
+        static let close = "Закрыть"
+    }
+
+    struct CollectionVC {
+        static let aboutAuthor = "Автор коллекции:"
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-
+final class TabBarController: UITabBarController {
     let appConfiguration: AppConfiguration
 
     init(appConfiguration: AppConfiguration) {
@@ -32,7 +32,7 @@ import UIKit
             selectedImage: nil
         )
         appConfiguration.cartViewController.tabBarItem = UITabBarItem(
-            title: TextStrings.TabBarController.cartTabBarTitle,
+            title: TextLabels.TabBarController.cartTabBarTitle,
             image: UIImage(named: "CartIcon"),
             selectedImage: nil
         )

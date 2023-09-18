@@ -1,5 +1,5 @@
 //
-//  CartController.swift
+//  CartService.swift
 //  NFT Marketplace
 //
 //  Created by Вадим Кузьмин on 24.08.2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class CartController: CartControllerProtocol {
+final class CartService: CartControllerProtocol {
     weak var delegate: CartControllerDelegate?
 
     private var _cart: [NFT] = []
@@ -53,7 +53,7 @@ final class CartController: CartControllerProtocol {
     }
 }
 
-extension CartController {
+extension CartService {
     func removeAll(completion: (() -> Void)?) {
         cartQueue.async(flags: .barrier) { [weak self] in
             guard let self else { return }

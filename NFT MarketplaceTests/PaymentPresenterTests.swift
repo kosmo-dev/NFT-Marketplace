@@ -44,7 +44,7 @@ final class PaymentPresenterTests: XCTestCase {
 
         // Wait
         waitForExpectations(timeout: 1) { error in
-            if let error {
+            if error != nil {
                 XCTFail()
             }
             XCTAssertTrue(viewController.isLoaded)
