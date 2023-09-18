@@ -236,12 +236,14 @@ extension CatalogСollectionViewController: UICollectionViewDataSource, UICollec
 // MARK: - NFTCollectionCellDelegate
 
 extension CatalogСollectionViewController: NFTCollectionCellDelegate {
-    func likeButtonDidTapped(nftModel: NFT) {
+    func likeButtonDidTapped(cell: NFTCollectionCell) {
+        guard let nftModel = cell.nftModel else { return }
         presenter.handleLikeButtonPressed(model: nftModel)
     }
     
     
-    func addToCardButtonDidTapped(nftModel: NFT) {
+    func addToCardButtonDidTapped(cell: NFTCollectionCell) {
+        guard let nftModel = cell.nftModel else { return }
         presenter.handleCartButtonPressed(model: nftModel)
     }
 }

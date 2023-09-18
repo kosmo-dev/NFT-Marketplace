@@ -9,8 +9,8 @@ import UIKit
 // MARK: - Protocol
 
 protocol NFTCollectionCellDelegate: AnyObject {
-    func likeButtonDidTapped(nftModel: NFT)
-    func addToCardButtonDidTapped(nftModel: NFT)
+    func likeButtonDidTapped(cell: NFTCollectionCell)
+    func addToCardButtonDidTapped(cell: NFTCollectionCell)
 }
 
 // MARK: - Final Class
@@ -24,7 +24,7 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
     
     weak var delegate: NFTCollectionCellDelegate?
     
-    private lazy var nftImage: UIImageView = {
+    lazy var nftImage: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 12
@@ -35,7 +35,7 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
         return imageView
     }()
     
-    private lazy var likeButton: UIButton = {
+    lazy var likeButton: UIButton = {
         let button = UIButton()
         button.imageView?.tintColor = .redUni
         button.addTarget(self, action: #selector(didTapLike), for: .touchUpInside)
@@ -45,7 +45,7 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
         return button
     }()
     
-    private lazy var cartButton: UIButton = {
+    lazy var cartButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "addToCart"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -53,18 +53,18 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
         return button
     }()
     
-    private lazy var starRatingView: StarRatingView = {
+    lazy var starRatingView: StarRatingView = {
         let view = StarRatingView()
         return view
     }()
     
-    private lazy var nftNameAndPriceView: UIView = {
+    lazy var nftNameAndPriceView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var nftName: UILabel = {
+    lazy var nftName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "nftName"
@@ -72,7 +72,7 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
         return label
     }()
     
-    private  lazy var nftPrice: UILabel = {
+    lazy var nftPrice: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "1 ETH"
@@ -169,14 +169,12 @@ final class NFTCollectionCell: UICollectionViewCell, ReuseIdentifying {
     // MARK: - @objc func
     
     @objc func didTapLike() {
-        guard let nftModel = nftModel else { return }
         configureLikeButtonImage()
-        delegate?.likeButtonDidTapped(nftModel: nftModel)
+        delegate?.likeButtonDidTapped(cell: self)
     }
     
     @objc func didTapCart() {
-        guard let nftModel = nftModel else { return }
         configureCartButtonImage()
-        delegate?.addToCardButtonDidTapped(nftModel: nftModel)
+        delegate?.addToCardButtonDidTapped(cell: self)
     }
 }

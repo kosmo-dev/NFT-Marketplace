@@ -18,7 +18,7 @@ class AppConfiguration {
 
 //     TODO: Заменить вью контроллеры на свои
     init() {
-        cartController = CartController()
+        cartService = CartControllerStub()
         let dataProvider = CatalogDataProvider(networkClient: DefaultNetworkClient())
         let catalogPresenter = CatalogPresenter(dataProvider: dataProvider)
 

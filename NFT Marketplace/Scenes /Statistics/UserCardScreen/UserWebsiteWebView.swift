@@ -33,7 +33,7 @@ final class UserWebsiteWebView: UIViewController {
         setupConstraints()
 
         let backButton = UIBarButtonItem(
-            image: UIImage(named: "Backward"),
+            image: UIImage(named: "backward"),
             style: .plain,
             target: self,
             action: #selector(backButtonTapped)
