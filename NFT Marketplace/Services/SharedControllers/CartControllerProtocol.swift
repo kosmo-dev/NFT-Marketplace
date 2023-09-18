@@ -13,6 +13,7 @@ protocol CartControllerProtocol {
 
     func addToCart(_ nft: NFT, completion: (() -> Void)?)
     func removeFromCart(_ id: String, completion: (() -> Void)?)
+    func removeAll(completion: (() -> Void)?)
 }
 
 protocol CartControllerDelegate: AnyObject {

@@ -54,6 +54,7 @@ final class TabBarController: UITabBarController {
         view.tintColor = .blueUni
         tabBar.backgroundColor = .whiteDayNight
         tabBar.unselectedItemTintColor = .blackDayNight
+        tabBar.tintColor = .blackDayNight
 
         if #available(iOS 15.0, *) {
             let appearance = UITabBarAppearance()

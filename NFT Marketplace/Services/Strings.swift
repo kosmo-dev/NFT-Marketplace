@@ -25,6 +25,12 @@ struct TextStrings {
         static let deleteButton = "Удалить"
         static let returnButton = "Вернуться"
         static let emptyCartLabel = "Корзина пуста"
+        static let alertTitle = "Cортировка"
+        static let alertMessage = "Выберите сортировку"
+        static let sortByName = "По названию"
+        static let sortByRating = "По рейтингу"
+        static let sortByPrice = "По цене"
+        static let closeSorting = "Закрыть"
     }
 
     struct PaymentViewController {
@@ -32,5 +38,12 @@ struct TextStrings {
         static let payButtonTitle = "Оплатить"
         static let payDescription = "Совершая покупку, вы соглашаетесь с условиями"
         static let userAgreementTitle = "Пользовательского соглашения"
+    }
+
+    struct PaymentConfirmationViewController {
+        static let paymentConfirmed = "Успех! Оплата прошла, поздравляем с покупкой!"
+        static let paymentFailed = "Упс! Что-то пошло не так :( Попробуйте еще раз!"
+        static let returnButton = "Вернуться в каталог"
+        static let tryAgainButton = "Попробовать еще раз"
     }
 }

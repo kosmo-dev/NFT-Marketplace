@@ -15,6 +15,7 @@ protocol PaymentPresenterProtocol {
     func viewDidLoad()
     func didSelectItemAt(_ indexPath: IndexPath)
     func userAgreementButtonTapped()
+    func payButtonTapped()
 }
 
 final class PaymentPresenter: PaymentPresenterProtocol {
@@ -24,6 +25,8 @@ final class PaymentPresenter: PaymentPresenterProtocol {
 
     // MARK: - Private Properties
     private let networkManager: NetworkManagerProtocol
+    private var paymentManager: PaymentManagerProtocol
+    private let cartController: CartControllerProtocol
     private var currentState: PaymentViewState? {
         didSet {
             viewControllerShouldChangeView()
@@ -31,15 +34,31 @@ final class PaymentPresenter: PaymentPresenterProtocol {
     }
     private var currencies: [Currency] = []
     private var seletedItemIndexPath: IndexPath?
+    private var currencyId: Int? {
+        guard let seletedItemIndexPath else { return nil }
+        return Int(currencies[seletedItemIndexPath.row].id)
+    }
+    private var payButtonState: PayButtonState? {
+        didSet {
+            viewControllerShouldChnangeButtonAppearance()
+        }
+    }
+    private var paymentIsSucceeded: Bool?
 
     // MARK: - Initializers
-    init(networkManager: NetworkManagerProtocol) {
+    init(networkManager: NetworkManagerProtocol,
+         paymentManager: PaymentManagerProtocol,
+         cartController: CartControllerProtocol) {
         self.networkManager = networkManager
+        self.paymentManager = paymentManager
+        self.cartController = cartController
+        self.paymentManager.delegate = self
     }
 
     // MARK: - Public Methods
     func viewDidLoad() {
         checkState()
+        payButtonState = .disabled
         fetchCurrencies()
     }
 
@@ -47,12 +66,20 @@ final class PaymentPresenter: PaymentPresenterProtocol {
         seletedItemIndexPath = indexPath
         makeCurrenciesCellModel()
         viewController?.reloadCollectionView()
+        payButtonState = .enabled
     }
 
     func userAgreementButtonTapped() {
         guard let url = URL(string: Constants.termsOfUseURL) else { return }
         let safariViewController = SFSafariViewController(url: url)
         viewController?.presentView(safariViewController)
+    }
+
+    func payButtonTapped() {
+        guard let currencyId else { return }
+        let nfts = getNFTSIds()
+        payButtonState = .loading
+        paymentManager.performPayment(nfts: nfts, currencyId: currencyId)
     }
 
     // MARK: - Private Methods
@@ -101,6 +128,26 @@ final class PaymentPresenter: PaymentPresenterProtocol {
             currenciesCellModel.append(model)
         }
     }
+
+    private func getNFTSIds() -> [String] {
+        var ids: [String] = []
+        for nft in cartController.cart {
+            ids.append(nft.id)
+        }
+        return ids
+    }
+
+    private func viewControllerShouldChnangeButtonAppearance() {
+        guard let payButtonState else { return }
+        switch payButtonState {
+        case .disabled:
+            viewController?.changeButtonState(color: .greyUni, isEnabled: false, isLoading: false)
+        case .enabled:
+            viewController?.changeButtonState(color: .blackDayNight, isEnabled: true, isLoading: false)
+        case .loading:
+            viewController?.changeButtonState(color: .blackDayNight, isEnabled: false, isLoading: true)
+        }
+    }
 }
 
 // MARK: - PaymentViewState
@@ -111,8 +158,56 @@ extension PaymentPresenter {
     }
 }
 
+// MARK: - Constants
 extension PaymentPresenter {
     private enum Constants {
         static let termsOfUseURL = "https://yandex.ru/legal/practicum_termsofuse/"
+    }
+}
+
+// MARK: - PaymentManagerDelegate
+extension PaymentPresenter: PaymentManagerDelegate {
+    func paymentFinishedWithError(_ error: Error) {
+        DispatchQueue.main.async { [weak self] in
+            let presenter = PaymentConfirmationPresenter(configuration: .failure)
+            presenter.delegate = self
+            let confirmationViewController = PaymentConfirmationViewController(presenter: presenter)
+            confirmationViewController.modalPresentationStyle = .fullScreen
+            self?.viewController?.presentView(confirmationViewController)
+            self?.payButtonState = .enabled
+            self?.paymentIsSucceeded = false
+        }
+    }
+
+    func paymentFinishedWithSuccess() {
+        DispatchQueue.main.async { [weak self] in
+            let presenter = PaymentConfirmationPresenter(configuration: .success)
+            presenter.delegate = self
+            let confirmationViewController = PaymentConfirmationViewController(presenter: presenter)
+            confirmationViewController.modalPresentationStyle = .fullScreen
+            self?.viewController?.presentView(confirmationViewController)
+            self?.payButtonState = .enabled
+            self?.paymentIsSucceeded = true
+        }
+    }
+}
+
+// MARK: - PayButtonState
+extension PaymentPresenter {
+    enum PayButtonState {
+        case disabled
+        case enabled
+        case loading
+    }
+}
+
+extension PaymentPresenter: PaymentConfirmationPresenterDelegate {
+    func didTapDismissButton() {
+        viewController?.dismiss()
+        guard let paymentIsSucceeded,
+        paymentIsSucceeded else { return }
+        cartController.removeAll { [weak self] in
+            self?.viewController?.popToRootViewController(animated: true)
+        }
     }
 }

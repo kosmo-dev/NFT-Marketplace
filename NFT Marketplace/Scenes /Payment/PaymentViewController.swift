@@ -13,6 +13,9 @@ protocol PaymentViewControllerProtocol: AnyObject {
     func displayLoadingIndicator()
     func removeLoadingIndicator()
     func presentView(_ viewController: UIViewController)
+    func changeButtonState(color: UIColor, isEnabled: Bool, isLoading: Bool)
+    func dismiss()
+    func popToRootViewController(animated: Bool)
 }
 
 final class PaymentViewController: UIViewController {
@@ -59,6 +62,14 @@ final class PaymentViewController: UIViewController {
         userAgreementButton.isUserInteractionEnabled = true
         userAgreementButton.translatesAutoresizingMaskIntoConstraints = false
         return userAgreementButton
+    }()
+
+    private let loadingIndicator: UIActivityIndicatorView = {
+        let loadingIndicator = UIActivityIndicatorView(style: .medium)
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.color = .whiteDayNight
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        return loadingIndicator
     }()
 
     private var presenter: PaymentPresenterProtocol
@@ -109,9 +120,12 @@ final class PaymentViewController: UIViewController {
         view.addSubview(collectionView)
 
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.topOffset),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.defaultOffset),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.defaultOffset),
+            collectionView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.topOffset),
+            collectionView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor, constant: Constants.defaultOffset),
+            collectionView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor, constant: -Constants.defaultOffset),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         setupPayView()
@@ -148,24 +162,38 @@ final class PaymentViewController: UIViewController {
             payViewIsAddedToWindow = true
             [payDescription, userAgreementButton, payButton].forEach { payView.addSubview($0) }
 
+            payButton.addSubview(loadingIndicator)
+
             let safeAreaHeight = window.safeAreaInsets.bottom
 
             NSLayoutConstraint.activate([
                 payView.leadingAnchor.constraint(equalTo: window.leadingAnchor),
                 payView.trailingAnchor.constraint(equalTo: window.trailingAnchor),
 
-                payDescription.topAnchor.constraint(equalTo: payView.topAnchor, constant: Constants.defaultOffset),
-                payDescription.leadingAnchor.constraint(equalTo: payView.leadingAnchor, constant: Constants.defaultOffset),
-                payDescription.trailingAnchor.constraint(equalTo: payView.trailingAnchor, constant: -Constants.defaultOffset),
+                payDescription.topAnchor.constraint(
+                    equalTo: payView.topAnchor, constant: Constants.defaultOffset),
+                payDescription.leadingAnchor.constraint(
+                    equalTo: payView.leadingAnchor, constant: Constants.defaultOffset),
+                payDescription.trailingAnchor.constraint(
+                    equalTo: payView.trailingAnchor, constant: -Constants.defaultOffset),
 
-                userAgreementButton.topAnchor.constraint(equalTo: payDescription.bottomAnchor, constant: Constants.defaultOffset / 4),
-                userAgreementButton.leadingAnchor.constraint(equalTo: payView.leadingAnchor, constant: Constants.defaultOffset),
+                userAgreementButton.topAnchor.constraint(
+                    equalTo: payDescription.bottomAnchor, constant: Constants.defaultOffset / 4),
+                userAgreementButton.leadingAnchor.constraint(
+                    equalTo: payView.leadingAnchor, constant: Constants.defaultOffset),
 
-                payButton.topAnchor.constraint(equalTo: userAgreementButton.bottomAnchor, constant: Constants.defaultOffset),
-                payButton.leadingAnchor.constraint(equalTo: payView.leadingAnchor, constant: Constants.defaultOffset),
-                payButton.trailingAnchor.constraint(equalTo: payView.trailingAnchor, constant: -Constants.defaultOffset),
-                payButton.bottomAnchor.constraint(equalTo: payView.bottomAnchor, constant: -(Constants.bottomOffset+safeAreaHeight)),
-                payButton.heightAnchor.constraint(equalToConstant: Constants.buttonHeight)
+                payButton.topAnchor.constraint(
+                    equalTo: userAgreementButton.bottomAnchor, constant: Constants.defaultOffset),
+                payButton.leadingAnchor.constraint(
+                    equalTo: payView.leadingAnchor, constant: Constants.defaultOffset),
+                payButton.trailingAnchor.constraint(
+                    equalTo: payView.trailingAnchor, constant: -Constants.defaultOffset),
+                payButton.bottomAnchor.constraint(
+                    equalTo: payView.bottomAnchor, constant: -(Constants.bottomOffset+safeAreaHeight)),
+                payButton.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
+
+                loadingIndicator.centerXAnchor.constraint(equalTo: payButton.centerXAnchor),
+                loadingIndicator.centerYAnchor.constraint(equalTo: payButton.centerYAnchor)
             ])
             payViewInitialBottomConstraint = payView.topAnchor.constraint(equalTo: window.bottomAnchor)
             payViewFinalBottomConstraint = payView.bottomAnchor.constraint(equalTo: window.bottomAnchor)
@@ -214,7 +242,8 @@ final class PaymentViewController: UIViewController {
             heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(Constants.cellEstimatedHeight))
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1), heightDimension: .estimated(Constants.cellEstimatedHeight))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
         group.interItemSpacing = .fixed(spacing)
 
@@ -225,6 +254,7 @@ final class PaymentViewController: UIViewController {
     }
 
     @objc private func payButtonTapped() {
+        presenter.payButtonTapped()
     }
 
     @objc private func userAgreementButtonTapped() {
@@ -283,5 +313,21 @@ extension PaymentViewController: PaymentViewControllerProtocol {
 
     func presentView(_ viewController: UIViewController) {
         present(viewController, animated: true)
+    }
+
+    func changeButtonState(color: UIColor, isEnabled: Bool, isLoading: Bool) {
+        payButton.backgroundColor = color
+        payButton.isEnabled = isEnabled
+
+        isLoading ? payButton.setTitle("", for: .normal) : payButton.setTitle(TextStrings.PaymentViewController.payButtonTitle, for: .normal)
+        isLoading ? loadingIndicator.startAnimating() : loadingIndicator.stopAnimating()
+    }
+
+    func dismiss() {
+        dismiss(animated: true)
+    }
+
+    func popToRootViewController(animated: Bool) {
+        navigationController?.popToRootViewController(animated: true)
     }
 }

@@ -14,8 +14,7 @@ final class PaymentViewControllerSpy: PaymentViewControllerProtocol {
     var isLoaded = false
     var expectation: XCTestExpectation?
 
-    func reloadCollectionView() {
-    }
+    func reloadCollectionView() {}
 
     func displayLoadingIndicator() {
         isLoading = true
@@ -26,7 +25,11 @@ final class PaymentViewControllerSpy: PaymentViewControllerProtocol {
         expectation?.fulfill()
     }
 
-    func presentView(_ viewController: UIViewController) {
+    func presentView(_ viewController: UIViewController) {}
 
-    }
+    func changeButtonState(color: UIColor, isEnabled: Bool, isLoading: Bool) {}
+
+    func dismiss() {}
+
+    func popToRootViewController(animated: Bool) {}
 }

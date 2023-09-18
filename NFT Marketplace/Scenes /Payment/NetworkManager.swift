@@ -8,7 +8,8 @@
 import Foundation
 
 protocol NetworkManagerProtocol {
-    func send<T: Decodable>(request: NetworkRequest, type: T.Type, id: String, completion: @escaping (Result<T, Error>) -> Void)
+    func send<T: Decodable>(
+        request: NetworkRequest, type: T.Type, id: String, completion: @escaping (Result<T, Error>) -> Void)
     func cancelAllLoadTasks()
 }
 

@@ -52,3 +52,17 @@ final class CartController: CartControllerProtocol {
         }
     }
 }
+
+extension CartController {
+    func removeAll(completion: (() -> Void)?) {
+        cartQueue.async(flags: .barrier) { [weak self] in
+            guard let self else { return }
+            self._cart.removeAll()
+            let cartCount = self._cart.count
+            DispatchQueue.main.async {
+                completion?()
+                self.delegate?.cartCountDidChanged(cartCount)
+            }
+        }
+    }
+}
