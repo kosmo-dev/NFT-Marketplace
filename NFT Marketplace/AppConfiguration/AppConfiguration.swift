@@ -19,12 +19,21 @@ class AppConfiguration {
 //     TODO: Заменить вью контроллеры на свои
     init() {
         cartService = CartControllerStub()
+        
         let dataProvider = CatalogDataProvider(networkClient: DefaultNetworkClient())
         let catalogPresenter = CatalogPresenter(dataProvider: dataProvider)
-
         catalogViewController = CatalogViewController(presenter: catalogPresenter)
+
+        // MARK: - Эпик Дениса
+        let networkClient = DefaultNetworkClient()
+        let profileService = ProfileService(networkClient: networkClient)
+        let profilePresenter = ProfilePresenter(view: nil,
+                                                profileService: profileService)
+        profileViewController = ProfileViewController(presenter: profilePresenter)
+        profilePresenter.view = profileViewController as? ProfileViewProtocol // устанавливаем view
+
+        
         cartViewController = CartViewController()
-        profileViewController = UIViewController()
         statisticViewController = StatisticsViewController(
             presenter: StatisticsPresenter(userDataService: UserDataService()),
             cart: cartService)

@@ -22,11 +22,14 @@ class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        appConfiguration.profileViewController.tabBarItem = UITabBarItem(
+        let profileNavigationController = UINavigationController(
+            rootViewController: appConfiguration.profileViewController)
+        profileNavigationController.tabBarItem = UITabBarItem(
             title: TextLabels.TabBarController.profileTabBarTitle,
             image: UIImage(systemName: "person.crop.circle.fill"),
             selectedImage: nil
         )
+
         appConfiguration.catalogViewController.tabBarItem = UITabBarItem(
             title: TextLabels.TabBarController.catalogTabBarTitle,
             image: UIImage(systemName: "rectangle.stack.fill"),
@@ -44,23 +47,20 @@ class TabBarController: UITabBarController {
         )
 
         self.viewControllers = [
-            appConfiguration.profileViewController,
             appConfiguration.catalogNavigationController,
+            profileNavigationController,
             appConfiguration.cartViewController,
             appConfiguration.statisticViewController
         ]
 
         tabBar.isTranslucent = false
-        view.tintColor = .blueUni
-        tabBar.backgroundColor = .whiteDayNight
-        tabBar.unselectedItemTintColor = .blackDayNight
+        view.tintColor = .systemBlue
+        tabBar.backgroundColor = .white
 
         if #available(iOS 15.0, *) {
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = .whiteDayNight
-            appearance.stackedLayoutAppearance.normal.iconColor = .blackDayNight
-            appearance.stackedLayoutAppearance.selected.iconColor = .blueUni
+            appearance.backgroundColor = .white
             tabBar.standardAppearance = appearance
             tabBar.scrollEdgeAppearance = appearance
         }
