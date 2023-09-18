@@ -7,7 +7,16 @@
 
 import UIKit
 
+protocol ProfileButtonsStackViewDelegate: AnyObject {
+    func didTapMyNFTButton()
+    func didTapFavoritesNFTButton()
+    func didTapAboutDeveloperButton()
+}
+
 final class ProfileButtonsStackView: UIView {
+    weak var delegate: ProfileButtonsStackViewDelegate?
+
+    // MARK: - Private Methods
     private let userNFTButton = ProfileButton()
     private let userFavoritesNFTButton = ProfileButton()
     private let aboutDeveloperButton = ProfileButton()
@@ -35,6 +44,12 @@ final class ProfileButtonsStackView: UIView {
         userNFTButton.setText(TextLabels.ProfileButtonsStackView.myNFTLabel + " " + "(0)")
         userFavoritesNFTButton.setText(TextLabels.ProfileButtonsStackView.favoritesNFTLabel + " " + "(0)")
         aboutDeveloperButton.setText(TextLabels.ProfileButtonsStackView.aboutDeveloperLabel)
+
+        userNFTButton.addTarget(self, action: #selector(myNFTButtonTapped), for: .touchUpInside)
+
+        userFavoritesNFTButton.addTarget(self, action: #selector(favoritesNFTButtonTapped), for: .touchUpInside)
+
+        aboutDeveloperButton.addTarget(self, action: #selector(aboutDeveloperButtonTapped), for: .touchUpInside)
     }
 
     private func setupButtonsStackView() {
@@ -59,6 +74,18 @@ final class ProfileButtonsStackView: UIView {
         userNFTButton.setText("\(button1Text) (\(counts[0]))")
         userFavoritesNFTButton.setText("\(button2Text) (\(counts[1]))")
         aboutDeveloperButton.setText("\(button3Text)")
+    }
+
+    @objc func myNFTButtonTapped() {
+        delegate?.didTapMyNFTButton()
+    }
+
+    @objc func favoritesNFTButtonTapped() {
+        delegate?.didTapFavoritesNFTButton()
+    }
+
+    @objc func aboutDeveloperButtonTapped() {
+        delegate?.didTapAboutDeveloperButton()
     }
 }
 

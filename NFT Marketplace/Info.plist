@@ -19,7 +19,5 @@
 			</array>
 		</dict>
 	</dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Требуется доступ к вашей фотогалерее, чтобы вы могли выбрать изображение для своего профиля.</string>
 </dict>
 </plist>

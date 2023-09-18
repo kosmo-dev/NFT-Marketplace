@@ -13,13 +13,19 @@ protocol ProfilePresenterProtocol: AnyObject {
     func didTapMyNFTs()
     func didTapFavorites()
     func didTapAboutDeveloper()
+    func updateCurrentUserProfile(with profile: UserProfile)
     var currentUserProfile: UserProfile? { get }
+}
+
+protocol ProfilePresenterDelegate: AnyObject {
+    func shouldNavigateToMyNFTsScreen(with ids: [String], and likedIds: [String])
+    func shouldNavigateTofavoriteNFTsScreen(with likedIds: [String])
 }
 
 class ProfilePresenter: ProfilePresenterProtocol {
 
+    weak var delegate: ProfilePresenterDelegate?
     weak var view: ProfileViewProtocol?
-
     var profileService: ProfileServiceProtocol
 
     private(set) var currentUserProfile: UserProfile?
@@ -43,20 +49,38 @@ class ProfilePresenter: ProfilePresenterProtocol {
         }
     }
 
+    func updateCurrentUserProfile(with profile: UserProfile) {
+        currentUserProfile = profile
+        view?.updateUI(with: profile)
+    }
+
     func didTapEditProfile() {
         view?.navigateToEditProfileScreen()
     }
 
     func didTapMyNFTs() {
-
+        let nftIds = getNFTIdsFromCurrentUser()
+        let likedNFTIds = getLikedNFTIds()
+        delegate?.shouldNavigateToMyNFTsScreen(with: nftIds, and: likedNFTIds)
     }
 
     func didTapFavorites() {
-
+        let likedNFTIds = getLikedNFTIds()
+        delegate?.shouldNavigateTofavoriteNFTsScreen(with: likedNFTIds)
     }
 
     func didTapAboutDeveloper() {
 
     }
 
+}
+
+extension ProfilePresenter {
+    func getNFTIdsFromCurrentUser() -> [String] {
+        return currentUserProfile?.nfts ?? []
+    }
+
+    func getLikedNFTIds() -> [String] {
+        return currentUserProfile?.likes ?? []
+    }
 }

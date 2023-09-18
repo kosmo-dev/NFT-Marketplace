@@ -43,4 +43,22 @@ struct TextLabels {
         static let userInfoLabel: String = "Информация о Вас. Здесь может быть ваши данные или другую информацию."
         static let websiteLabel: String = "www.internet.com"
     }
+
+    struct MyNFTsVC {
+        static let navigationTitle: String = "Мои NFT"
+        static let cellNFTPriceLabel: String = "Цена"
+        static let alertTitleLabel: String = "Сортировка"
+        static let alertPriceLabel = "По цене"
+        static let alertRatingLabel = "По рейтингу"
+        static let alertNameLabel = "По названию"
+        static let alertCloseLabel = "Закрыть"
+    }
+
+    struct FavoritesNFTsVC {
+        static let navigationTitle: String = "Избранные NFT"
+    }
+
+    struct AboutDevelopersVC {
+        static let navigationTitle: String = "Команда разработчиков"
+    }
 }
