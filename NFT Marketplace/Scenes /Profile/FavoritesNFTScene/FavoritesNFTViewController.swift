@@ -51,7 +51,7 @@ final class FavoritesNFTViewController: UIViewController {
 
     private lazy var placeholderLabel: UILabel = {
         let label = UILabel()
-        label.text = "У Вас еще нет избранных NFT"
+        label.text = TextLabels.FavoritesNFTsVC.placeholder
         label.numberOfLines = 0
         label.textColor = .blackDayNight
         label.font = UIFont.boldSystemFont(ofSize: 17)
@@ -89,7 +89,7 @@ final class FavoritesNFTViewController: UIViewController {
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(backButtonTapped))
-        navigationItem.title = "Избранные NFT"
+        navigationItem.title = TextLabels.FavoritesNFTsVC.navigationTitle
 
         navigationController?.navigationBar.tintColor = .blackDayNight
         navigationController?.navigationBar.titleTextAttributes = [
