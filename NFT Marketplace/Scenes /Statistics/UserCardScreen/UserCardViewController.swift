@@ -46,6 +46,7 @@ final class UserCardViewController: UIViewController, UserCardViewControllerProt
         let backwardButton = UIButton(type: .custom)
         backwardButton.setImage(UIImage(named: "backward"), for: .normal)
         backwardButton.translatesAutoresizingMaskIntoConstraints = false
+        backwardButton.setTitleColor(.whiteDayNight, for: .normal)
         backwardButton.addTarget(self, action: #selector(backwardTapped), for: .touchUpInside)
         return backwardButton
     }()

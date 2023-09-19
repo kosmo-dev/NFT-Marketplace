@@ -40,7 +40,8 @@ final class CatalogTableViewCell: UITableViewCell, ReuseIdentifying {
     func configCell() {
         contentView.addSubview(cellImage)
         contentView.addSubview(catalogNameLabel)
-
+        contentView.backgroundColor = .whiteDayNight
+        
         NSLayoutConstraint.activate([
             cellImage.heightAnchor.constraint(equalToConstant: 140),
             cellImage.topAnchor.constraint(equalTo: contentView.topAnchor),
