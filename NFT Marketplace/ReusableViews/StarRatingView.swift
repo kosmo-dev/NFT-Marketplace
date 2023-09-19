@@ -47,3 +47,29 @@ final class StarRatingView: UIStackView {
         return star
     }
 }
+
+extension StarRatingView {
+    convenience init(height: CGFloat) {
+        self.init()
+        arrangedSubviews.forEach { $0.removeFromSuperview() }
+        starImageViews.removeAll()
+        axis = .horizontal
+        spacing = 2
+        distribution = .fillEqually
+        for _ in 1...5 {
+            let starView = makeStarView(with: height)
+            starImageViews.append(starView)
+            addArrangedSubview(starView)
+        }
+    }
+
+    private func makeStarView(with height: CGFloat) -> UIImageView {
+        let star = UIImageView()
+        let pointSize: CGFloat = 3 / 4 * height
+        let config = UIImage.SymbolConfiguration(pointSize: pointSize)
+        star.image = UIImage(systemName: "star.fill", withConfiguration: config)
+        star.contentMode = .scaleAspectFit
+        star.translatesAutoresizingMaskIntoConstraints = false
+        return star
+    }
+}
