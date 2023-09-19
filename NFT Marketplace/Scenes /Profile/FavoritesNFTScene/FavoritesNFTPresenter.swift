@@ -56,7 +56,7 @@ final class FavoritesNFTPresenter {
                                              description: nil,
                                              website: nil,
                                              likes: likedNFTIds)
-        profileService.updateUserProfile(with: uploadModel) { [weak self] result in
+        profileService.updateUserProfile(with: uploadModel) { result in
             switch result {
             case .success:
                 print("Успех")

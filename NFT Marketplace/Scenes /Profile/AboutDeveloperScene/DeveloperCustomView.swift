@@ -116,7 +116,7 @@ final class DeveloperCustomView: UIView {
     func setupTelegramLabel(with text: String) {
         let telegramAttachment = NSTextAttachment()
         if let telegramImage = UIImage(systemName: "paperplane.fill") {
-            telegramAttachment.image = telegramImage.withRenderingMode(.alwaysTemplate).withTintColor(.blackDayNight!)
+            telegramAttachment.image = telegramImage.withRenderingMode(.alwaysTemplate).withTintColor(.blackDayNight)
         }
         let telegramIcon = NSAttributedString(attachment: telegramAttachment)
 
@@ -128,7 +128,7 @@ final class DeveloperCustomView: UIView {
     func setupMailLabel(with text: String) {
         let emailAttachment = NSTextAttachment()
             if let emailImage = UIImage(systemName: "envelope.fill") {
-                emailAttachment.image = emailImage.withRenderingMode(.alwaysTemplate).withTintColor(.blackDayNight!)
+                emailAttachment.image = emailImage.withRenderingMode(.alwaysTemplate).withTintColor(.blackDayNight)
             }
 
             let emailIcon = NSAttributedString(attachment: emailAttachment)

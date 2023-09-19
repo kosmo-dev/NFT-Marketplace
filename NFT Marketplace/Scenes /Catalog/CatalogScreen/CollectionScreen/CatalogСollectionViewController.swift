@@ -90,6 +90,7 @@ final class CatalogСollectionViewController: UIViewController {
         collection.dataSource = self
         collection.delegate = self
         collection.translatesAutoresizingMaskIntoConstraints = false
+        collection.backgroundColor = .whiteDayNight
         collection.register(NFTCollectionCell.self)
         return collection
     }()

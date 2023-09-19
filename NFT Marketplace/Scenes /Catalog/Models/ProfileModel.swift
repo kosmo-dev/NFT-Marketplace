@@ -1,5 +1,5 @@
 //
-//  UploadProfileModel.swift
+//  ProfileModel.swift
 //  NFT Marketplace
 //
 //  Created by Dzhami on 13.09.2023.

@@ -48,9 +48,9 @@ final class TabBarController: UITabBarController {
 
         self.viewControllers = [
             profileNavigationController,
-            appConfiguration.catalogViewController,
-            appConfiguration.cartViewController,
+//            appConfiguration.catalogViewController,
             appConfiguration.catalogNavigationController,
+//            appConfiguration.cartViewController,
             appConfiguration.cartNavigationController,
             appConfiguration.statisticViewController
         ]

@@ -44,7 +44,7 @@ extension ProfileService: ProfileServiceProtocol {
 
 extension ProfileService: NFTFetchingProtocol {
     func fetchNFTs(completion: @escaping (Result<[NFTModel], Error>) -> Void) {
-        let request = NFTRequest()
+        let request = NFTProfileRequest()
         networkClient.send(request: request, type: [NFTModel].self, onResponse: completion)
     }
 
@@ -79,7 +79,7 @@ struct UserProfileUpdateRequest: NetworkRequest {
     }
 }
 
-struct NFTRequest: NetworkRequest {
+struct NFTProfileRequest: NetworkRequest {
     var endpoint: URL? {
         return URL(string: "https://64858e8ba795d24810b71189.mockapi.io/api/v1/nft")
     }
