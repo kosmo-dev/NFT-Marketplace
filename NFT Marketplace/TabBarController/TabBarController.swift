@@ -7,8 +7,7 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
-
+final class TabBarController: UITabBarController {
     let appConfiguration: AppConfiguration
 
     init(appConfiguration: AppConfiguration) {
@@ -37,7 +36,7 @@ class TabBarController: UITabBarController {
         )
         appConfiguration.cartViewController.tabBarItem = UITabBarItem(
             title: TextLabels.TabBarController.cartTabBarTitle,
-            image: UIImage(systemName: "bag.fill"),
+            image: UIImage(named: "CartIcon"),
             selectedImage: nil
         )
         appConfiguration.statisticViewController.tabBarItem = UITabBarItem(
@@ -47,21 +46,25 @@ class TabBarController: UITabBarController {
         )
 
         self.viewControllers = [
-//            appConfiguration.profileViewController
+            appConfiguration.catalogNavigationController,
+            appConfiguration.cartNavigationController,
             profileNavigationController,
-            appConfiguration.catalogViewController,
-            appConfiguration.cartViewController,
             appConfiguration.statisticViewController
         ]
 
         tabBar.isTranslucent = false
-        view.tintColor = .systemBlue
-        tabBar.backgroundColor = .white
+        view.tintColor = .blueUni
+        tabBar.backgroundColor = .whiteDayNight
+        tabBar.unselectedItemTintColor = .blackDayNight
+        tabBar.tintColor = .blackDayNight
 
         if #available(iOS 15.0, *) {
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = .white
+            appearance.backgroundColor = .whiteDayNight
+            appearance.shadowColor = nil
+            appearance.stackedLayoutAppearance.normal.iconColor = .blackDayNight
+            appearance.stackedLayoutAppearance.selected.iconColor = .blueUni
             tabBar.standardAppearance = appearance
             tabBar.scrollEdgeAppearance = appearance
         }
