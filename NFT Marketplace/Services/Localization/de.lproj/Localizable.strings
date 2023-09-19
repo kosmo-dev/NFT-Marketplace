@@ -45,6 +45,7 @@
 "alertRatingLabel" = "Nach Bewertung";
 "alertNameLabel" = "Nach Name";
 "alertCloseLabel" = "Schließen";
+"myNFTsPlaceholder" = "Sie haben noch keine NFTs";
 
 // FavoritesNFTsVC
 "favoritesNFTsNavigationTitle" = "Lieblings-NFTs";

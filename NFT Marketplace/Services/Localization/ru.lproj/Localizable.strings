@@ -45,6 +45,7 @@
 "alertRatingLabel" = "По рейтингу";
 "alertNameLabel" = "По названию";
 "alertCloseLabel" = "Закрыть";
+"myNFTsPlaceholder" = "У Вас еще нет NFT";
 
 // FavoritesNFTsVC
 "favoritesNFTsNavigationTitle" = "Избранные NFT";

@@ -109,6 +109,9 @@ struct TextLabels {
         static var alertCloseLabel: String {
             return NSLocalizedString("alertCloseLabel", comment: "")
         }
+        static var placeholder: String {
+            return NSLocalizedString("myNFTsPlaceholder", comment: "")
+        }
     }
 
     struct FavoritesNFTsVC {
