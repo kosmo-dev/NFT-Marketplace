@@ -304,6 +304,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D7E41872ABB68E000CD2DCB /* Cart */ = {
+			isa = PBXGroup;
+			children = (
+				3DEBDFD12A97CE94001C7517 /* Cart */,
+				3D81A69C2AA5A1DF008ECF46 /* PaymentConfirmation */,
+				3DCFE4782AA257C700E3A222 /* Payment */,
+			);
+			path = Cart;
+			sourceTree = "<group>";
+		};
 		3D81A69C2AA5A1DF008ECF46 /* PaymentConfirmation */ = {
 			isa = PBXGroup;
 			children = (
@@ -478,10 +488,8 @@
 			children = (
 				928F6B522AA0C419003023DD /* Profile */,
 				64BA8B842A9BF59D007BE1F3 /* Statistics */,
+				3D7E41872ABB68E000CD2DCB /* Cart */,
 				EC1DC7602A9CD55100C3C798 /* Catalog */,
-				3D81A69C2AA5A1DF008ECF46 /* PaymentConfirmation */,
-				3DCFE4782AA257C700E3A222 /* Payment */,
-				3DEBDFD12A97CE94001C7517 /* Cart */,
 				3F6806C829CBBC8100B4F915 /* ProductDetails */,
 			);
 			path = "Scenes ";
