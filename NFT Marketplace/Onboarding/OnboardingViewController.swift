@@ -30,7 +30,7 @@ final class OnboardingViewController: UIPageViewController {
     
     private lazy var button: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Что внутри?", for: .normal)
+        button.setTitle(TextLabels.OnboardingVC.onboardingButton, for: .normal)
         button.backgroundColor = .blackDayNight
         button.layer.cornerRadius = 16
         button.setTitleColor(.whiteDayNight, for: .normal)
@@ -58,9 +58,9 @@ final class OnboardingViewController: UIPageViewController {
         dataSource = self
         delegate = self
         
-        let page1 = createOnboardingPage(imageName: "OnboardingImage1", labelText: "Исследуйте", descriptionText: "Присоединяйтесь и откройте новый мир\nуникальных NFT для коллекционеров")
-        let page2 = createOnboardingPage(imageName: "OnboardingImage2", labelText: "Коллекционируйте", descriptionText: "Пополняйте свою коллекцию эксклюзивными\nкартинками, созданными нейросетью!")
-        let page3 = createOnboardingPage(imageName: "OnboardingImage3", labelText: "Состязайтесь", descriptionText: "Смотрите статистику других и покажите всем,\nчто у вас самая ценная коллекция")
+        let page1 = createOnboardingPage(imageName: "OnboardingImage1", labelText: TextLabels.OnboardingVC.firstHeader, descriptionText: TextLabels.OnboardingVC.firstDescription)
+        let page2 = createOnboardingPage(imageName: "OnboardingImage2", labelText: TextLabels.OnboardingVC.secondHeader, descriptionText: TextLabels.OnboardingVC.secondDescription)
+        let page3 = createOnboardingPage(imageName: "OnboardingImage3", labelText: TextLabels.OnboardingVC.thirdHeader, descriptionText: TextLabels.OnboardingVC.thirdDescription)
         
         pages.append(page1)
         pages.append(page2)

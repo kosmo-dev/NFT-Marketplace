@@ -6,6 +6,15 @@
   
 */
 
+// OnboardingVC
+"firstHeader" = "Исследуйте";
+"firstDescription" = "Присоединяйтесь и откройте новый мир\nуникальных NFT для коллекционеров";
+"secondHeader" = "Коллекционируйте";
+"secondDescription" = "Пополняйте свою коллекцию эксклюзивными\nкартинками, созданными нейросетью!";
+"thirdHeader" = "Состязайтесь";
+"thirdDescription" = "Смотрите статистику других и покажите всем,\nчто у вас самая ценная коллекция";
+"onboardingButton" = "Что внутри?";
+
 // TabBarController
 "profileTabBarTitle" = "Профиль";
 "catalogTabBarTitle" = "Каталог";
