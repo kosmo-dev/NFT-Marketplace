@@ -31,9 +31,9 @@ final class OnboardingViewController: UIPageViewController {
     private lazy var button: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(TextLabels.OnboardingVC.onboardingButton, for: .normal)
-        button.backgroundColor = .blackDayNight
+        button.backgroundColor = .blackUni
         button.layer.cornerRadius = 16
-        button.setTitleColor(.whiteDayNight, for: .normal)
+        button.setTitleColor(.whiteUni, for: .normal)
         button.titleLabel?.font = .bodyBold
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -102,7 +102,7 @@ final class OnboardingViewController: UIPageViewController {
         
         let label = UILabel()
         label.text = labelText
-        label.textColor = .whiteDayNight
+        label.textColor = .whiteUni
         label.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -111,7 +111,7 @@ final class OnboardingViewController: UIPageViewController {
         let description = UILabel()
         description.text = descriptionText
         description.numberOfLines = 2
-        description.textColor = .whiteDayNight
+        description.textColor = .whiteUni
         description.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         description.textAlignment = .left
         description.translatesAutoresizingMaskIntoConstraints = false
