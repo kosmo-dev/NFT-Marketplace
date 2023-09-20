@@ -73,7 +73,8 @@ final class PaymentViewController: UIViewController {
     }()
 
     private var presenter: PaymentPresenterProtocol
-
+    private let appMetricScreenName = "PaymentScreen"
+    private let appMetric = AppMetrics()
     private var payViewInitialBottomConstraint: NSLayoutConstraint?
     private var payViewFinalBottomConstraint: NSLayoutConstraint?
     private var payViewIsAddedToWindow: Bool = false
@@ -258,6 +259,7 @@ final class PaymentViewController: UIViewController {
     }
 
     @objc private func userAgreementButtonTapped() {
+        appMetric.reportEvent(screen: appMetricScreenName, event: .click, item: .userAgreementTapped)
         presenter.userAgreementButtonTapped()
     }
 }

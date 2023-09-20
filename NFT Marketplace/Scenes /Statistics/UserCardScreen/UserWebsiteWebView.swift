@@ -33,12 +33,12 @@ final class UserWebsiteWebView: UIViewController {
         setupConstraints()
 
         let backButton = UIBarButtonItem(
-            image: UIImage(named: "backward"),
+            image: UIImage(systemName: "chevron.backward"),
             style: .plain,
             target: self,
             action: #selector(backButtonTapped)
         )
-
+        backButton.tintColor = .blackDayNight
         navigationItem.leftBarButtonItem = backButton
     }
 

@@ -17,6 +17,8 @@ final class StatisticsViewController: UIViewController, StatisticsViewController
 
     private let presenter: StatisticsPresenterProtocol
     private let cart: CartControllerProtocol
+    private let appMetricScreenName = "MainStatisticScreen"
+    private let appMetric = AppMetrics()
 
     private lazy var statisticsFilterButton: UIButton = {
         let statisticsFilterButton = UIButton(type: .custom)
@@ -45,6 +47,14 @@ final class StatisticsViewController: UIViewController, StatisticsViewController
         presenter.view = self
         presenter.loadDataFromServer()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        appMetric.reportEvent(screen: appMetricScreenName, event: .open, item: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        appMetric.reportEvent(screen: appMetricScreenName, event: .close, item: nil)
+    }
 
     init(presenter: StatisticsPresenterProtocol, cart: CartControllerProtocol) {
         self.presenter = presenter
@@ -57,6 +67,7 @@ final class StatisticsViewController: UIViewController, StatisticsViewController
     }
 
     @objc private func statisticsFilterTapped() {
+        appMetric.reportEvent(screen: appMetricScreenName, event: .click, item: .statisticFilter)
         let alertController = presenter.sortButtonTapped()
         present(alertController, animated: true, completion: nil)
     }

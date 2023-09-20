@@ -169,9 +169,9 @@ final class CatalogСollectionViewController: UIViewController {
     }
     
     private func setupNavigationBackButton() {
-        navigationController!.navigationBar.tintColor = .blackUni
+        navigationController!.navigationBar.tintColor = .blackDayNight
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "backward"),
+            image: UIImage(systemName: "chevron.backward"),
             style: .plain,
             target: self,
             action: #selector(goBack))

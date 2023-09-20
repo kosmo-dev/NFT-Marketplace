@@ -76,6 +76,11 @@
 		924849B32AB9F01700433452 /* CartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEBDFD92A97D45B001C7517 /* CartService.swift */; };
 		924849B42AB9F05000433452 /* FavouriteNFTController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEBDFDD2A97D48E001C7517 /* FavouriteNFTController.swift */; };
 		924849B82AB9F60400433452 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 924849BA2AB9F60400433452 /* Localizable.strings */; };
+		924849C32ABAEAB600433452 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924849C22ABAEAB600433452 /* AnalyticsService.swift */; };
+		924849C62ABAEBDA00433452 /* YandexMobileMetrica in Frameworks */ = {isa = PBXBuildFile; productRef = 924849C52ABAEBDA00433452 /* YandexMobileMetrica */; };
+		924849C82ABAEBDA00433452 /* YandexMobileMetricaCrashes in Frameworks */ = {isa = PBXBuildFile; productRef = 924849C72ABAEBDA00433452 /* YandexMobileMetricaCrashes */; };
+		924849CA2ABAEC3D00433452 /* AppMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924849C92ABAEC3D00433452 /* AppMetrics.swift */; };
+		924849CC2ABAEC7000433452 /* AppMetricsParametrs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924849CB2ABAEC7000433452 /* AppMetricsParametrs.swift */; };
 		927DBB342AA0D9DC00A04FDF /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927DBB332AA0D9DC00A04FDF /* AppConfiguration.swift */; };
 		927DBB362AA0D9E700A04FDF /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927DBB352AA0D9E700A04FDF /* TabBarController.swift */; };
 		928F6B462AA0C1F2003023DD /* Декомпозиция Профиля.md in Resources */ = {isa = PBXBuildFile; fileRef = 928F6B452AA0C1F2003023DD /* Декомпозиция Профиля.md */; };
@@ -220,6 +225,9 @@
 		924849B92AB9F60400433452 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		924849BC2AB9F61700433452 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		924849BD2AB9F64000433452 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		924849C22ABAEAB600433452 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
+		924849C92ABAEC3D00433452 /* AppMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMetrics.swift; sourceTree = "<group>"; };
+		924849CB2ABAEC7000433452 /* AppMetricsParametrs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMetricsParametrs.swift; sourceTree = "<group>"; };
 		927DBB332AA0D9DC00A04FDF /* AppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		927DBB352AA0D9E700A04FDF /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		928F6B452AA0C1F2003023DD /* Декомпозиция Профиля.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Декомпозиция Профиля.md"; sourceTree = "<group>"; };
@@ -288,6 +296,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				924849C62ABAEBDA00433452 /* YandexMobileMetrica in Frameworks */,
+				924849C82ABAEBDA00433452 /* YandexMobileMetricaCrashes in Frameworks */,
 				3F603CD029DB4A74000C43D7 /* Kingfisher in Frameworks */,
 				3F603CCD29DB4A53000C43D7 /* ProgressHUD in Frameworks */,
 			);
@@ -456,6 +466,7 @@
 		3F6806C629CBBC4E00B4F915 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				924849C12ABAEA4E00433452 /* AnalyticsService */,
 				924849B52AB9F5D900433452 /* Localization */,
 				920BE3752A98A407009B2F43 /* Helpers */,
 				3DEBDFD82A97D43C001C7517 /* SharedControllers */,
@@ -608,6 +619,16 @@
 				924849BA2AB9F60400433452 /* Localizable.strings */,
 			);
 			path = Localization;
+			sourceTree = "<group>";
+		};
+		924849C12ABAEA4E00433452 /* AnalyticsService */ = {
+			isa = PBXGroup;
+			children = (
+				924849C22ABAEAB600433452 /* AnalyticsService.swift */,
+				924849C92ABAEC3D00433452 /* AppMetrics.swift */,
+				924849CB2ABAEC7000433452 /* AppMetricsParametrs.swift */,
+			);
+			path = AnalyticsService;
 			sourceTree = "<group>";
 		};
 		928F6B4D2AA0C3BD003023DD /* Profile */ = {
@@ -808,6 +829,8 @@
 			packageProductDependencies = (
 				3F603CCC29DB4A53000C43D7 /* ProgressHUD */,
 				3F603CCF29DB4A74000C43D7 /* Kingfisher */,
+				924849C52ABAEBDA00433452 /* YandexMobileMetrica */,
+				924849C72ABAEBDA00433452 /* YandexMobileMetricaCrashes */,
 			);
 			productName = FakeNFT;
 			productReference = 3F68069329CBBAF100B4F915 /* NFT Marketplace.app */;
@@ -851,6 +874,7 @@
 			packageReferences = (
 				3F603CCB29DB4A53000C43D7 /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 				3F603CCE29DB4A74000C43D7 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				924849C42ABAEBDA00433452 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */,
 			);
 			productRefGroup = 3F68069429CBBAF100B4F915 /* Products */;
 			projectDirPath = "";
@@ -949,6 +973,7 @@
 				924849B02AB9F00C00433452 /* NFT.swift in Sources */,
 				924849AF2AB9F00800433452 /* NetworkTask.swift in Sources */,
 				924849AE2AB9F00500433452 /* Fonts.swift in Sources */,
+				924849CA2ABAEC3D00433452 /* AppMetrics.swift in Sources */,
 				92D0F1722AA9F91B007D0EE9 /* NFTTableViewCell.swift in Sources */,
 				92D0F1522AA3628A007D0EE9 /* ProfileEditPresenter.swift in Sources */,
 				92D0F1672AA78DED007D0EE9 /* MyNFTsPresenter.swift in Sources */,
@@ -998,6 +1023,7 @@
 				6431B67C2AB1E71F00B0DAAF /* Profile.swift in Sources */,
 				3D81A6A42AA5B937008ECF46 /* OrderPaymentResponse.swift in Sources */,
 				3D4476052A98B65500683647 /* CartNFTCell.swift in Sources */,
+				924849C32ABAEAB600433452 /* AnalyticsService.swift in Sources */,
 				64E1852F2A9BF95D004ACD0A /* StatisticsCell.swift in Sources */,
 				6487E5F62AB2F3D3006E90B9 /* UserViewModel.swift in Sources */,
 				EC204CB22AA3167E00FB58E9 /* NFTCollectionCell.swift in Sources */,
@@ -1031,6 +1057,7 @@
 				EC204CAB2A9F21B900FB58E9 /* NFTCollectionsSortAttributes.swift in Sources */,
 				EC204CB02AA20A1F00FB58E9 /* CatalogСollectionViewController.swift in Sources */,
 				3DCFE4862AA33D7900E3A222 /* CurrencyCellModel.swift in Sources */,
+				924849CC2ABAEC7000433452 /* AppMetricsParametrs.swift in Sources */,
 				6431B6782AAC8BA000B0DAAF /* UsersCollectionService.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
 				EC8A946B2AAA1BAC00EBF303 /* CatalogСollectionPresenter.swift in Sources */,
@@ -1404,6 +1431,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		924849C42ABAEBDA00433452 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yandexmobile/metrica-sdk-ios";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1416,6 +1451,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3F603CCE29DB4A74000C43D7 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		924849C52ABAEBDA00433452 /* YandexMobileMetrica */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 924849C42ABAEBDA00433452 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */;
+			productName = YandexMobileMetrica;
+		};
+		924849C72ABAEBDA00433452 /* YandexMobileMetricaCrashes */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 924849C42ABAEBDA00433452 /* XCRemoteSwiftPackageReference "metrica-sdk-ios" */;
+			productName = YandexMobileMetricaCrashes;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

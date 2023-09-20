@@ -98,6 +98,7 @@ final class CartNFTCell: UITableViewCell, ReuseIdentifying {
     // MARK: - Private Methods
     private func configureView() {
         [nftImage, title, ratingView, priceDescription, price, deleteButton].forEach { contentView.addSubview($0) }
+        contentView.backgroundColor = .whiteDayNight
         NSLayoutConstraint.activate([
             nftImage.topAnchor.constraint(equalTo: topAnchor, constant: Constants.defaultOffset),
             nftImage.leadingAnchor.constraint(equalTo: leadingAnchor),
