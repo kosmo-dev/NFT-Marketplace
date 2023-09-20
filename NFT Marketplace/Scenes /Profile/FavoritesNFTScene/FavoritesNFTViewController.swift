@@ -83,6 +83,10 @@ final class FavoritesNFTViewController: UIViewController {
         setupCollectionView()
 
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        navigationController?.popViewController(animated: false)
+    }
 
     private func setupNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"),
