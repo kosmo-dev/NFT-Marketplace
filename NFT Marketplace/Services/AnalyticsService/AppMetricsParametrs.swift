@@ -23,7 +23,7 @@ enum AppMetricsParams {
         
         //Экран Корзина
         case cartFilter
-        case userAgreement
+        case userAgreementTapped
         
         //Экран Статистики
         case statisticFilter
