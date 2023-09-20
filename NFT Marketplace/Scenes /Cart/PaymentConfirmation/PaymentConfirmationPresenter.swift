@@ -22,6 +22,8 @@ final class PaymentConfirmationPresenter: PaymentConfirmationPresenterProtocol {
     weak var viewController: PaymentConfirmationViewControllerProtocol?
     weak var delegate: PaymentConfirmationPresenterDelegate?
     private var configuration: Configuration
+    private let storeRatingService = StoreRatingService()
+
 
     init(configuration: Configuration) {
         self.configuration = configuration
@@ -40,6 +42,11 @@ final class PaymentConfirmationPresenter: PaymentConfirmationPresenterProtocol {
                 description: TextLabels.PaymentConfirmationViewController.paymentFailed,
                 buttonText: TextLabels.PaymentConfirmationViewController.tryAgainButton)
         }
+        guard configuration == .success,
+              storeRatingService.checkNeedShowRating()
+        else { return }
+        self.viewController?.presentRatingView()
+
     }
 
     func buttonTapped() {

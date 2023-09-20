@@ -12,7 +12,7 @@ struct DevelopersData {
     static let vadimData = Developer(name: "Вадим Кузьмин",
                                      imageName: "vadimImage",
                                      telegram: "kuzmin_va",
-                                     email: "123@gmail.com",
+                                     email: "kuzminvadima@yandex.ru",
                                      description: "С богатым опытом в менеджменте, я успешно перешёл в iOS-разработку, где применяю свои управленческие навыки для эффективного руководства командой. Моя цель — создавать продукты, которые сочетают в себе качество, инновационность и юзер-фокус")
     static let ritaData = Developer(name: "Маргарита Питинова",
                                     imageName: "ritaImage",
@@ -22,7 +22,7 @@ struct DevelopersData {
     static let dzamiData = Developer(name: "Джами Фамилия",
                                      imageName: "dzamiImage",
                                      telegram: "alwaysDzha",
-                                     email: "123@gmail.com",
+                                     email: "rakhmetov.dzhami@yandex.ru",
                                      description: "Вдохновленный суровыми, но живописными ландшафтами Сибири, я с энтузиазмом перехожу в сферу iOS-разработки. Имея опыт в различных сферах, я собираюсь фокусироваться на создании интуитивных и высокопроизводительных приложений, которые улучшат повседневную жизнь пользователей и зададут новые стандарты качества.")
     static let denisData = Developer(name: "Денис Чакыр",
                                      imageName: "denisImage",
