@@ -203,3 +203,19 @@
 - экран «Корзина» — по названию;
 - экран «Мои NFT» — по рейтингу;
 - экран «Статистика» — по рейтингу.
+
+**Эпик Профиль**
+
+![Screenshot](ProfileEpicScreenCast.gif?raw=true)
+
+**Эпик Каталог**
+
+![Screenshot](CatalogEpicScreenCast.gif?raw=true)
+
+**Эпик Корзина**
+
+![Screenshot](CartEpicScreenCast.gif?raw=true)
+
+**Эпик Статистика**
+
+![Screenshot](StatisticsEpicScreenCast.gif?raw=true)
