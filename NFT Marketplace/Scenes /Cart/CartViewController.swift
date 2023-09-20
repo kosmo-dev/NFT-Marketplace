@@ -225,8 +225,8 @@ extension CartViewController: UITableViewDelegate {
             title: TextLabels.CartViewController.deleteButton) { [weak self] _, _, completionHandler in
                 guard let self else { return }
 
-                let cellModel = presenter.cellsModels[indexPath.row]
-                deleteNFTButtonDidTapped(
+                let cellModel = self.presenter.cellsModels[indexPath.row]
+                self.deleteNFTButtonDidTapped(
                     id: cellModel.id,
                     imageURL: cellModel.imageURL,
                     returnHandler: completionHandler)
