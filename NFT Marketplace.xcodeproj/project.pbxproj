@@ -83,7 +83,6 @@
 		924849CC2ABAEC7000433452 /* AppMetricsParametrs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924849CB2ABAEC7000433452 /* AppMetricsParametrs.swift */; };
 		927DBB342AA0D9DC00A04FDF /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927DBB332AA0D9DC00A04FDF /* AppConfiguration.swift */; };
 		927DBB362AA0D9E700A04FDF /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927DBB352AA0D9E700A04FDF /* TabBarController.swift */; };
-		928F6B462AA0C1F2003023DD /* Декомпозиция Профиля.md in Resources */ = {isa = PBXBuildFile; fileRef = 928F6B452AA0C1F2003023DD /* Декомпозиция Профиля.md */; };
 		928F6B482AA0C373003023DD /* ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B472AA0C373003023DD /* ProfileButton.swift */; };
 		928F6B4F2AA0C3E0003023DD /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B4E2AA0C3E0003023DD /* UserProfile.swift */; };
 		928F6B562AA0C42D003023DD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F6B532AA0C42D003023DD /* ProfileViewController.swift */; };
@@ -96,7 +95,6 @@
 		92D0F14F2AA26E5E007D0EE9 /* ProfileEditUserPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F14E2AA26E5E007D0EE9 /* ProfileEditUserPicture.swift */; };
 		92D0F1522AA3628A007D0EE9 /* ProfileEditPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F1512AA3628A007D0EE9 /* ProfileEditPresenter.swift */; };
 		92D0F1542AA3910C007D0EE9 /* UploadProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F1532AA3910C007D0EE9 /* UploadProfileModel.swift */; };
-		92D0F15B2AA4DB2B007D0EE9 /* Декомп. Редактирования профиля.md in Resources */ = {isa = PBXBuildFile; fileRef = 92D0F15A2AA4DB2B007D0EE9 /* Декомп. Редактирования профиля.md */; };
 		92D0F1652AA78DAC007D0EE9 /* MyNFTsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F1642AA78DAC007D0EE9 /* MyNFTsViewController.swift */; };
 		92D0F1672AA78DED007D0EE9 /* MyNFTsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F1662AA78DED007D0EE9 /* MyNFTsPresenter.swift */; };
 		92D0F16D2AA88105007D0EE9 /* FavoritesNFTPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F16C2AA88105007D0EE9 /* FavoritesNFTPresenter.swift */; };
@@ -104,7 +102,6 @@
 		92D0F1722AA9F91B007D0EE9 /* NFTTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F1712AA9F91B007D0EE9 /* NFTTableViewCell.swift */; };
 		92D0F1742AAA340B007D0EE9 /* NFTModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F1732AAA340B007D0EE9 /* NFTModel.swift */; };
 		92D0F1762AADD99E007D0EE9 /* FavoritesNFTCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F1752AADD99E007D0EE9 /* FavoritesNFTCVCell.swift */; };
-		92D0F17A2AB368A7007D0EE9 /* Декомпозиция (Мои NFT).md in Resources */ = {isa = PBXBuildFile; fileRef = 92D0F1792AB368A7007D0EE9 /* Декомпозиция (Мои NFT).md */; };
 		92D0F17C2AB5A00D007D0EE9 /* DeveloperCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F17B2AB5A00C007D0EE9 /* DeveloperCustomView.swift */; };
 		92D0F17E2AB65CD3007D0EE9 /* DevelopersData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D0F17D2AB65CD3007D0EE9 /* DevelopersData.swift */; };
 		EC1DC7652A9CD55100C3C798 /* CatalogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1DC7622A9CD55100C3C798 /* CatalogPresenter.swift */; };
@@ -230,7 +227,6 @@
 		924849CB2ABAEC7000433452 /* AppMetricsParametrs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMetricsParametrs.swift; sourceTree = "<group>"; };
 		927DBB332AA0D9DC00A04FDF /* AppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		927DBB352AA0D9E700A04FDF /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		928F6B452AA0C1F2003023DD /* Декомпозиция Профиля.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Декомпозиция Профиля.md"; sourceTree = "<group>"; };
 		928F6B472AA0C373003023DD /* ProfileButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileButton.swift; sourceTree = "<group>"; };
 		928F6B4E2AA0C3E0003023DD /* UserProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		928F6B532AA0C42D003023DD /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -243,7 +239,6 @@
 		92D0F14E2AA26E5E007D0EE9 /* ProfileEditUserPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditUserPicture.swift; sourceTree = "<group>"; };
 		92D0F1512AA3628A007D0EE9 /* ProfileEditPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditPresenter.swift; sourceTree = "<group>"; };
 		92D0F1532AA3910C007D0EE9 /* UploadProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProfileModel.swift; sourceTree = "<group>"; };
-		92D0F15A2AA4DB2B007D0EE9 /* Декомп. Редактирования профиля.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Декомп. Редактирования профиля.md"; sourceTree = "<group>"; };
 		92D0F1642AA78DAC007D0EE9 /* MyNFTsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNFTsViewController.swift; sourceTree = "<group>"; };
 		92D0F1662AA78DED007D0EE9 /* MyNFTsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNFTsPresenter.swift; sourceTree = "<group>"; };
 		92D0F16A2AA860A6007D0EE9 /* FavoritesNFTViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNFTViewController.swift; sourceTree = "<group>"; };
@@ -252,7 +247,6 @@
 		92D0F1712AA9F91B007D0EE9 /* NFTTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTTableViewCell.swift; sourceTree = "<group>"; };
 		92D0F1732AAA340B007D0EE9 /* NFTModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTModel.swift; sourceTree = "<group>"; };
 		92D0F1752AADD99E007D0EE9 /* FavoritesNFTCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesNFTCVCell.swift; sourceTree = "<group>"; };
-		92D0F1792AB368A7007D0EE9 /* Декомпозиция (Мои NFT).md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Декомпозиция (Мои NFT).md"; sourceTree = SOURCE_ROOT; };
 		92D0F17B2AB5A00C007D0EE9 /* DeveloperCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperCustomView.swift; sourceTree = "<group>"; };
 		92D0F17D2AB65CD3007D0EE9 /* DevelopersData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopersData.swift; sourceTree = "<group>"; };
 		EC1DC7622A9CD55100C3C798 /* CatalogPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogPresenter.swift; sourceTree = "<group>"; };
@@ -443,9 +437,6 @@
 		3F68069529CBBAF100B4F915 /* NFT Marketplace */ = {
 			isa = PBXGroup;
 			children = (
-				92D0F1792AB368A7007D0EE9 /* Декомпозиция (Мои NFT).md */,
-				92D0F15A2AA4DB2B007D0EE9 /* Декомп. Редактирования профиля.md */,
-				928F6B452AA0C1F2003023DD /* Декомпозиция Профиля.md */,
 				3F68069629CBBAF100B4F915 /* AppDelegate.swift */,
 				3F68069829CBBAF100B4F915 /* SceneDelegate.swift */,
 				3DEBDFC72A97CDB9001C7517 /* AppConfiguration */,
@@ -906,12 +897,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92D0F15B2AA4DB2B007D0EE9 /* Декомп. Редактирования профиля.md in Resources */,
 				924849B82AB9F60400433452 /* Localizable.strings in Resources */,
 				3F6806A329CBBAF200B4F915 /* LaunchScreen.storyboard in Resources */,
-				928F6B462AA0C1F2003023DD /* Декомпозиция Профиля.md in Resources */,
 				3F6806A029CBBAF200B4F915 /* Assets.xcassets in Resources */,
-				92D0F17A2AB368A7007D0EE9 /* Декомпозиция (Мои NFT).md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
