@@ -10,6 +10,7 @@ import Foundation
 protocol SavingManagerProtocol {
     func save<T>(value: T, for key: String)
     func getString(for key: String) -> String?
+    func getBool(for key: String) -> Bool
 }
 
 struct SavingManager: SavingManagerProtocol {
@@ -20,4 +21,9 @@ struct SavingManager: SavingManagerProtocol {
     func getString(for key: String) -> String? {
         return UserDefaults.standard.string(forKey: key)
     }
+
+    func getBool(for key: String) -> Bool {
+        return UserDefaults.standard.bool(forKey: key)
+    }
+
 }

@@ -17,6 +17,7 @@
 		3D6EB1E32AB8DF8F00C263BE /* CartControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEBDFDB2A97D474001C7517 /* CartControllerProtocol.swift */; };
 		3D6EB1E42AB8DF9300C263BE /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEBDFCD2A97CE4F001C7517 /* Strings.swift */; };
 		3D76F77C2A9901F900C6FC84 /* CartCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D76F77B2A9901F900C6FC84 /* CartCellModel.swift */; };
+		3D7E41862ABB652500CD2DCB /* StoreRatingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7E41852ABB652500CD2DCB /* StoreRatingService.swift */; };
 		3D81A69E2AA5A202008ECF46 /* PaymentConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D81A69D2AA5A202008ECF46 /* PaymentConfirmationViewController.swift */; };
 		3D81A6A02AA5AEB5008ECF46 /* PaymentConfirmationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D81A69F2AA5AEB5008ECF46 /* PaymentConfirmationPresenter.swift */; };
 		3D81A6A42AA5B937008ECF46 /* OrderPaymentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D81A6A32AA5B937008ECF46 /* OrderPaymentResponse.swift */; };
@@ -154,6 +155,7 @@
 		3D4476062A98B91600683647 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		3D54FB5D2A9FF03500859D28 /* CartPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPresenter.swift; sourceTree = "<group>"; };
 		3D76F77B2A9901F900C6FC84 /* CartCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCellModel.swift; sourceTree = "<group>"; };
+		3D7E41852ABB652500CD2DCB /* StoreRatingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRatingService.swift; sourceTree = "<group>"; };
 		3D81A69D2AA5A202008ECF46 /* PaymentConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentConfirmationViewController.swift; sourceTree = "<group>"; };
 		3D81A69F2AA5AEB5008ECF46 /* PaymentConfirmationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentConfirmationPresenter.swift; sourceTree = "<group>"; };
 		3D81A6A32AA5B937008ECF46 /* OrderPaymentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderPaymentResponse.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 			children = (
 				3D81A69D2AA5A202008ECF46 /* PaymentConfirmationViewController.swift */,
 				3D81A69F2AA5AEB5008ECF46 /* PaymentConfirmationPresenter.swift */,
+				3D7E41852ABB652500CD2DCB /* StoreRatingService.swift */,
 			);
 			path = PaymentConfirmation;
 			sourceTree = "<group>";
@@ -1041,6 +1044,7 @@
 				3DCFE47C2AA25BC200E3A222 /* PaymentViewController.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExampleRequest.swift in Sources */,
 				EC204CAD2A9F88F000FB58E9 /* String + Extension.swift in Sources */,
+				3D7E41862ABB652500CD2DCB /* StoreRatingService.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
 				92D0F1542AA3910C007D0EE9 /* UploadProfileModel.swift in Sources */,
 				92D0F17E2AB65CD3007D0EE9 /* DevelopersData.swift in Sources */,

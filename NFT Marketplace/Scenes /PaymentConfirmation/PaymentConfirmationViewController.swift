@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import StoreKit
 
 protocol PaymentConfirmationViewControllerProtocol: AnyObject {
     func configureElements(imageName: String, description: String, buttonText: String)
+    func presentRatingView()
 }
 
 final class PaymentConfirmationViewController: UIViewController {
@@ -93,6 +95,11 @@ extension PaymentConfirmationViewController: PaymentConfirmationViewControllerPr
         imageConfirmationView.image = UIImage(named: imageName)
         descriptionTitle.text = description
         button.setTitle(buttonText, for: .normal)
+    }
+
+    func presentRatingView() {
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+        SKStoreReviewController.requestReview(in: scene)
     }
 }
 
