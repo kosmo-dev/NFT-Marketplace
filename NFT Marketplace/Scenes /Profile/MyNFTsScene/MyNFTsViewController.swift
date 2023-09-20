@@ -53,6 +53,10 @@ final class MyNFTsViewController: UIViewController {
         print("NFT - \(nftIds.count) (\(nftIds)), Лайки - \(likedNFTIds.count)(\(likedNFTIds))")
 
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        navigationController?.popViewController(animated: false)
+    }
 
     // MARK: - Private Methods
     private func setupNavigationBar() {

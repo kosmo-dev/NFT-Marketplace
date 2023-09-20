@@ -248,7 +248,7 @@ struct TextLabels {
             return NSLocalizedString("paymentFailed", comment: "")
         }
         static var returnButton: String {
-            return NSLocalizedString("returnButton", comment: "")
+            return NSLocalizedString("returnCatalogButton", comment: "")
         }
         static var tryAgainButton: String {
             return NSLocalizedString("tryAgainButton", comment: "")

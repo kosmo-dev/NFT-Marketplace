@@ -101,7 +101,7 @@
 // PaymentConfirmationViewController
 "paymentConfirmed" = "Успех! Оплата прошла, поздравляем с покупкой!";
 "paymentFailed" = "Упс! Что-то пошло не так :( Попробуйте еще раз!";
-"returnButton" = "Вернуться в каталог";
+"returnCatalogButton" = "Вернуться в каталог";
 "tryAgainButton" = "Попробовать еще раз";
 
 // CatalogVC

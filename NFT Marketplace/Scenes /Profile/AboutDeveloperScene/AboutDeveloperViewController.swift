@@ -18,6 +18,10 @@ final class AboutDeveloperViewController: UIViewController {
         setupNavigationBar()
         setupLayout()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        navigationController?.popViewController(animated: false)
+    }
 
     // MARK: - Private Methods
     private func setupNavigationBar() {
