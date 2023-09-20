@@ -8,17 +8,21 @@
 import UIKit
 
 final class OnboardingViewController: UIPageViewController {
-
+    
     private let appConfiguration = AppConfiguration()
     private var pages: [UIViewController] = []
-
+    private var currentPageIndex = 0
+    
     private lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.numberOfPages = pages.count
         pageControl.currentPage = 0
         
-        pageControl.currentPageIndicatorTintColor = .blackDayNight
-        pageControl.pageIndicatorTintColor = .lightGreyDayNight
+        pageControl.preferredIndicatorImage = UIImage(named: "PaginationNoActive")
+        if #available(iOS 16.0, *) {
+            pageControl.preferredCurrentPageIndicatorImage = UIImage(named: "PaginationActive")
+        } else {
+        }
         
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         return pageControl
@@ -50,13 +54,13 @@ final class OnboardingViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         dataSource = self
         delegate = self
         
         let page1 = createOnboardingPage(imageName: "OnboardingImage1", labelText: "Исследуйте", descriptionText: "Присоединяйтесь и откройте новый мир\nуникальных NFT для коллекционеров")
         let page2 = createOnboardingPage(imageName: "OnboardingImage2", labelText: "Коллекционируйте", descriptionText: "Пополняйте свою коллекцию эксклюзивными\nкартинками, созданными нейросетью!")
-        let page3 = createOnboardingPage(imageName: "OnboardingImage3", labelText: "Состязайтесь", descriptionText: "Смотриет статистику других и покажите всем,\nчто у вас самая ценная коллекция")
+        let page3 = createOnboardingPage(imageName: "OnboardingImage3", labelText: "Состязайтесь", descriptionText: "Смотрите статистику других и покажите всем,\nчто у вас самая ценная коллекция")
         
         pages.append(page1)
         pages.append(page2)
@@ -64,6 +68,7 @@ final class OnboardingViewController: UIPageViewController {
         
         if let firstPage = pages.first {
             setViewControllers([firstPage], direction: .forward, animated: true, completion: nil)
+            button.isHidden = true
         }
         
         view.addSubview(pageControl)
@@ -86,7 +91,7 @@ final class OnboardingViewController: UIPageViewController {
         guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
         window.rootViewController = tabBarController
     }
-
+    
     func createOnboardingPage(imageName: String, labelText: String, descriptionText: String) -> UIViewController {
         let onboardingVC = UIViewController()
         
@@ -99,6 +104,7 @@ final class OnboardingViewController: UIPageViewController {
         label.text = labelText
         label.textColor = .whiteDayNight
         label.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         onboardingVC.view.addSubview(label)
         
@@ -107,6 +113,7 @@ final class OnboardingViewController: UIPageViewController {
         description.numberOfLines = 2
         description.textColor = .whiteDayNight
         description.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        description.textAlignment = .left
         description.translatesAutoresizingMaskIntoConstraints = false
         onboardingVC.view.addSubview(description)
         
@@ -116,12 +123,10 @@ final class OnboardingViewController: UIPageViewController {
             imageView.leadingAnchor.constraint(equalTo: onboardingVC.view.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: onboardingVC.view.trailingAnchor),
             
-            label.centerXAnchor.constraint(equalTo: onboardingVC.view.centerXAnchor),
-            label.topAnchor.constraint(equalTo: onboardingVC.view.safeAreaLayoutGuide.bottomAnchor, constant: 186),
+            label.topAnchor.constraint(equalTo: onboardingVC.view.topAnchor, constant: 230),
             label.leadingAnchor.constraint(equalTo: onboardingVC.view.leadingAnchor, constant: 16),
             label.trailingAnchor.constraint(equalTo: onboardingVC.view.trailingAnchor, constant: -16),
             
-            description.centerXAnchor.constraint(equalTo: onboardingVC.view.centerXAnchor),
             description.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 12),
             description.leadingAnchor.constraint(equalTo: onboardingVC.view.leadingAnchor, constant: 16),
             description.trailingAnchor.constraint(equalTo: onboardingVC.view.trailingAnchor, constant: -16)
@@ -143,7 +148,7 @@ extension OnboardingViewController: UIPageViewControllerDataSource {
         guard previousIndex >= 0 else {
             return nil
         }
-        
+                
         return pages[previousIndex]
     }
     
@@ -157,7 +162,7 @@ extension OnboardingViewController: UIPageViewControllerDataSource {
         guard nextIndex < pages.count else {
             return nil
         }
-        
+                
         return pages[nextIndex]
     }
 }
@@ -169,6 +174,9 @@ extension OnboardingViewController: UIPageViewControllerDelegate {
         if let currentViewController = pageViewController.viewControllers?.first,
            let currentIndex = pages.firstIndex(of: currentViewController) {
             pageControl.currentPage = currentIndex
+            
+            currentPageIndex = currentIndex
+            button.isHidden = currentIndex != 2
         }
     }
 }
