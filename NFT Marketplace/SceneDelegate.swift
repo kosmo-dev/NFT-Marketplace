@@ -10,10 +10,18 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        let appConfig = AppConfiguration()
-        let tabBarController = TabBarController(appConfiguration: appConfig)
-        window.rootViewController = tabBarController
+
+        let defaults = UserDefaults.standard
+        let isFirstLaunch = !defaults.bool(forKey: "HasLaunchedBefore")
+        let appConfiguration = AppConfiguration()
         self.window = window
+
+        if isFirstLaunch {
+            defaults.set(true, forKey: "HasLaunchedBefore")
+            window.rootViewController = OnboardingViewController()
+        } else {
+            window.rootViewController = TabBarController(appConfiguration: appConfiguration)
+        }
         window.makeKeyAndVisible()
     }
 }

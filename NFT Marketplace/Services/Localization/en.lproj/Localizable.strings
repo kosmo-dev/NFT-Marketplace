@@ -6,6 +6,15 @@
   
 */
 
+// OnboardingVC
+"firstHeader" = "Explore";
+"firstDescription" = "Join and discover a new world\nof unique NFTs for collectors";
+"secondHeader" = "Collect";
+"secondDescription" = "Expand your collection with exclusive\nartworks created by AI!";
+"thirdHeader" = "Compete";
+"thirdDescription" = "Check out others' stats and prove that you\nhave the most valuable collection";
+"onboardingButton" = "What's inside?";
+
 // TabBarController
 "profileTabBarTitle" = "Profile";
 "catalogTabBarTitle" = "Catalog";

@@ -6,6 +6,15 @@
   
 */
 
+// OnboardingVC
+"firstHeader" = "Erforschen";
+"firstDescription" = "Treten Sie bei und entdecken Sie eine neue Welt von einzigartigen NFTs für Sammler";
+"secondHeader" = "Sammeln";
+"secondDescription" = "Erweitern Sie Ihre Sammlung mit exklusiven Bildern, die von KI erstellt wurden!";
+"thirdHeader" = "Wettbewerb";
+"thirdDescription" = "Sehen Sie sich die Statistiken anderer an und zeigen Sie allen, dass Sie die wertvollste Sammlung haben";
+"onboardingButton" = "Was ist drin?";
+
 // TabBarController
 "profileTabBarTitle" = "Profil";
 "catalogTabBarTitle" = "Katalog";

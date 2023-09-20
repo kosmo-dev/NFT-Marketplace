@@ -9,6 +9,30 @@
 import Foundation
 
 struct TextLabels {
+    struct OnboardingVC {
+        static var firstHeader: String {
+            return NSLocalizedString("firstHeader", comment: "")
+        }
+        static var firstDescription: String {
+            return NSLocalizedString("firstDescription", comment: "")
+        }
+        static var secondHeader: String {
+            return NSLocalizedString("secondHeader", comment: "")
+        }
+        static var secondDescription: String {
+            return NSLocalizedString("secondDescription", comment: "")
+        }
+        static var thirdHeader: String {
+            return NSLocalizedString("thirdHeader", comment: "")
+        }
+        static var thirdDescription: String {
+            return NSLocalizedString("thirdDescription", comment: "")
+        }
+        static var onboardingButton: String {
+            return NSLocalizedString("onboardingButton", comment: "")
+        }
+    }
+    
     struct TabBarController {
         static var profileTabBarTitle: String {
             return NSLocalizedString("profileTabBarTitle", comment: "")

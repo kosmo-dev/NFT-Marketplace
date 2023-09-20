@@ -33,7 +33,7 @@ final class CatalogDataProvider: CatalogDataProviderProtocol {
             guard let self = self else { return }
             switch result {
             case .success(let nft):
-                NFTCollections = nft
+                self.NFTCollections = nft
                 completion()
             case .failure(let error):
                 print(error)

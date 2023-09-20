@@ -78,12 +78,12 @@ final class CartPresenter: CartPresenterProtocol {
         guard let choosedNFTId else { return }
         cartController.removeFromCart(choosedNFTId) { [weak self] in
             guard let self,
-                  let index = cellsModels.firstIndex(where: { $0.id == choosedNFTId })
+                  let index = self.cellsModels.firstIndex(where: { $0.id == choosedNFTId })
             else { return }
-            checkViewState()
-            cellsModels.remove(at: index)
+            self.checkViewState()
+            self.cellsModels.remove(at: index)
             self.viewController?.didDeleteNFT(for: IndexPath(row: index, section: 0))
-            viewController?.updatePayView(count: nfts.count, price: calculateTotalPrice())
+            self.viewController?.updatePayView(count: self.nfts.count, price: self.calculateTotalPrice())
             self.choosedNFTId = nil
         }
     }
