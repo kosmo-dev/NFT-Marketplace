@@ -27,7 +27,8 @@ final class UsersCollectionViewController: UIViewController, UsersCollectionView
 
     private lazy var backwardButton: UIButton = {
         let backwardButton = UIButton(type: .custom)
-        backwardButton.setImage(UIImage(named: "backward"), for: .normal)
+        backwardButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        backwardButton.tintColor = .blackDayNight
         backwardButton.translatesAutoresizingMaskIntoConstraints = false
         backwardButton.addTarget(self, action: #selector(backwardTapped), for: .touchUpInside)
         return backwardButton
@@ -37,6 +38,7 @@ final class UsersCollectionViewController: UIViewController, UsersCollectionView
         let layout = UICollectionViewFlowLayout()
         let NFTCollection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         NFTCollection.register(NFTCollectionCell.self, forCellWithReuseIdentifier: "NFTCollectionCell")
+        NFTCollection.backgroundColor = .whiteDayNight
         NFTCollection.allowsMultipleSelection = false
         NFTCollection.showsVerticalScrollIndicator = false
         NFTCollection.translatesAutoresizingMaskIntoConstraints = false
@@ -91,6 +93,7 @@ final class UsersCollectionViewController: UIViewController, UsersCollectionView
             backwardButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 11),
             backwardButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             backwardButton.heightAnchor.constraint(equalToConstant: 24),
+            backwardButton.widthAnchor.constraint(equalTo: backwardButton.heightAnchor),
 
             header.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             header.centerYAnchor.constraint(equalTo: backwardButton.centerYAnchor),

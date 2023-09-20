@@ -44,9 +44,9 @@ final class UserCardViewController: UIViewController, UserCardViewControllerProt
 
     private lazy var backwardButton: UIButton = {
         let backwardButton = UIButton(type: .custom)
-        backwardButton.setImage(UIImage(named: "backward"), for: .normal)
+        backwardButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
         backwardButton.translatesAutoresizingMaskIntoConstraints = false
-        backwardButton.setTitleColor(.whiteDayNight, for: .normal)
+        backwardButton.tintColor = .blackDayNight
         backwardButton.addTarget(self, action: #selector(backwardTapped), for: .touchUpInside)
         return backwardButton
     }()
@@ -81,7 +81,8 @@ final class UserCardViewController: UIViewController, UserCardViewControllerProt
     private let chevron: UIImageView = {
         let chevron = UIImageView()
         chevron.translatesAutoresizingMaskIntoConstraints = false
-        chevron.image = UIImage(named: "chevron")
+        chevron.image = UIImage(systemName: "chevron.forward")
+        chevron.tintColor = .blackDayNight
         return chevron
     }()
 

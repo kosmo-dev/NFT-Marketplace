@@ -106,8 +106,9 @@ extension ProfileViewController: ProfileViewProtocol {
 
     func navigateToEditProfileScreen() {
         let profileService = ProfileService()
+        let appMetrics = AppMetrics()
         // Создаем ProfileEditViewController без презентера.
-        let editProfileVC = ProfileEditViewController(presenter: nil, image: currentAvatarImage)
+        let editProfileVC = ProfileEditViewController(presenter: nil, image: currentAvatarImage, appMetrics: appMetrics)
         editProfileVC.delegate = self
         // Создаем ProfileEditPresenter, используя ProfileEditViewController в качестве view.
         let editProfilePresenter = ProfileEditPresenter(view: editProfileVC, profileService: profileService)

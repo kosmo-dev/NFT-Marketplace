@@ -76,13 +76,16 @@ final class ProfileEditViewController: UIViewController {
             updateUIWithProfile()
         }
     }
-
+    private let appMetricScreenName = "EditProfileScreen"
     private var updatedAvatar: UIImage?
+    private let appMetrics: AppMetricsProtocol
+    
 
     // MARK: - Initializer
-    init(presenter: ProfileEditPresenterProtocol?, image: UIImage?) {
+    init(presenter: ProfileEditPresenterProtocol?, image: UIImage?, appMetrics: AppMetricsProtocol) {
         self.presenter = presenter
         self.userImage = image
+        self.appMetrics = appMetrics
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -118,6 +121,15 @@ final class ProfileEditViewController: UIViewController {
                                                name: UITextView.textDidChangeNotification,
                                                object: nil)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        appMetrics.reportEvent(screen: appMetricScreenName, event: .open, item: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        appMetrics.reportEvent(screen: appMetricScreenName, event: .close, item: nil)
+    }
+
 
     private func setupLayout() {
         [doneButton, profileAvatarView, nameStackView, descriptionStackView, websiteStackView].forEach {
@@ -166,6 +178,7 @@ final class ProfileEditViewController: UIViewController {
     }
 
     @objc func doneButtonTapped() {
+        appMetrics.reportEvent(screen: appMetricScreenName, event: .click, item: .saveProfile)
         let name = nameStackView.getTextContent()
         let description = descriptionStackView.getTextContent()
         let website = websiteStackView.getTextContent()
@@ -259,6 +272,7 @@ extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigati
 
 extension ProfileEditViewController: ProfileEditUserPictureDelegate {
     func didTapTapOnImage() {
+        appMetrics.reportEvent(screen: appMetricScreenName, event: .click, item: .changeAvatar)
         openImagePicker()
     }
 }
