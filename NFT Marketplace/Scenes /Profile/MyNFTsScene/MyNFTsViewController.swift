@@ -18,7 +18,7 @@ final class MyNFTsViewController: UIViewController {
 
     private var placeholderLabel: UILabel = {
        let label = UILabel()
-        label.text = "У Вас еще нет NFT"
+        label.text = TextLabels.MyNFTsVC.placeholder
         label.textColor = .blackDayNight
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.textAlignment = .center
