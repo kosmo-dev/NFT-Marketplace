@@ -192,6 +192,8 @@
 - стоимость NFT (в ETH);
 - кнопку добавления NFT в корзину / удаления NFT из корзины.
 
+Скринкаст: https://drive.google.com/file/d/1py7Sy_oDZzilz8-7yIcvDqs9nnJKoO8K/view?usp=sharing
+
 # Сортировка данных
 
 На экранах «Каталог», «Корзина», «Мои NFT», «Статистика» есть настройка сортировки. Выбранный пользователем порядок сортировки должен сохраняться локально на устройстве. После перезапуска приложения восстанавливается предыдущее значение.
@@ -201,3 +203,19 @@
 - экран «Корзина» — по названию;
 - экран «Мои NFT» — по рейтингу;
 - экран «Статистика» — по рейтингу.
+
+**Эпик Профиль**
+
+![Screenshot](ProfileEpicScreenCast.gif?raw=true)
+
+**Эпик Каталог**
+
+![Screenshot](CatalogEpicScreenCast.gif?raw=true)
+
+**Эпик Корзина**
+
+![Screenshot](CartEpicScreenCast.gif?raw=true)
+
+**Эпик Статистика**
+
+![Screenshot](StatisticsEpicScreenCast.gif?raw=true)

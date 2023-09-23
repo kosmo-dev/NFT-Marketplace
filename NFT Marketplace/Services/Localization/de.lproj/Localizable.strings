@@ -1,0 +1,114 @@
+/* 
+  Localizable.strings
+  NFT Marketplace
+
+  Created by Денис on 19.09.2023.
+  
+*/
+
+// OnboardingVC
+"firstHeader" = "Erforschen";
+"firstDescription" = "Treten Sie bei und entdecken Sie eine neue Welt von einzigartigen NFTs für Sammler";
+"secondHeader" = "Sammeln";
+"secondDescription" = "Erweitern Sie Ihre Sammlung mit exklusiven Bildern, die von KI erstellt wurden!";
+"thirdHeader" = "Wettbewerb";
+"thirdDescription" = "Sehen Sie sich die Statistiken anderer an und zeigen Sie allen, dass Sie die wertvollste Sammlung haben";
+"onboardingButton" = "Was ist drin?";
+
+// TabBarController
+"profileTabBarTitle" = "Profil";
+"catalogTabBarTitle" = "Katalog";
+"cartTabBarTitle" = "Warenkorb";
+"statisticTabBarTitle" = "Statistiken";
+
+// ProfileEditVC
+"avatarLabel" = "Foto\nändern";
+"nameStackViewLabel" = "Name";
+"nameStackViewContent" = "Geben Sie Ihren Namen ein";
+"descriptionStackViewLabel" = "Beschreibung";
+"descriptionStackViewContent" = "Geben Sie Ihre Beschreibung ein";
+"websiteStackViewLabel" = "Webseite";
+"websiteStackViewContent" = "Geben Sie Ihre Webseite ein";
+"profileUpdatedSuccessfully" = "Profil erfolgreich aktualisiert";
+"saveButton" = "Speichern";
+
+// ProfileEditStackView
+"keyboardDoneButton" = "Fertig";
+"keyboardResetButton" = "Eingabe abbrechen";
+
+// ProfileButtonsStackView
+"myNFTLabel" = "Meine NFTs";
+"favoritesNFTLabel" = "Lieblings-NFTs";
+"aboutDeveloperLabel" = "Über den Entwickler";
+
+// UserProfileStackView
+"userNameLabel" = "Benutzername";
+"userInfoLabel" = "Informationen über Sie. Dies könnten Ihre Daten oder andere Informationen sein.";
+"websiteLabel" = "www.internet.com";
+
+// MyNFTsVC
+"myNFTsNavigationTitle" = "Meine NFTs";
+"cellNFTPriceLabel" = "Preis";
+"alertTitleLabel" = "Sortieren";
+"alertPriceLabel" = "Nach Preis";
+"alertRatingLabel" = "Nach Bewertung";
+"alertNameLabel" = "Nach Name";
+"alertCloseLabel" = "Schließen";
+"myNFTsPlaceholder" = "Sie haben noch keine NFTs";
+
+// FavoritesNFTsVC
+"favoritesNFTsNavigationTitle" = "Lieblings-NFTs";
+"favoritesNFTsPlaceholder" = "Sie haben noch keine Lieblings-NFTs";
+
+// AboutDevelopersVC
+"aboutDevelopersNavigationTitle" = "Entwicklerteam";
+
+// StatisticsVC
+"statisticsSortingTitle" = "Sortieren";
+"sortByNameTitle" = "Nach Name";
+"sortByRatingTitle" = "Nach Bewertung";
+"statisticsCloseTitle" = "Schließen";
+
+// UserCardVC
+"userWebsiteButtonTitle" = "Zur Webseite des Benutzers";
+"userCollectionsButtonTitle" = "NFT-Sammlung";
+
+// UsersCollectionVC
+"usersCollectionHeaderTitle" = "NFT-Sammlung";
+
+// CartViewController
+"toPaymentButton" = "Zur Zahlung";
+"deleteFromCartTitle" = "Sind Sie sicher, dass Sie den Artikel aus dem Warenkorb entfernen möchten?";
+"deleteButton" = "Löschen";
+"returnButton" = "Zurück";
+"emptyCartLabel" = "Warenkorb ist leer";
+"cartAlertTitle" = "Sortieren";
+"cartAlertMessage" = "Sortierung wählen";
+"sortByName" = "Nach Name";
+"sortByRating" = "Nach Bewertung";
+"sortByPrice" = "Nach Preis";
+"closeSorting" = "Schließen";
+
+// CartNFTCell
+"cartNFTCellPriceDescription" = "Preis";
+
+// PaymentViewController
+"paymentNavigationTitle" = "Zahlungsmethode auswählen";
+"payButtonTitle" = "Bezahlen";
+"payDescription" = "Durch den Kauf stimmen Sie den Bedingungen zu";
+"userAgreementTitle" = "Benutzervereinbarung";
+
+// PaymentConfirmationViewController
+"paymentConfirmed" = "Erfolg! Die Zahlung war erfolgreich, herzlichen Glückwunsch zum Kauf!";
+"paymentFailed" = "Ups! Etwas ist schief gelaufen :( Versuchen Sie es erneut!";
+"returnButton" = "Zurück zum Katalog";
+"tryAgainButton" = "Erneut versuchen";
+
+// CatalogVC
+"catalogSorting" = "Sortieren";
+"catalogSortByName" = "Nach Name";
+"catalogSortByNFTCount" = "Nach Anzahl der NFTs";
+"catalogClose" = "Schließen";
+
+// CollectionVC
+"collectionAboutAuthor" = "Autor der Sammlung:";

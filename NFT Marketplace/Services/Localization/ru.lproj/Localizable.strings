@@ -1,0 +1,114 @@
+/* 
+  Localizable.strings
+  NFT Marketplace
+
+  Created by Денис on 19.09.2023.
+  
+*/
+
+// OnboardingVC
+"firstHeader" = "Исследуйте";
+"firstDescription" = "Присоединяйтесь и откройте новый мир\nуникальных NFT для коллекционеров";
+"secondHeader" = "Коллекционируйте";
+"secondDescription" = "Пополняйте свою коллекцию эксклюзивными\nкартинками, созданными нейросетью!";
+"thirdHeader" = "Состязайтесь";
+"thirdDescription" = "Смотрите статистику других и покажите всем,\nчто у вас самая ценная коллекция";
+"onboardingButton" = "Что внутри?";
+
+// TabBarController
+"profileTabBarTitle" = "Профиль";
+"catalogTabBarTitle" = "Каталог";
+"cartTabBarTitle" = "Корзина";
+"statisticTabBarTitle" = "Статистика";
+
+// ProfileEditVC
+"avatarLabel" = "Cменить\nфото";
+"nameStackViewLabel" = "Имя";
+"nameStackViewContent" = "Введите Ваше имя";
+"descriptionStackViewLabel" = "Описание";
+"descriptionStackViewContent" = "Введите Ваше описание";
+"websiteStackViewLabel" = "Сайт";
+"websiteStackViewContent" = "Введите Ваш Сайт";
+"profileUpdatedSuccessfully" = "Профиль успешно обновлен";
+"saveButton" = "Сохранить";
+
+// ProfileEditStackView
+"keyboardDoneButton" = "Готово";
+"keyboardResetButton" = "Отменить ввод";
+
+// ProfileButtonsStackView
+"myNFTLabel" = "Мои NFT";
+"favoritesNFTLabel" = "Избранные NFT";
+"aboutDeveloperLabel" = "О разработчике";
+
+// UserProfileStackView
+"userNameLabel" = "Имя Пользователя";
+"userInfoLabel" = "Информация о Вас. Здесь может быть ваши данные или другую информацию.";
+"websiteLabel" = "www.internet.com";
+
+// MyNFTsVC
+"myNFTsNavigationTitle" = "Мои NFT";
+"cellNFTPriceLabel" = "Цена";
+"alertTitleLabel" = "Сортировка";
+"alertPriceLabel" = "По цене";
+"alertRatingLabel" = "По рейтингу";
+"alertNameLabel" = "По названию";
+"alertCloseLabel" = "Закрыть";
+"myNFTsPlaceholder" = "У Вас еще нет NFT";
+
+// FavoritesNFTsVC
+"favoritesNFTsNavigationTitle" = "Избранные NFT";
+"favoritesNFTsPlaceholder" = "У Вас еще нет избранных NFT";
+
+// AboutDevelopersVC
+"aboutDevelopersNavigationTitle" = "Команда разработчиков";
+
+// StatisticsVC
+"statisticsSortingTitle" = "Cортировка";
+"sortByNameTitle" = "По имени";
+"sortByRatingTitle" = "По рейтингу";
+"statisticsCloseTitle" = "Закрыть";
+
+// UserCardVC
+"userWebsiteButtonTitle" = "Перейти на сайт пользователя";
+"userCollectionsButtonTitle" = "Коллекция NFT";
+
+// UsersCollectionVC
+"usersCollectionHeaderTitle" = "Коллекция NFT";
+
+// CartViewController
+"toPaymentButton" = "К оплате";
+"deleteFromCartTitle" = "Вы уверены, что хотите удалить объект из корзины?";
+"deleteButton" = "Удалить";
+"returnButton" = "Вернуться";
+"emptyCartLabel" = "Корзина пуста";
+"cartAlertTitle" = "Cортировка";
+"cartAlertMessage" = "Выберите сортировку";
+"sortByName" = "По названию";
+"sortByRating" = "По рейтингу";
+"sortByPrice" = "По цене";
+"closeSorting" = "Закрыть";
+
+// CartNFTCell
+"cartNFTCellPriceDescription" = "Цена";
+
+// PaymentViewController
+"paymentNavigationTitle" = "Выберите способ оплаты";
+"payButtonTitle" = "Оплатить";
+"payDescription" = "Совершая покупку, вы соглашаетесь с условиями";
+"userAgreementTitle" = "Пользовательского соглашения";
+
+// PaymentConfirmationViewController
+"paymentConfirmed" = "Успех! Оплата прошла, поздравляем с покупкой!";
+"paymentFailed" = "Упс! Что-то пошло не так :( Попробуйте еще раз!";
+"returnCatalogButton" = "Вернуться в каталог";
+"tryAgainButton" = "Попробовать еще раз";
+
+// CatalogVC
+"catalogSorting" = "Cортировка";
+"catalogSortByName" = "По названию";
+"catalogSortByNFTCount" = "По количеству NFT";
+"catalogClose" = "Закрыть";
+
+// CollectionVC
+"collectionAboutAuthor" = "Автор коллекции:";
