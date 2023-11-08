@@ -1,6 +1,6 @@
 # NFT Marketplace
 
-[English Version of Readme](https://github.com/kosmo-dev/NFT-Marketplace/edit/main/Readme.md#english-version)
+[English Version of Readme](https://github.com/kosmo-dev/NFT-Marketplace/tree/Readme-update#english-version)
 
 ## Назначение и цели приложения ##
 
